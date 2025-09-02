@@ -146,14 +146,20 @@ export function HousesSection({ language }: HousesSectionProps) {
                     alt={house.name}
                     className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-700"
                   />
-                ) : (
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
-                    <div className="text-center text-white">
-                      <Eye className="h-12 w-12 mx-auto mb-2 opacity-70" />
-                      <p className="text-sm opacity-80">House Image {house.imageId}</p>
-                    </div>
-                  </div>
-                )}
+                 ) : house.imageId === 4 ? (
+                   <img 
+                     src="/lovable-uploads/5fccdd0b-83a4-4e3e-b3f9-bec2c5139eeb.png" 
+                     alt={house.name}
+                     className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                   />
+                 ) : (
+                   <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
+                     <div className="text-center text-white">
+                       <Eye className="h-12 w-12 mx-auto mb-2 opacity-70" />
+                       <p className="text-sm opacity-80">House Image {house.imageId}</p>
+                     </div>
+                   </div>
+                 )}
                 
                 {/* Availability Badge */}
                 <div className="absolute top-4 right-4">

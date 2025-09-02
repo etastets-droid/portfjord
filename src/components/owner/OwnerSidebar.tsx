@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { Home, Calendar, DollarSign, MessageCircle, FileText, LogOut, Menu } from "lucide-react";
+import { Home, Calendar, DollarSign, MessageCircle, FileText, LogOut, Building, CalendarDays, BarChart3, Settings } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/lib/supabase";
 import {
@@ -24,10 +23,12 @@ interface OwnerSidebarProps {
 
 const menuItems = [
   { id: "dashboard", title: "Dashboard", icon: Home },
+  { id: "properties", title: "Propiedades", icon: Building },
   { id: "reservations", title: "Reservas", icon: Calendar },
-  { id: "finances", title: "Finanzas", icon: DollarSign },
+  { id: "calendar", title: "Calendario", icon: CalendarDays },
+  { id: "reports", title: "Reportes", icon: BarChart3 },
   { id: "messages", title: "Mensajes", icon: MessageCircle },
-  { id: "contracts", title: "Contratos", icon: FileText },
+  { id: "profile", title: "Perfil", icon: Settings },
 ];
 
 export function OwnerSidebar({ activeSection, onSectionChange }: OwnerSidebarProps) {

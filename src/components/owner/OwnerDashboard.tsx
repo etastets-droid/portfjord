@@ -59,16 +59,8 @@ export function OwnerDashboard() {
         .select("*", { count: 'exact', head: true })
         .eq("status", "pending");
 
-      // Get monthly income
-      const startOfMonth = new Date();
-      startOfMonth.setDate(1);
-      const { data: transactions } = await supabase
-        .from("financial_transactions")
-        .select("amount")
-        .eq("type", "income")
-        .gte("transaction_date", startOfMonth.toISOString().split('T')[0]);
-
-      const monthlyIncome = transactions?.reduce((sum, t) => sum + parseFloat(t.amount), 0) || 0;
+      // Monthly income calculation is not implemented yet (no financial_transactions table)
+      const monthlyIncome = 0;
 
       // Get recent reservations
       const { data: reservations } = await supabase

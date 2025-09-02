@@ -31,15 +31,14 @@ export function HeroSection({
   const t = translations[language];
   return <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
-      <img
-        src={heroImage}
-        alt={language === 'es' ? 'Fiordos y montañas de la Patagonia' : 'Patagonian fjords and mountains'}
-        className="absolute inset-0 w-full h-full object-cover"
-        style={{ objectPosition: '50% 35%' }}
-      />
+      <img src={heroImage} alt={language === 'es' ? 'Fiordos y montañas de la Patagonia' : 'Patagonian fjords and mountains'} className="absolute inset-0 w-full h-full object-cover" style={{
+      objectPosition: '50% 35%'
+    }} />
       
       {/* Gradient Overlay */}
-      <div className="absolute inset-0" style={{ background: 'var(--gradient-hero)' }} />
+      <div className="absolute inset-0" style={{
+      background: 'var(--gradient-hero)'
+    }} />
       
       
       {/* Content */}
@@ -75,7 +74,7 @@ export function HeroSection({
               <Calendar className="h-5 w-5 mr-2" />
               {t.bookNow}
             </Button>
-            <Button variant="outline" size="lg" className="border-white/50 text-white hover:bg-white/20 backdrop-blur-sm text-lg px-8 py-6 rounded-lg transition-all duration-300 hover:border-white">
+            <Button variant="outline" size="lg" className="border-white/50 hover:bg-white/20 backdrop-blur-sm text-lg px-8 py-6 rounded-lg transition-all duration-300 hover:border-white text-slate-400">
               {t.viewHouses}
             </Button>
           </div>

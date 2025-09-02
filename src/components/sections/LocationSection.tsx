@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { MapPin, Plane, Clock, Mountain, Waves, TreePine } from "lucide-react";
+import { GoogleMap } from "@/components/GoogleMap";
 
 interface LocationSectionProps {
   language: 'en' | 'es';
@@ -70,15 +71,11 @@ export function LocationSection({ language }: LocationSectionProps) {
           <div className="space-y-6">
             {/* Map */}
             <Card className="overflow-hidden shadow-card">
-              <div className="h-80 bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center relative">
-                <div className="text-center">
-                  <MapPin className="h-16 w-16 mx-auto mb-4 text-primary" />
-                  <p className="text-lg font-semibold text-foreground">Interactive Map</p>
-                  <p className="text-sm text-muted-foreground">Puerto Fjord Location</p>
-                </div>
+              <div className="relative">
+                <GoogleMap language={language} />
                 {/* Coordinates Badge */}
                 <div className="absolute top-4 left-4">
-                  <Badge variant="secondary" className="font-mono text-xs">
+                  <Badge variant="secondary" className="font-mono text-xs bg-white/90 text-foreground">
                     {t.coordinates}: -51.592°, -72.665°
                   </Badge>
                 </div>

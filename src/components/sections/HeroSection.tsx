@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { MapPin, Calendar } from "lucide-react";
-import heroImage from "@/assets/hero-patagonia-new.jpg";
+import heroImage from "@/assets/hero-patagonia-new.png";
 
 interface HeroSectionProps {
   language: 'en' | 'es';

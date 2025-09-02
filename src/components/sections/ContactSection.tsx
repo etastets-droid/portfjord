@@ -35,7 +35,7 @@ const translations = {
     contact: {
       title: "Contact Information",
       email: "reservations@puertofjord.com",
-      phone: "+56 61 XXX XXXX",
+      phone: "+56 999 447 999",
       address: "Puerto Natales, Patagonia, Chile"
     },
     success: "Message sent successfully! We'll get back to you within 24 hours.",
@@ -63,7 +63,7 @@ const translations = {
     contact: {
       title: "Información de Contacto",
       email: "reservas@puertofjord.com",
-      phone: "+56 61 XXX XXXX", 
+      phone: "+56 999 447 999", 
       address: "Puerto Natales, Patagonia, Chile"
     },
     success: "¡Mensaje enviado exitosamente! Te responderemos dentro de 24 horas.",

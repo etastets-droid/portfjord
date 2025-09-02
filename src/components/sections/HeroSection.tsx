@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { MapPin, Calendar } from "lucide-react";
 import { FjordLogo } from "@/components/ui/FjordLogo";
-import heroImage from "@/assets/hero-patagonia.jpg";
+const heroImage = "/lovable-uploads/d595f609-fd89-411c-af90-5e08d32837f3.png";
 interface HeroSectionProps {
   language: 'en' | 'es';
 }

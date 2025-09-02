@@ -74,7 +74,7 @@ export function HeroSection({
               <Calendar className="h-5 w-5 mr-2" />
               {t.bookNow}
             </Button>
-            <Button variant="outline" size="lg" className="border-white/50 hover:bg-white/20 backdrop-blur-sm text-lg px-8 py-6 rounded-lg transition-all duration-300 hover:border-white text-slate-400">
+            <Button variant="outline" size="lg" className="border-white/50 backdrop-blur-sm text-lg px-8 py-6 transition-all duration-300 hover:border-white text-slate-400 rounded-sm bg-black/[0.09]">
               {t.viewHouses}
             </Button>
           </div>

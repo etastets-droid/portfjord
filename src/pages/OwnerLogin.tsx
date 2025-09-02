@@ -37,29 +37,61 @@ export default function OwnerLogin() {
         return;
       }
 
-      // Check if user is registered as an owner
-      const { data: owner, error: ownerError } = await supabase
-        .from("owners")
-        .select("*")
-        .eq("user_id", data.user.id)
-        .single();
-
-      if (ownerError || !owner) {
-        await supabase.auth.signOut();
+      const user = data.user;
+      if (!user) {
         toast({
-          title: "Acceso denegado",
-          description: "No tienes permisos para acceder al portal de propietarios.",
+          title: "Error de autenticación",
+          description: "No se pudo obtener el usuario.",
           variant: "destructive"
         });
         return;
       }
 
+      const { data: owner, error: ownerError } = await supabase
+        .from("owners")
+        .select("*")
+        .eq("user_id", user.id)
+        .maybeSingle();
+
+      if (ownerError) {
+        console.error("Owner fetch error:", ownerError);
+      }
+
+      let ownerRecord = owner;
+      if (!ownerRecord) {
+        const meta = (user as any).user_metadata || {};
+        const ownerName = meta.name ?? (user.email?.split("@")[0] ?? "Propietario");
+        const ownerPhone = meta.phone ?? null;
+
+        const { data: inserted, error: createErr } = await supabase
+          .from("owners")
+          .insert({
+            user_id: user.id,
+            name: ownerName,
+            email: user.email!,
+            phone: ownerPhone
+          })
+          .select("*")
+          .single();
+
+        if (createErr) {
+          toast({
+            title: "No se pudo crear tu perfil",
+            description: createErr.message,
+            variant: "destructive"
+          });
+        } else {
+          ownerRecord = inserted;
+        }
+      }
+
       toast({
         title: "Bienvenido",
-        description: `¡Hola ${owner.name}! Has iniciado sesión exitosamente.`
+        description: `¡Hola ${ownerRecord?.name ?? user.email}! Has iniciado sesión exitosamente.`
       });
 
       navigate("/owner-portal");
+
     } catch (error) {
       console.error("Login error:", error);
       toast({
@@ -81,7 +113,8 @@ export default function OwnerLogin() {
         email,
         password,
         options: {
-          emailRedirectTo: `${window.location.origin}/`
+          emailRedirectTo: `${window.location.origin}/`,
+          data: { name, phone }
         }
       });
 
@@ -95,31 +128,12 @@ export default function OwnerLogin() {
       }
 
       if (data.user) {
-        // Create owner profile
-        const { error: ownerError } = await supabase
-          .from("owners")
-          .insert({
-            user_id: data.user.id,
-            name,
-            email,
-            phone
-          });
-
-        if (ownerError) {
-          toast({
-            title: "Error",
-            description: "Error al crear el perfil de propietario: " + ownerError.message,
-            variant: "destructive"
-          });
-          return;
-        }
-
         toast({
-          title: "Registro exitoso",
-          description: "Tu cuenta ha sido creada. Revisa tu email para confirmar tu cuenta."
+          title: "Registro iniciado",
+          description: "Revisa tu correo para confirmar tu cuenta. Luego inicia sesión."
         });
 
-        // Switch to login mode
+        // Cambiar a modo login
         setIsSignUp(false);
         setName("");
         setPhone("");

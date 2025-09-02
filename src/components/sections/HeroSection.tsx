@@ -34,8 +34,11 @@ export function HeroSection({ language }: HeroSectionProps) {
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${heroImage})` }}
+        className="absolute inset-0 bg-cover bg-no-repeat"
+        style={{ 
+          backgroundImage: `url(${heroImage})`,
+          backgroundPosition: '50% 65%'
+        }}
       />
       
       {/* Gradient Overlay */}

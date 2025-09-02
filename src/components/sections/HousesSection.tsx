@@ -127,13 +127,21 @@ export function HousesSection({ language }: HousesSectionProps) {
           {houses.map((house, index) => (
             <Card key={house.id} className="group overflow-hidden border-0 shadow-card hover:shadow-luxury transition-all duration-500 hover:scale-[1.02]">
               <div className="relative h-64 bg-gradient-to-r from-stone-light to-cedar-light overflow-hidden">
-                {/* Placeholder for house image */}
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
-                  <div className="text-center text-white">
-                    <Eye className="h-12 w-12 mx-auto mb-2 opacity-70" />
-                    <p className="text-sm opacity-80">House Image {house.imageId}</p>
+                {/* House image */}
+                {house.imageId === 2 ? (
+                  <img 
+                    src="/src/assets/house-nest.jpg" 
+                    alt={house.name}
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                ) : (
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
+                    <div className="text-center text-white">
+                      <Eye className="h-12 w-12 mx-auto mb-2 opacity-70" />
+                      <p className="text-sm opacity-80">House Image {house.imageId}</p>
+                    </div>
                   </div>
-                </div>
+                )}
                 
                 {/* Availability Badge */}
                 <div className="absolute top-4 right-4">

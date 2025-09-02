@@ -151,6 +151,7 @@ export function HousesSection({ language }: HousesSectionProps) {
                      src="/lovable-uploads/5fccdd0b-83a4-4e3e-b3f9-bec2c5139eeb.png" 
                      alt={house.name}
                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                     style={{ objectPosition: '50% 30%' }}
                    />
                  ) : (
                    <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">

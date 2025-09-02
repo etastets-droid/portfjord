@@ -41,18 +41,10 @@ function MapComponent({ center, zoom, className }: MapProps) {
       });
       
       // Add marker
-      new window.google.maps.Marker({
+      new window.google.maps.marker.AdvancedMarkerElement({
         position: center,
         map: newMap,
         title: 'Puerto Fjord - Luxury Patagonian Retreat',
-        icon: {
-          path: window.google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-          scale: 6,
-          fillColor: '#1a365d',
-          fillOpacity: 1,
-          strokeWeight: 2,
-          strokeColor: '#ffffff',
-        },
       });
       
       setMap(newMap);
@@ -140,7 +132,7 @@ export function GoogleMap({ language }: GoogleMapProps) {
   }
 
   return (
-    <Wrapper apiKey={apiKey} render={render}>
+    <Wrapper apiKey={apiKey} render={render} libraries={['marker']} language={language === 'es' ? 'es-419' : 'en'}>
       <MapComponent
         center={puertoFjordLocation}
         zoom={14}

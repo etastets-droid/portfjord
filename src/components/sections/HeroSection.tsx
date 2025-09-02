@@ -33,11 +33,11 @@ export function HeroSection({ language }: HeroSectionProps) {
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
-      <div 
+      	<div 
         className="absolute inset-0 bg-cover bg-no-repeat"
         style={{ 
           backgroundImage: `url(${heroImage})`,
-          backgroundPosition: '50% 65%'
+          backgroundPosition: '50% 35%'
         }}
       />
       

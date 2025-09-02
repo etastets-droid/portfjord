@@ -144,7 +144,7 @@ export function HousesSection({ language }: HousesSectionProps) {
                   <img 
                     src="/lovable-uploads/5f799eb3-4541-4035-8877-a2835e042144.png" 
                     alt={house.name}
-                    className="absolute inset-0 w-full h-full object-cover object-[50%_35%] group-hover:scale-110 transition-transform duration-700"
+                    className="absolute inset-0 w-full h-full object-cover object-[50%_45%] group-hover:scale-110 transition-transform duration-700"
                   />
                 ) : (
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">

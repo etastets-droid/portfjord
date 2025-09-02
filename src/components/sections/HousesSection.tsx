@@ -128,7 +128,13 @@ export function HousesSection({ language }: HousesSectionProps) {
             <Card key={house.id} className="group overflow-hidden border-0 shadow-card hover:shadow-luxury transition-all duration-500 hover:scale-[1.02]">
               <div className="relative h-64 bg-gradient-to-r from-stone-light to-cedar-light overflow-hidden">
                 {/* House image */}
-                {house.imageId === 2 ? (
+                {house.imageId === 1 ? (
+                  <img 
+                    src="/lovable-uploads/658a7807-c55f-457e-bbd7-157d3cf08f66.png" 
+                    alt={house.name}
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                ) : house.imageId === 2 ? (
                   <img 
                     src="/lovable-uploads/c5e7ccaf-ffd9-401f-bc65-d26f8c97f2b9.png" 
                     alt={house.name}

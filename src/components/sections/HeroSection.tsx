@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { MapPin, Calendar } from "lucide-react";
+import { FjordLogo } from "@/components/ui/FjordLogo";
 const heroImage = "/lovable-uploads/08b74d86-2681-410b-aa81-9a19bb942530.png";
 interface HeroSectionProps {
   language: 'en' | 'es';
@@ -37,6 +38,11 @@ export function HeroSection({
       
       {/* Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-hero" />
+      
+      {/* Logo Watermark */}
+      <div className="absolute top-8 right-8 z-5">
+        <FjordLogo className="text-white" size={80} />
+      </div>
       
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 text-center text-white">

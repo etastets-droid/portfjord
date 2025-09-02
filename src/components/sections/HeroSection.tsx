@@ -1,11 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { MapPin, Calendar } from "lucide-react";
 const heroImage = "/lovable-uploads/08b74d86-2681-410b-aa81-9a19bb942530.png";
-
 interface HeroSectionProps {
   language: 'en' | 'es';
 }
-
 const translations = {
   en: {
     title: "Puerto Fjord",
@@ -26,20 +24,16 @@ const translations = {
     coordinates: "51°35'32.4\"S 72°39'52.7\"W"
   }
 };
-
-export function HeroSection({ language }: HeroSectionProps) {
+export function HeroSection({
+  language
+}: HeroSectionProps) {
   const t = translations[language];
-
-  return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
+  return <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
-      	<div 
-        className="absolute inset-0 bg-cover bg-no-repeat"
-        style={{ 
-          backgroundImage: `url(${heroImage})`,
-          backgroundPosition: '50% 35%'
-        }}
-      />
+      	<div className="absolute inset-0 bg-cover bg-no-repeat" style={{
+      backgroundImage: `url(${heroImage})`,
+      backgroundPosition: '50% 35%'
+    }} />
       
       {/* Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-hero" />
@@ -56,7 +50,7 @@ export function HeroSection({ language }: HeroSectionProps) {
           {/* Main Title */}
           <h1 className="text-5xl md:text-7xl font-bold mb-4 leading-tight">
             {t.title}
-            <span className="block text-accent font-light">{t.subtitle}</span>
+            <span className="block text-accent font-light text-4xl">{t.subtitle}</span>
           </h1>
           
           {/* Description */}
@@ -66,18 +60,11 @@ export function HeroSection({ language }: HeroSectionProps) {
           
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
-            <Button 
-              size="lg" 
-              className="bg-gradient-fjord hover:opacity-90 transition-all duration-300 shadow-luxury text-lg px-8 py-6 rounded-lg"
-            >
+            <Button size="lg" className="bg-gradient-fjord hover:opacity-90 transition-all duration-300 shadow-luxury text-lg px-8 py-6 rounded-lg">
               <Calendar className="h-5 w-5 mr-2" />
               {t.bookNow}
             </Button>
-            <Button 
-              variant="outline" 
-              size="lg"
-              className="border-white/30 text-white hover:bg-white/10 backdrop-blur-sm text-lg px-8 py-6 rounded-lg transition-all duration-300"
-            >
+            <Button variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10 backdrop-blur-sm text-lg px-8 py-6 rounded-lg transition-all duration-300">
               {t.viewHouses}
             </Button>
           </div>
@@ -95,6 +82,5 @@ export function HeroSection({ language }: HeroSectionProps) {
           <div className="w-1 h-3 bg-white/50 rounded-full mt-2 animate-pulse" />
         </div>
       </div>
-    </section>
-  );
+    </section>;
 }

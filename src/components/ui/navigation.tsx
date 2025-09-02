@@ -1,24 +1,17 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Globe } from "lucide-react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import puertoFjordLogo from "@/assets/puerto-fjord-logo.png";
-
 interface NavigationProps {
   language: 'en' | 'es';
   onLanguageChange: (lang: 'en' | 'es') => void;
 }
-
 const translations = {
   en: {
     home: "Home",
     houses: "Houses",
-    experiences: "Experiences", 
+    experiences: "Experiences",
     location: "Location",
     contact: "Contact",
     ownerPortal: "Owner Portal",
@@ -28,28 +21,24 @@ const translations = {
     home: "Inicio",
     houses: "Casas",
     experiences: "Experiencias",
-    location: "Ubicación", 
+    location: "Ubicación",
     contact: "Contacto",
     ownerPortal: "Portal Propietarios",
     bookNow: "Reservar Ahora"
   }
 };
-
-export function Navigation({ language, onLanguageChange }: NavigationProps) {
+export function Navigation({
+  language,
+  onLanguageChange
+}: NavigationProps) {
   const [isOpen, setIsOpen] = useState(false);
   const t = translations[language];
-
-  return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50">
+  return <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div className="flex items-center">
-            <img 
-              src={puertoFjordLogo} 
-              alt="Puerto Fjord"
-              className="h-12 w-auto"
-            />
+            
           </div>
 
           {/* Desktop Navigation */}
@@ -99,19 +88,14 @@ export function Navigation({ language, onLanguageChange }: NavigationProps) {
 
           {/* Mobile menu button */}
           <div className="lg:hidden">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setIsOpen(!isOpen)}
-            >
+            <Button variant="ghost" size="sm" onClick={() => setIsOpen(!isOpen)}>
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </Button>
           </div>
         </div>
 
         {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="lg:hidden py-4 border-t border-border/50">
+        {isOpen && <div className="lg:hidden py-4 border-t border-border/50">
             <div className="flex flex-col space-y-4">
               <a href="#home" className="text-foreground hover:text-primary transition-colors">
                 {t.home}
@@ -153,9 +137,7 @@ export function Navigation({ language, onLanguageChange }: NavigationProps) {
                 </Button>
               </div>
             </div>
-          </div>
-        )}
+          </div>}
       </div>
-    </nav>
-  );
+    </nav>;
 }

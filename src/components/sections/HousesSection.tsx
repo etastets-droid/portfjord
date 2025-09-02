@@ -153,6 +153,12 @@ export function HousesSection({ language }: HousesSectionProps) {
                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                      style={{ objectPosition: '50% 30%' }}
                    />
+                 ) : house.imageId === 5 ? (
+                   <img 
+                     src="/lovable-uploads/09c0e326-5d72-4c1a-95d0-32513b39dfb6.png" 
+                     alt={house.name}
+                     className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                   />
                  ) : (
                    <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
                      <div className="text-center text-white">

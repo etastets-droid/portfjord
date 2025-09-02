@@ -40,8 +40,8 @@ export function HeroSection({
       <div className="absolute inset-0 bg-gradient-hero" />
       
       {/* Logo Watermark - Centered */}
-      <div className="absolute inset-0 flex items-center justify-center z-5 pointer-events-none">
-        <FjordLogo className="text-white opacity-20" size={200} />
+      <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+        <FjordLogo className="text-white opacity-30" size={300} />
       </div>
       
       {/* Content */}

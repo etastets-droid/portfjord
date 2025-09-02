@@ -87,7 +87,7 @@ interface GoogleMapProps {
 
 export function GoogleMap({ language }: GoogleMapProps) {
   const [apiKey, setApiKey] = useState<string>(() => {
-    return localStorage.getItem('googleMapsApiKey') || '';
+    return localStorage.getItem('googleMapsApiKey') || 'AIzaSyCcfudX5U7TRN8b1lyimvKRt01yghsQzM8';
   });
   const [tempApiKey, setTempApiKey] = useState('');
 

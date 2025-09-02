@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { MapPin, Users, Eye, Calendar } from "lucide-react";
-import houseNestImage from "@/assets/house-nest.jpg";
 
 interface HousesSectionProps {
   language: 'en' | 'es';
@@ -131,7 +130,7 @@ export function HousesSection({ language }: HousesSectionProps) {
                 {/* House image */}
                 {house.imageId === 2 ? (
                   <img 
-                    src={houseNestImage} 
+                    src="/lovable-uploads/c5e7ccaf-ffd9-401f-bc65-d26f8c97f2b9.png" 
                     alt={house.name}
                     className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />

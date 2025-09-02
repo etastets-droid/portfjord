@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { MapPin, Calendar } from "lucide-react";
 import { FjordLogo } from "@/components/ui/FjordLogo";
-const heroImage = "/lovable-uploads/08b74d86-2681-410b-aa81-9a19bb942530.png";
+import heroImage from "@/assets/hero-patagonia.jpg";
 interface HeroSectionProps {
   language: 'en' | 'es';
 }
@@ -31,13 +31,15 @@ export function HeroSection({
   const t = translations[language];
   return <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
-      	<div className="absolute inset-0 bg-cover bg-no-repeat" style={{
-      backgroundImage: `url(${heroImage})`,
-      backgroundPosition: '50% 35%'
-    }} />
+      <img
+        src={heroImage}
+        alt={language === 'es' ? 'Fiordos y montañas de la Patagonia' : 'Patagonian fjords and mountains'}
+        className="absolute inset-0 w-full h-full object-cover"
+        style={{ objectPosition: '50% 35%' }}
+      />
       
       {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-hero" />
+      <div className="absolute inset-0" style={{ background: 'var(--gradient-hero)' }} />
       
       
       {/* Content */}

@@ -26,11 +26,20 @@ export default {
 				foreground: 'hsl(var(--foreground))',
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
-					foreground: 'hsl(var(--primary-foreground))'
+					foreground: 'hsl(var(--primary-foreground))',
+					light: 'hsl(var(--primary-light))'
 				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
 					foreground: 'hsl(var(--secondary-foreground))'
+				},
+				cedar: {
+					DEFAULT: 'hsl(var(--cedar))',
+					light: 'hsl(var(--cedar-light))'
+				},
+				stone: {
+					DEFAULT: 'hsl(var(--stone))',
+					light: 'hsl(var(--stone-light))'
 				},
 				destructive: {
 					DEFAULT: 'hsl(var(--destructive))',
@@ -67,6 +76,23 @@ export default {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)'
+			},
+			backgroundImage: {
+				'gradient-fjord': 'var(--gradient-fjord)',
+				'gradient-cedar': 'var(--gradient-cedar)',
+				'gradient-hero': 'var(--gradient-hero)',
+			},
+			boxShadow: {
+				'luxury': 'var(--shadow-luxury)',
+				'card': 'var(--shadow-card)',
+				'glow': 'var(--shadow-glow)',
+			},
+			transitionTimingFunction: {
+				'luxury': 'var(--transition-luxury)',
+				'smooth': 'var(--transition-smooth)',
+			},
+			fontFamily: {
+				'sans': ['Inter', 'system-ui', 'sans-serif'],
 			},
 			keyframes: {
 				'accordion-down': {

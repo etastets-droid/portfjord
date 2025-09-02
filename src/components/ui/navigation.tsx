@@ -58,8 +58,8 @@ export function Navigation({
             <a href="#contact" className="text-foreground hover:text-primary transition-colors">
               {t.contact}
             </a>
-            <Button variant="outline" size="sm">
-              {t.ownerPortal}
+            <Button variant="outline" size="sm" asChild>
+              <a href="/owner-login">{t.ownerPortal}</a>
             </Button>
           </div>
 
@@ -112,8 +112,8 @@ export function Navigation({
               <a href="#contact" className="text-foreground hover:text-primary transition-colors">
                 {t.contact}
               </a>
-              <Button variant="outline" size="sm" className="self-start">
-                {t.ownerPortal}
+              <Button variant="outline" size="sm" className="self-start" asChild>
+                <a href="/owner-login">{t.ownerPortal}</a>
               </Button>
               <div className="flex items-center space-x-2">
                 <DropdownMenu>

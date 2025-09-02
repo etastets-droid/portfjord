@@ -39,10 +39,6 @@ export function HeroSection({
       {/* Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-hero" />
       
-      {/* Logo Watermark - Centered */}
-      <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
-        <FjordLogo className="text-white opacity-30" size={300} />
-      </div>
       
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 text-center text-white">

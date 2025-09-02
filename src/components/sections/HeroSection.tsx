@@ -47,6 +47,13 @@ export function HeroSection({
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 text-center text-white">
         <div className="max-w-4xl mx-auto">
+          {/* Puerto Fjord Logo */}
+          <div className="mb-6">
+            <div className="transform scale-x-150">
+              <FjordLogo className="text-white mx-auto" size={120} />
+            </div>
+          </div>
+          
           {/* Location Badge */}
           <div className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 mb-8 border border-white/20">
             <MapPin className="h-4 w-4" />

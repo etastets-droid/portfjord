@@ -9,7 +9,7 @@ interface HeroSectionProps {
 const translations = {
   en: {
     title: "Puerto Fjord",
-    subtitle: "in the Heart of Patagonia",
+    subtitle: "Adventure Retreat & Marina",
     description: "Experience unparalleled luxury in pristine Patagonian wilderness. Five exclusive houses offering breathtaking fjord views, world-class amenities, and unforgettable adventures.",
     location: "Puerto Natales, Patagonia",
     bookNow: "Book Your Experience",
@@ -18,7 +18,7 @@ const translations = {
   },
   es: {
     title: "Puerto Fjord",
-    subtitle: "en el Corazón de la Patagonia",
+    subtitle: "Adventure Retreat & Marina",
     description: "Experimenta lujo incomparable en la naturaleza prístina de la Patagonia. Cinco casas exclusivas que ofrecen vistas impresionantes a los fiordos, amenities de clase mundial y aventuras inolvidables.",
     location: "Puerto Natales, Patagonia",
     bookNow: "Reserva tu Experiencia",

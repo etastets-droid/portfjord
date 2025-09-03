@@ -71,7 +71,7 @@ export function ExperiencesSection({
     // FRENCH VALLEY TREK
     '00a35a8c-76eb-470d-991b-98711d7ef20f': '/lovable-uploads/63e495eb-27aa-4961-9a03-680d6a0e8b50.png',
     // STAND UP PADDLE Eberhard Fjord
-    'df84f147-d7df-4e76-aa71-36d24d2374b3': '/lovable-uploads/d595f609-fd89-411c-af90-5e08d32837f3.png',
+    'df84f147-d7df-4e76-aa71-36d24d2374b3': '/lovable-uploads/e8ef856c-36ca-4f82-bfd4-0c1dbd92b574.png',
     // Kayak Trip Eberhard Fjord Half Day (versión 1)
     '2c3b9f42-b91b-4245-8053-8de870d7b2eb': '/lovable-uploads/c5e7ccaf-ffd9-401f-bc65-d26f8c97f2b9.png',
     // Kayak Trip Eberhard Fjord Half Day (versión 2 sin archivo original) => usar imagen existente

@@ -69,7 +69,7 @@ export function ExperiencesSection({
     // ICE HIKE Grey Glacier
     '06083852-e92d-4891-b88e-9363f3f9d451': '/lovable-uploads/5fccdd0b-83a4-4e3e-b3f9-bec2c5139eeb.png',
     // FRENCH VALLEY TREK
-    '00a35a8c-76eb-470d-991b-98711d7ef20f': '/lovable-uploads/658a7807-c55f-457e-bbd7-157d3cf08f66.png',
+    '00a35a8c-76eb-470d-991b-98711d7ef20f': '/lovable-uploads/63e495eb-27aa-4961-9a03-680d6a0e8b50.png',
     // STAND UP PADDLE Eberhard Fjord
     'df84f147-d7df-4e76-aa71-36d24d2374b3': '/lovable-uploads/d595f609-fd89-411c-af90-5e08d32837f3.png',
     // Kayak Trip Eberhard Fjord Half Day (versión 1)

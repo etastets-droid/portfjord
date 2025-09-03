@@ -101,7 +101,13 @@ export function ExperiencesSection({
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {experiences.map(experience => <Card key={experience.id} className="group overflow-hidden border-0 shadow-card hover:shadow-luxury transition-all duration-500 hover:scale-[1.02]">
               <div className="relative h-48 overflow-hidden">
-                <img src={experience.image_url} alt={experience.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                <img 
+                  src={experience.image_url}
+                  alt={`${experience.name} - Patagonia experience`}
+                  loading="lazy"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  onError={(e) => { e.currentTarget.src = '/placeholder.svg'; }}
+                />
                 <div className="absolute top-4 right-4">
                   <Badge className={`${difficultyColors[experience.difficulty_level as keyof typeof difficultyColors] || 'bg-gray-100 text-gray-800'} border`}>
                     {experience.difficulty_level}

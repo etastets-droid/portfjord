@@ -225,7 +225,7 @@ const HouseDetails = () => {
           <div className="lg:w-2/3">
             <div className="grid grid-cols-1 gap-4">
               {/* Main Image */}
-              <div className="relative h-80 bg-muted rounded-lg overflow-hidden">
+              <div className="relative h-64 bg-muted rounded-lg overflow-hidden">
                 <img 
                   src={houseImages[selectedImage] || '/placeholder.svg'} 
                   alt={property.name}

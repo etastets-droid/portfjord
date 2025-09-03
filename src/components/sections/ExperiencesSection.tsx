@@ -106,7 +106,9 @@ export function ExperiencesSection({
                 <img 
                   src={failedImages[experience.id]
                     ? '/placeholder.svg'
-                    : `${experience.image_url}${experience.image_url?.includes('?') ? '' : `?v=${encodeURIComponent(experience.updated_at || experience.id)}`}`}
+                    : (experience.image_url?.startsWith('/lovable-uploads/')
+                        ? experience.image_url
+                        : `${experience.image_url}${experience.image_url?.includes('?') ? '' : `?v=${encodeURIComponent(experience.updated_at || experience.id)}`}`)}
                   alt={`${experience.name} - Patagonia experience`}
                   loading="lazy"
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"

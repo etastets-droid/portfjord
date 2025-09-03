@@ -345,7 +345,7 @@ const HouseDetails = () => {
                 <CardContent>
                   <div className="relative bg-muted rounded-lg overflow-hidden">
                     <img 
-                      src={property.images?.[0] || '/placeholder.svg'} 
+                      src="/lovable-uploads/c24e6f57-34df-4e54-a66d-f2efc64762fb.png" 
                       alt={`${property.name} floor plan`}
                       className="w-full h-auto"
                     />

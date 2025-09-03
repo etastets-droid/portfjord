@@ -173,6 +173,38 @@ const HouseDetails = () => {
     return floorPlanMap[propertyId] || floorPlanMap.default;
   };
 
+  // Static image gallery mapping for each house
+  const getHouseImages = (propertyId: string) => {
+    const imageMap: { [key: string]: string[] } = {
+      'f854966e-2dfe-42f8-a7c7-b6e9f24e91fb': [
+        '/lovable-uploads/08b74d86-2681-410b-aa81-9a19bb942530.png',
+        '/lovable-uploads/09c0e326-5d72-4c1a-95d0-32513b39dfb6.png',
+        '/lovable-uploads/140fd2e0-65fc-4262-99e3-ab71f4ab1b68.png',
+        '/lovable-uploads/5292bc2e-3671-4ee1-9bca-789c2be8c56a.png'
+      ],
+      'a1b2c3d4-e5f6-7890-abcd-ef1234567890': [
+        '/lovable-uploads/5fccdd0b-83a4-4e3e-b3f9-bec2c5139eeb.png',
+        '/lovable-uploads/63e495eb-27aa-4961-9a03-680d6a0e8b50.png',
+        '/lovable-uploads/658a7807-c55f-457e-bbd7-157d3cf08f66.png',
+        '/lovable-uploads/c5e7ccaf-ffd9-401f-bc65-d26f8c97f2b9.png'
+      ],
+      'b2c3d4e5-f6g7-8901-bcde-f12345678901': [
+        '/lovable-uploads/d595f609-fd89-411c-af90-5e08d32837f3.png',
+        '/lovable-uploads/e0936169-fe06-4541-83f4-a9431fd2b0ca.png',
+        '/lovable-uploads/eb3c7203-9636-4aa6-96b0-b0f772fcdd04.png',
+        '/lovable-uploads/f50e3bae-ea93-499e-9898-ab3a1f232536.png'
+      ],
+      'default': [
+        '/lovable-uploads/08b74d86-2681-410b-aa81-9a19bb942530.png',
+        '/lovable-uploads/09c0e326-5d72-4c1a-95d0-32513b39dfb6.png'
+      ]
+    };
+    
+    return imageMap[propertyId] || imageMap.default;
+  };
+
+  const houseImages = getHouseImages(property.id);
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -191,16 +223,16 @@ const HouseDetails = () => {
               {/* Main Image */}
               <div className="relative h-96 bg-muted rounded-lg overflow-hidden">
                 <img 
-                  src={property.images?.[selectedImage] || '/placeholder.svg'} 
+                  src={houseImages[selectedImage] || '/placeholder.svg'} 
                   alt={property.name}
                   className="w-full h-full object-cover"
                 />
               </div>
               
               {/* Thumbnail Images */}
-              {property.images && property.images.length > 1 && (
+              {houseImages.length > 1 && (
                 <div className="grid grid-cols-3 gap-2">
-                  {property.images.map((image, index) => (
+                  {houseImages.map((image, index) => (
                     <button
                       key={index}
                       onClick={() => setSelectedImage(index)}

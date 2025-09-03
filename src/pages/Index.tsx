@@ -8,6 +8,7 @@ import { ContactSection } from "@/components/sections/ContactSection";
 
 const Index = () => {
   const [language, setLanguage] = useState<'en' | 'es'>('en');
+  console.count('Index render');
 
   return (
     <div className="min-h-screen bg-background">

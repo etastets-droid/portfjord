@@ -52,6 +52,7 @@ export function HousesSection({ language }: HousesSectionProps) {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
   const t = translations[language];
+  console.count('HousesSection render');
 
   useEffect(() => {
     const fetchProperties = async () => {

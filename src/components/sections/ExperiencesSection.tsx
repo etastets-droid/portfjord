@@ -57,6 +57,7 @@ export function ExperiencesSection({
   const [loading, setLoading] = useState(true);
   const [isRequestModalOpen, setIsRequestModalOpen] = useState(false);
   const t = translations[language];
+  console.count('ExperiencesSection render');
   useEffect(() => {
     const fetchExperiences = async () => {
       try {

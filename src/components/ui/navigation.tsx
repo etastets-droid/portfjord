@@ -34,6 +34,15 @@ export function Navigation({
 }: NavigationProps) {
   const [isOpen, setIsOpen] = useState(false);
   const t = translations[language];
+
+  const handleNavClick = (id: string) => {
+    setIsOpen(false);
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
@@ -44,21 +53,21 @@ export function Navigation({
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-8">
-            <a href="#home" className="text-foreground hover:text-primary transition-colors">
+            <button onClick={() => handleNavClick('home')} className="text-foreground hover:text-primary transition-colors">
               {t.home}
-            </a>
-            <a href="#houses" className="text-foreground hover:text-primary transition-colors">
+            </button>
+            <button onClick={() => handleNavClick('houses')} className="text-foreground hover:text-primary transition-colors">
               {t.houses}
-            </a>
-            <a href="#experiences" className="text-foreground hover:text-primary transition-colors">
+            </button>
+            <button onClick={() => handleNavClick('experiences')} className="text-foreground hover:text-primary transition-colors">
               {t.experiences}
-            </a>
-            <a href="#location" className="text-foreground hover:text-primary transition-colors">
+            </button>
+            <button onClick={() => handleNavClick('location')} className="text-foreground hover:text-primary transition-colors">
               {t.location}
-            </a>
-            <a href="#contact" className="text-foreground hover:text-primary transition-colors">
+            </button>
+            <button onClick={() => handleNavClick('contact')} className="text-foreground hover:text-primary transition-colors">
               {t.contact}
-            </a>
+            </button>
             <Button variant="outline" size="sm" asChild>
               <Link to="/owner-login">{t.ownerPortal}</Link>
             </Button>
@@ -98,21 +107,21 @@ export function Navigation({
         {/* Mobile Navigation */}
         {isOpen && <div className="lg:hidden py-4 border-t border-border/50">
             <div className="flex flex-col space-y-4">
-              <a href="#home" className="text-foreground hover:text-primary transition-colors">
+              <button onClick={() => handleNavClick('home')} className="text-foreground hover:text-primary transition-colors text-left">
                 {t.home}
-              </a>
-              <a href="#houses" className="text-foreground hover:text-primary transition-colors">
+              </button>
+              <button onClick={() => handleNavClick('houses')} className="text-foreground hover:text-primary transition-colors text-left">
                 {t.houses}
-              </a>
-              <a href="#experiences" className="text-foreground hover:text-primary transition-colors">
+              </button>
+              <button onClick={() => handleNavClick('experiences')} className="text-foreground hover:text-primary transition-colors text-left">
                 {t.experiences}
-              </a>
-              <a href="#location" className="text-foreground hover:text-primary transition-colors">
+              </button>
+              <button onClick={() => handleNavClick('location')} className="text-foreground hover:text-primary transition-colors text-left">
                 {t.location}
-              </a>
-              <a href="#contact" className="text-foreground hover:text-primary transition-colors">
+              </button>
+              <button onClick={() => handleNavClick('contact')} className="text-foreground hover:text-primary transition-colors text-left">
                 {t.contact}
-              </a>
+              </button>
               <Button variant="outline" size="sm" className="self-start" asChild>
                 <Link to="/owner-login">{t.ownerPortal}</Link>
               </Button>

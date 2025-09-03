@@ -59,6 +59,24 @@ export function ExperiencesSection({
   const [isRequestModalOpen, setIsRequestModalOpen] = useState(false);
   const [failedImages, setFailedImages] = useState<Record<string, boolean>>({});
   const t = translations[language];
+
+  // Mapa de imágenes locales por experiencia (no depende de BD)
+  const experienceImageMap: Record<string, string> = {
+    // Bird Watching – Torres del Paine Full Day
+    '51660a40-7675-4287-90bb-4335cf5f8500': '/lovable-uploads/140fd2e0-65fc-4262-99e3-ab71f4ab1b68.png',
+    // BASE TORRES HIKE
+    '0b1655cf-929c-41d4-a388-13fa725b4b6b': '/lovable-uploads/e0936169-fe06-4541-83f4-a9431fd2b0ca.png',
+    // ICE HIKE Grey Glacier
+    '06083852-e92d-4891-b88e-9363f3f9d451': '/lovable-uploads/5fccdd0b-83a4-4e3e-b3f9-bec2c5139eeb.png',
+    // FRENCH VALLEY TREK
+    '00a35a8c-76eb-470d-991b-98711d7ef20f': '/lovable-uploads/658a7807-c55f-457e-bbd7-157d3cf08f66.png',
+    // STAND UP PADDLE Eberhard Fjord
+    'df84f147-d7df-4e76-aa71-36d24d2374b3': '/lovable-uploads/d595f609-fd89-411c-af90-5e08d32837f3.png',
+    // Kayak Trip Eberhard Fjord Half Day (versión 1)
+    '2c3b9f42-b91b-4245-8053-8de870d7b2eb': '/lovable-uploads/c5e7ccaf-ffd9-401f-bc65-d26f8c97f2b9.png',
+    // Kayak Trip Eberhard Fjord Half Day (versión 2 sin archivo original) => usar imagen existente
+    '696f2ae9-3bb2-4eb8-ba5d-16fa0c6c918c': '/lovable-uploads/658a7807-c55f-457e-bbd7-157d3cf08f66.png'
+  };
   useEffect(() => {
     const fetchExperiences = async () => {
       try {
@@ -104,15 +122,9 @@ export function ExperiencesSection({
           {experiences.map(experience => <Card key={experience.id} className="group overflow-hidden border-0 shadow-card hover:shadow-luxury transition-all duration-500 hover:scale-[1.02]">
               <div className="relative h-48 overflow-hidden">
                 <img 
-                  src={
-                    failedImages[experience.id]
-                      ? '/placeholder.svg'
-                      : (experience.id === '51660a40-7675-4287-90bb-4335cf5f8500'
-                          ? '/lovable-uploads/140fd2e0-65fc-4262-99e3-ab71f4ab1b68.png'
-                          : experience.id === '0b1655cf-929c-41d4-a388-13fa725b4b6b'
-                            ? '/lovable-uploads/e0936169-fe06-4541-83f4-a9431fd2b0ca.png'
-                            : experience.image_url)
-                  }
+                  src={failedImages[experience.id]
+                    ? '/placeholder.svg'
+                    : (experienceImageMap[experience.id] || '/placeholder.svg')}
                   alt={`${experience.name} - Patagonia experience`}
                   loading="lazy"
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"

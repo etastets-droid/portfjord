@@ -177,10 +177,14 @@ const HouseDetails = () => {
   const getHouseImages = (propertyId: string) => {
     const imageMap: { [key: string]: string[] } = {
       'f854966e-2dfe-42f8-a7c7-b6e9f24e91fb': [
-        '/lovable-uploads/08b74d86-2681-410b-aa81-9a19bb942530.png',
-        '/lovable-uploads/09c0e326-5d72-4c1a-95d0-32513b39dfb6.png',
-        '/lovable-uploads/140fd2e0-65fc-4262-99e3-ab71f4ab1b68.png',
-        '/lovable-uploads/5292bc2e-3671-4ee1-9bca-789c2be8c56a.png'
+        '/lovable-uploads/7fdec9b5-cb94-4cb7-acb3-c45bc24e24fb.png',
+        '/lovable-uploads/659a3b5d-b708-40b4-b1e9-38cd5c57db7f.png',
+        '/lovable-uploads/ff2919d1-55af-4a22-98a5-dde2ab8eb4ec.png',
+        '/lovable-uploads/b4a8c260-828e-4b21-be2b-9190d959bf43.png',
+        '/lovable-uploads/a2a1cc54-1618-482f-bf78-e1fbe3b30f42.png',
+        '/lovable-uploads/b501e720-d0a3-4945-9bb8-d169d38901e5.png',
+        '/lovable-uploads/82de9304-8a9f-4fb2-9075-45227e8d67b8.png',
+        '/lovable-uploads/9d574bb2-45bb-4e24-a1e2-a0ebf532631b.png'
       ],
       'a1b2c3d4-e5f6-7890-abcd-ef1234567890': [
         '/lovable-uploads/5fccdd0b-83a4-4e3e-b3f9-bec2c5139eeb.png',

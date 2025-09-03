@@ -73,7 +73,7 @@ export function ExperiencesSection({
     // STAND UP PADDLE Eberhard Fjord
     'df84f147-d7df-4e76-aa71-36d24d2374b3': '/lovable-uploads/e8ef856c-36ca-4f82-bfd4-0c1dbd92b574.png',
     // Kayak Trip Eberhard Fjord Half Day (versión 1)
-    '2c3b9f42-b91b-4245-8053-8de870d7b2eb': '/lovable-uploads/c5e7ccaf-ffd9-401f-bc65-d26f8c97f2b9.png',
+    '2c3b9f42-b91b-4245-8053-8de870d7b2eb': '/lovable-uploads/5292bc2e-3671-4ee1-9bca-789c2be8c56a.png',
     // Kayak Trip Eberhard Fjord Half Day (versión 2 sin archivo original) => usar imagen existente
     '696f2ae9-3bb2-4eb8-ba5d-16fa0c6c918c': '/lovable-uploads/658a7807-c55f-457e-bbd7-157d3cf08f66.png'
   };

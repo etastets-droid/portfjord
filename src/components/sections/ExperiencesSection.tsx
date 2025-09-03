@@ -107,7 +107,10 @@ export function ExperiencesSection({
                   alt={`${experience.name} - Patagonia experience`}
                   loading="lazy"
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                  onError={(e) => { e.currentTarget.src = '/placeholder.svg'; }}
+                  onError={(e) => { 
+                    e.currentTarget.onerror = null; 
+                    e.currentTarget.src = '/placeholder.svg'; 
+                  }}
                 />
                 <div className="absolute top-4 right-4">
                   <Badge className={`${difficultyColors[experience.difficulty_level as keyof typeof difficultyColors] || 'bg-gray-100 text-gray-800'} border`}>

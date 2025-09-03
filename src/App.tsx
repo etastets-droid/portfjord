@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import OwnerLogin from "./pages/OwnerLogin";
 import OwnerPortal from "./pages/OwnerPortal";
+import HouseDetails from "./pages/HouseDetails";
 
 const queryClient = new QueryClient();
 
@@ -18,6 +19,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/house/:id" element={<HouseDetails />} />
           <Route path="/owner-login" element={<OwnerLogin />} />
           <Route path="/owner-portal" element={<OwnerPortal />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

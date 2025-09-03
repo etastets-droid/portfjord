@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { MapPin, Users, Eye, Calendar } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface HousesSectionProps {
   language: 'en' | 'es';
@@ -202,9 +203,11 @@ export function HousesSection({ language }: HousesSectionProps) {
                 
                 {/* Actions */}
                 <div className="flex gap-3">
-                  <Button variant="outline" className="flex-1">
-                    {t.viewDetails}
-                  </Button>
+                  <Link to={`/house/${house.id}`} className="flex-1">
+                    <Button variant="outline" className="w-full">
+                      {t.viewDetails}
+                    </Button>
+                  </Link>
                   <Button 
                     className="flex-1 bg-gradient-fjord hover:opacity-90 transition-opacity"
                     disabled={!house.available}

@@ -57,6 +57,7 @@ export function ExperiencesSection({
   const [experiences, setExperiences] = useState<Experience[]>([]);
   const [loading, setLoading] = useState(true);
   const [isRequestModalOpen, setIsRequestModalOpen] = useState(false);
+  const [failedImages, setFailedImages] = useState<Record<string, boolean>>({});
   const t = translations[language];
   useEffect(() => {
     const fetchExperiences = async () => {
@@ -103,14 +104,13 @@ export function ExperiencesSection({
           {experiences.map(experience => <Card key={experience.id} className="group overflow-hidden border-0 shadow-card hover:shadow-luxury transition-all duration-500 hover:scale-[1.02]">
               <div className="relative h-48 overflow-hidden">
                 <img 
-                  src={`${experience.image_url}${experience.image_url?.includes('?') ? '' : `?v=${encodeURIComponent(experience.updated_at || experience.id)}`}`}
+                  src={failedImages[experience.id]
+                    ? '/placeholder.svg'
+                    : `${experience.image_url}${experience.image_url?.includes('?') ? '' : `?v=${encodeURIComponent(experience.updated_at || experience.id)}`}`}
                   alt={`${experience.name} - Patagonia experience`}
                   loading="lazy"
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                  onError={(e) => { 
-                    e.currentTarget.onerror = null; 
-                    e.currentTarget.src = '/placeholder.svg'; 
-                  }}
+                  onError={() => setFailedImages(prev => ({ ...prev, [experience.id]: true }))}
                 />
                 <div className="absolute top-4 right-4">
                   <Badge className={`${difficultyColors[experience.difficulty_level as keyof typeof difficultyColors] || 'bg-gray-100 text-gray-800'} border`}>

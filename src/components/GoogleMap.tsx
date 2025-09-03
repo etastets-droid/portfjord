@@ -21,6 +21,7 @@ function MapComponent({ center, zoom, className }: MapProps) {
       const newMap = new window.google.maps.Map(ref.current, {
         center,
         zoom,
+        mapId: 'puerto-fjord-map', // Add mapId for Advanced Markers
         styles: [
           {
             featureType: 'all',
@@ -40,8 +41,8 @@ function MapComponent({ center, zoom, className }: MapProps) {
         ],
       });
       
-      // Add marker
-      new window.google.maps.marker.AdvancedMarkerElement({
+      // Add marker using regular Marker as fallback
+      new window.google.maps.Marker({
         position: center,
         map: newMap,
         title: 'Puerto Fjord - Luxury Patagonian Retreat',

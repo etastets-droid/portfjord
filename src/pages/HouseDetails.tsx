@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BookingModal } from "@/components/BookingModal";
+import { supabase } from "@/lib/supabase";
 import { 
   ArrowLeft, 
   MapPin, 
@@ -73,125 +74,63 @@ const translations = {
   }
 };
 
-const housesData = {
-  "cliff-house": {
-    name: "The Cliff House",
-    capacity: 8,
-    bedrooms: 4,
-    bathrooms: 3,
-    price: 450,
-    features: {
-      en: ["Ocean Views", "Private Hot Tub", "Chef's Kitchen", "Fireplace", "WiFi", "Parking"],
-      es: ["Vistas al Océano", "Jacuzzi Privado", "Cocina de Chef", "Chimenea", "WiFi", "Estacionamiento"]
-    },
-    description: {
-      en: "Perched dramatically on coastal cliffs with panoramic fjord views. This architectural masterpiece combines luxury with nature, featuring floor-to-ceiling windows, a private hot tub overlooking the ocean, and a chef's kitchen perfect for entertaining. The house seamlessly blends modern comfort with the raw beauty of Patagonia.",
-      es: "Ubicada dramáticamente en acantilados costeros con vistas panorámicas del fiordo. Esta obra maestra arquitectónica combina lujo con naturaleza, con ventanas de piso a techo, jacuzzi privado con vista al océano, y cocina de chef perfecta para entretenimiento. La casa combina perfectamente comodidad moderna con la belleza salvaje de la Patagonia."
-    },
-    available: true,
-    images: [
-      "/lovable-uploads/658a7807-c55f-457e-bbd7-157d3cf08f66.png",
-      "/lovable-uploads/c5e7ccaf-ffd9-401f-bc65-d26f8c97f2b9.png",
-      "/lovable-uploads/7c73e2bf-2738-449d-8d1e-31c47d8bb826.png"
-    ],
-    floorPlan: "/lovable-uploads/eb3c7203-9636-4aa6-96b0-b0f772fcdd04.png"
-  },
-  "nest-house": {
-    name: "Nest House", 
-    capacity: 6,
-    bedrooms: 3,
-    bathrooms: 2,
-    price: 380,
-    features: {
-      en: ["Tree Canopy Views", "Suspended Design", "Glass Walls", "Eco-Friendly", "WiFi", "Hiking Trails"],
-      es: ["Vistas del Dosel", "Diseño Suspendido", "Paredes de Cristal", "Eco-Amigable", "WiFi", "Senderos"]
-    },
-    description: {
-      en: "Elevated retreat nestled among ancient trees with intimate forest views. This unique suspended structure offers an immersive nature experience while maintaining luxury comfort. Wake up to birds singing and fall asleep to the gentle rustle of leaves in this architectural marvel.",
-      es: "Refugio elevado entre árboles antiguos con vistas íntimas del bosque. Esta estructura suspendida única ofrece una experiencia inmersiva en la naturaleza manteniendo comodidad de lujo. Despierta con el canto de los pájaros y duerme con el suave susurro de las hojas en esta maravilla arquitectónica."
-    },
-    available: false,
-    images: [
-      "/lovable-uploads/c5e7ccaf-ffd9-401f-bc65-d26f8c97f2b9.png",
-      "/lovable-uploads/658a7807-c55f-457e-bbd7-157d3cf08f66.png"
-    ],
-    floorPlan: "/lovable-uploads/d595f609-fd89-411c-af90-5e08d32837f3.png"
-  },
-  "fjord-house": {
-    name: "Fjord House",
-    capacity: 10, 
-    bedrooms: 5,
-    bathrooms: 4,
-    price: 580,
-    features: {
-      en: ["Waterfront Access", "Private Marina", "Panoramic Deck", "Boat Included", "WiFi", "Fishing Gear"],
-      es: ["Acceso Marítimo", "Marina Privada", "Terraza Panorámica", "Bote Incluido", "WiFi", "Equipo de Pesca"]
-    },
-    description: {
-      en: "Waterfront sanctuary with direct fjord access and private boat dock. Perfect for large groups seeking adventure and luxury. The expansive deck provides stunning sunset views while the private marina offers easy access to fjord exploration.",
-      es: "Santuario costero con acceso directo al fiordo y muelle privado. Perfecto para grupos grandes que buscan aventura y lujo. La amplia terraza ofrece vistas impresionantes del atardecer mientras la marina privada permite fácil acceso a explorar el fiordo."
-    },
-    available: true,
-    images: [
-      "/lovable-uploads/7c73e2bf-2738-449d-8d1e-31c47d8bb826.png",
-      "/lovable-uploads/658a7807-c55f-457e-bbd7-157d3cf08f66.png"
-    ],
-    floorPlan: "/lovable-uploads/5f799eb3-4541-4035-8877-a2835e042144.png"
-  },
-  "valley-house": {
-    name: "The Valley House",
-    capacity: 4,
-    bedrooms: 2, 
-    bathrooms: 2,
-    price: 320,
-    features: {
-      en: ["Mountain Views", "Private Garden", "Cozy Fireplace", "Hot Tub", "WiFi", "Organic Garden"],
-      es: ["Vistas de Montaña", "Jardín Privado", "Chimenea Acogedora", "Jacuzzi", "WiFi", "Jardín Orgánico"]
-    },
-    description: {
-      en: "Intimate valley setting surrounded by towering mountain peaks. This cozy retreat offers the perfect romantic getaway with its private garden, mountain views, and intimate atmosphere. Ideal for couples seeking tranquility and natural beauty.",
-      es: "Entorno íntimo de valle rodeado de imponentes picos montañosos. Este refugio acogedor ofrece la escapada romántica perfecta con su jardín privado, vistas de montaña y atmósfera íntima. Ideal para parejas que buscan tranquilidad y belleza natural."
-    },
-    available: true,
-    images: [
-      "/lovable-uploads/5fccdd0b-83a4-4e3e-b3f9-bec2c5139eeb.png",
-      "/lovable-uploads/658a7807-c55f-457e-bbd7-157d3cf08f66.png"
-    ],
-    floorPlan: "/lovable-uploads/08b74d86-2681-410b-aa81-9a19bb942530.png"
-  },
-  "woods-house": {
-    name: "The Woods House",
-    capacity: 6,
-    bedrooms: 3,
-    bathrooms: 2, 
-    price: 400,
-    features: {
-      en: ["Forest Immersion", "Wildlife Viewing", "Sustainable Design", "Solar Power", "WiFi", "Nature Trails"],
-      es: ["Inmersión Forestal", "Observación Fauna", "Diseño Sustentable", "Energía Solar", "WiFi", "Senderos Naturales"]
-    },
-    description: {
-      en: "Deep forest hideaway designed for complete nature immersion. This eco-friendly retreat runs on solar power and offers unparalleled wildlife viewing opportunities. Perfect for nature enthusiasts seeking an authentic Patagonian experience.",
-      es: "Refugio en el bosque profundo diseñado para inmersión total en la naturaleza. Este refugio eco-amigable funciona con energía solar y ofrece oportunidades incomparables de observación de fauna. Perfecto para entusiastas de la naturaleza que buscan una experiencia patagónica auténtica."
-    },
-    available: true,
-    images: [
-      "/lovable-uploads/09c0e326-5d72-4c1a-95d0-32513b39dfb6.png",
-      "/lovable-uploads/658a7807-c55f-457e-bbd7-157d3cf08f66.png"
-    ],
-    floorPlan: "/lovable-uploads/09c0e326-5d72-4c1a-95d0-32513b39dfb6.png"
-  }
-};
+interface Property {
+  id: string;
+  name: string;
+  description: string;
+  price_per_night: number;
+  max_guests: number;
+  bedrooms: number;
+  bathrooms: number;
+  amenities: string[];
+  images: string[];
+  status: string;
+  address: string;
+}
 
 const HouseDetails = () => {
   const { id } = useParams();
-  const [language] = useState<'en' | 'es'>('en'); // You can connect this to your language state
+  const [language] = useState<'en' | 'es'>('en');
   const [selectedImage, setSelectedImage] = useState(0);
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
-  
-  const house = housesData[id as keyof typeof housesData];
+  const [property, setProperty] = useState<Property | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProperty = async () => {
+      if (!id) return;
+      
+      try {
+        const { data, error } = await supabase
+          .from('properties')
+          .select('*')
+          .eq('id', id)
+          .maybeSingle();
+
+        if (error) throw error;
+        setProperty(data);
+      } catch (error) {
+        console.error('Error fetching property:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProperty();
+  }, [id]);
   const t = translations[language];
 
-  if (!house) {
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-muted-foreground">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!property) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
@@ -238,30 +177,32 @@ const HouseDetails = () => {
               {/* Main Image */}
               <div className="relative h-96 bg-muted rounded-lg overflow-hidden">
                 <img 
-                  src={house.images[selectedImage]} 
-                  alt={house.name}
+                  src={property.images?.[selectedImage] || '/placeholder.svg'} 
+                  alt={property.name}
                   className="w-full h-full object-cover"
                 />
               </div>
               
               {/* Thumbnail Images */}
-              <div className="grid grid-cols-3 gap-2">
-                {house.images.map((image, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setSelectedImage(index)}
-                    className={`h-24 bg-muted rounded-lg overflow-hidden border-2 transition-colors ${
-                      selectedImage === index ? 'border-primary' : 'border-transparent'
-                    }`}
-                  >
-                    <img 
-                      src={image} 
-                      alt={`${house.name} ${index + 1}`}
-                      className="w-full h-full object-cover"
-                    />
-                  </button>
-                ))}
-              </div>
+              {property.images && property.images.length > 1 && (
+                <div className="grid grid-cols-3 gap-2">
+                  {property.images.map((image, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setSelectedImage(index)}
+                      className={`h-24 bg-muted rounded-lg overflow-hidden border-2 transition-colors ${
+                        selectedImage === index ? 'border-primary' : 'border-transparent'
+                      }`}
+                    >
+                      <img 
+                        src={image} 
+                        alt={`${property.name} ${index + 1}`}
+                        className="w-full h-full object-cover"
+                      />
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
 
@@ -270,30 +211,30 @@ const HouseDetails = () => {
             <Card className="sticky top-6">
               <CardHeader>
                 <div className="flex items-center justify-between">
-                  <CardTitle className="text-2xl">{house.name}</CardTitle>
-                  <Badge variant={house.available ? "default" : "secondary"}>
-                    {house.available ? t.available : t.unavailable}
+                  <CardTitle className="text-2xl">{property.name}</CardTitle>
+                  <Badge variant={property.status === 'active' ? "default" : "secondary"}>
+                    {property.status === 'active' ? t.available : t.unavailable}
                   </Badge>
                 </div>
                 <div className="flex items-center gap-4 text-muted-foreground">
                   <div className="flex items-center">
                     <Users className="h-4 w-4 mr-1" />
-                    {house.capacity} {t.guests}
+                    {property.max_guests} {t.guests}
                   </div>
                   <div className="flex items-center">
                     <Bed className="h-4 w-4 mr-1" />
-                    {house.bedrooms} {t.bedrooms}
+                    {property.bedrooms} {t.bedrooms}
                   </div>
                   <div className="flex items-center">
                     <Bath className="h-4 w-4 mr-1" />
-                    {house.bathrooms} {t.bathrooms}
+                    {property.bathrooms} {t.bathrooms}
                   </div>
                 </div>
               </CardHeader>
               <CardContent>
                 <div className="mb-6">
                   <div className="text-3xl font-bold text-foreground">
-                    ${house.price}
+                    ${property.price_per_night}
                     <span className="text-lg font-normal text-muted-foreground ml-2">
                       {t.pricePerNight}
                     </span>
@@ -302,7 +243,7 @@ const HouseDetails = () => {
                 
                 <Button 
                   className="w-full bg-gradient-fjord hover:opacity-90 transition-opacity"
-                  disabled={!house.available}
+                  disabled={property.status !== 'active'}
                   onClick={() => setIsBookingModalOpen(true)}
                 >
                   <Calendar className="h-4 w-4 mr-2" />
@@ -331,7 +272,7 @@ const HouseDetails = () => {
                   </CardHeader>
                   <CardContent>
                     <p className="text-muted-foreground leading-relaxed">
-                      {house.description[language]}
+                      {property.description}
                     </p>
                   </CardContent>
                 </Card>
@@ -361,7 +302,7 @@ const HouseDetails = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    {house.features[language].map((feature, index) => (
+                    {property.amenities && property.amenities.map((feature, index) => (
                       <div key={index} className="flex items-center gap-2 p-3 bg-muted/50 rounded-lg">
                         {getAmenityIcon(feature)}
                         <span className="text-sm">{feature}</span>
@@ -385,7 +326,7 @@ const HouseDetails = () => {
                     <div className="text-center text-muted-foreground">
                       <MapPin className="h-12 w-12 mx-auto mb-2 opacity-50" />
                       <p>Interactive map will be displayed here</p>
-                      <p className="text-sm">Puerto Natales, Patagonia, Chile</p>
+                      <p className="text-sm">{property.address}</p>
                     </div>
                   </div>
                 </CardContent>
@@ -403,8 +344,8 @@ const HouseDetails = () => {
                 <CardContent>
                   <div className="relative bg-muted rounded-lg overflow-hidden">
                     <img 
-                      src={house.floorPlan} 
-                      alt={`${house.name} floor plan`}
+                      src={property.images?.[0] || '/placeholder.svg'} 
+                      alt={`${property.name} floor plan`}
                       className="w-full h-auto"
                     />
                   </div>
@@ -420,10 +361,10 @@ const HouseDetails = () => {
         isOpen={isBookingModalOpen}
         onClose={() => setIsBookingModalOpen(false)}
         house={{
-          id: id || '',
-          name: house.name,
-          capacity: house.capacity,
-          price: house.price
+          id: property.id,
+          name: property.name,
+          capacity: property.max_guests,
+          price: property.price_per_night
         }}
         language={language}
       />

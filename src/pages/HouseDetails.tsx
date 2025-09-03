@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { BookingModal } from "@/components/BookingModal";
 import { 
   ArrowLeft, 
   MapPin, 
@@ -185,6 +186,7 @@ const HouseDetails = () => {
   const { id } = useParams();
   const [language] = useState<'en' | 'es'>('en'); // You can connect this to your language state
   const [selectedImage, setSelectedImage] = useState(0);
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   
   const house = housesData[id as keyof typeof housesData];
   const t = translations[language];
@@ -301,6 +303,7 @@ const HouseDetails = () => {
                 <Button 
                   className="w-full bg-gradient-fjord hover:opacity-90 transition-opacity"
                   disabled={!house.available}
+                  onClick={() => setIsBookingModalOpen(true)}
                 >
                   <Calendar className="h-4 w-4 mr-2" />
                   {t.bookNow}
@@ -411,6 +414,19 @@ const HouseDetails = () => {
           </Tabs>
         </div>
       </div>
+
+      {/* Booking Modal */}
+      <BookingModal
+        isOpen={isBookingModalOpen}
+        onClose={() => setIsBookingModalOpen(false)}
+        house={{
+          id: id || '',
+          name: house.name,
+          capacity: house.capacity,
+          price: house.price
+        }}
+        language={language}
+      />
     </div>
   );
 };

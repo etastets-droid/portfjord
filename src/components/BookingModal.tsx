@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -8,10 +8,15 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { CalendarIcon, Users, X } from "lucide-react";
-import { format, differenceInDays } from "date-fns";
+import { format, differenceInDays, parseISO, isWithinInterval } from "date-fns";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/lib/supabase";
 import { useToast } from "@/hooks/use-toast";
+
+interface Reservation {
+  check_in: string;
+  check_out: string;
+}
 
 interface BookingModalProps {
   isOpen: boolean;
@@ -83,9 +88,63 @@ export function BookingModal({ isOpen, onClose, house, language }: BookingModalP
   const [guestPhone, setGuestPhone] = useState("");
   const [specialRequests, setSpecialRequests] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [existingReservations, setExistingReservations] = useState<Reservation[]>([]);
   
   const { toast } = useToast();
   const t = translations[language];
+
+  // Load existing reservations when modal opens
+  useEffect(() => {
+    if (isOpen && house.id) {
+      const fetchReservations = async () => {
+        try {
+          const { data, error } = await supabase
+            .from('reservations')
+            .select('check_in, check_out')
+            .eq('property_id', house.id)
+            .in('status', ['confirmed', 'pending']); // Include pending reservations too
+
+          if (error) throw error;
+          setExistingReservations(data || []);
+        } catch (error) {
+          console.error('Error fetching reservations:', error);
+        }
+      };
+
+      fetchReservations();
+    }
+  }, [isOpen, house.id]);
+
+  // Function to check if a date is disabled (already booked)
+  const isDateDisabled = (date: Date) => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    // Disable past dates
+    if (date < today) return true;
+
+    // Check if date falls within any existing reservation
+    return existingReservations.some(reservation => {
+      const checkInDate = parseISO(reservation.check_in);
+      const checkOutDate = parseISO(reservation.check_out);
+      
+      return isWithinInterval(date, {
+        start: checkInDate,
+        end: checkOutDate
+      });
+    });
+  };
+
+  // Validate date range doesn't conflict with existing reservations
+  const validateDateRange = (start: Date, end: Date) => {
+    return existingReservations.some(reservation => {
+      const reservationStart = parseISO(reservation.check_in);
+      const reservationEnd = parseISO(reservation.check_out);
+      
+      // Check for any overlap
+      return (start < reservationEnd && end > reservationStart);
+    });
+  };
 
   const totalNights = checkIn && checkOut ? differenceInDays(checkOut, checkIn) : 0;
   const totalAmount = totalNights * house.price;
@@ -107,6 +166,16 @@ export function BookingModal({ isOpen, onClose, house, language }: BookingModalP
       toast({
         title: "Error", 
         description: t.invalidDates,
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Validate date range doesn't conflict with existing reservations
+    if (validateDateRange(checkIn, checkOut)) {
+      toast({
+        title: "Error",
+        description: "Las fechas seleccionadas ya están reservadas. Por favor selecciona otras fechas.",
         variant: "destructive",
       });
       return;
@@ -201,7 +270,7 @@ export function BookingModal({ isOpen, onClose, house, language }: BookingModalP
                     mode="single"
                     selected={checkIn}
                     onSelect={setCheckIn}
-                    disabled={(date) => date < new Date()}
+                    disabled={isDateDisabled}
                     initialFocus
                   />
                 </PopoverContent>
@@ -228,7 +297,10 @@ export function BookingModal({ isOpen, onClose, house, language }: BookingModalP
                     mode="single"
                     selected={checkOut}
                     onSelect={setCheckOut}
-                    disabled={(date) => date <= (checkIn || new Date())}
+                    disabled={(date) => {
+                      if (!checkIn) return isDateDisabled(date);
+                      return date <= checkIn || isDateDisabled(date);
+                    }}
                     initialFocus
                   />
                 </PopoverContent>

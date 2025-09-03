@@ -14,6 +14,93 @@ export type Database = {
   }
   public: {
     Tables: {
+      experience_requests: {
+        Row: {
+          created_at: string
+          experience_type: string | null
+          group_size: number | null
+          guest_email: string
+          guest_name: string
+          guest_phone: string | null
+          id: string
+          message: string | null
+          preferred_dates: string | null
+          special_requirements: string | null
+          status: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          experience_type?: string | null
+          group_size?: number | null
+          guest_email: string
+          guest_name: string
+          guest_phone?: string | null
+          id?: string
+          message?: string | null
+          preferred_dates?: string | null
+          special_requirements?: string | null
+          status?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          experience_type?: string | null
+          group_size?: number | null
+          guest_email?: string
+          guest_name?: string
+          guest_phone?: string | null
+          id?: string
+          message?: string | null
+          preferred_dates?: string | null
+          special_requirements?: string | null
+          status?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      experiences: {
+        Row: {
+          created_at: string
+          description: string
+          difficulty_level: string | null
+          duration: string | null
+          id: string
+          image_url: string | null
+          included_items: string[] | null
+          name: string
+          price_range: string | null
+          status: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          difficulty_level?: string | null
+          duration?: string | null
+          id?: string
+          image_url?: string | null
+          included_items?: string[] | null
+          name: string
+          price_range?: string | null
+          status?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          difficulty_level?: string | null
+          duration?: string | null
+          id?: string
+          image_url?: string | null
+          included_items?: string[] | null
+          name?: string
+          price_range?: string | null
+          status?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       owners: {
         Row: {
           created_at: string

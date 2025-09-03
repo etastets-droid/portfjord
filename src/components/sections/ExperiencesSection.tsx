@@ -67,7 +67,7 @@ export function ExperiencesSection({
     // BASE TORRES HIKE
     '0b1655cf-929c-41d4-a388-13fa725b4b6b': '/lovable-uploads/e0936169-fe06-4541-83f4-a9431fd2b0ca.png',
     // ICE HIKE Grey Glacier
-    '06083852-e92d-4891-b88e-9363f3f9d451': '/lovable-uploads/5fccdd0b-83a4-4e3e-b3f9-bec2c5139eeb.png',
+    '06083852-e92d-4891-b88e-9363f3f9d451': '/lovable-uploads/f50e3bae-ea93-499e-9898-ab3a1f232536.png',
     // FRENCH VALLEY TREK
     '00a35a8c-76eb-470d-991b-98711d7ef20f': '/lovable-uploads/63e495eb-27aa-4961-9a03-680d6a0e8b50.png',
     // STAND UP PADDLE Eberhard Fjord

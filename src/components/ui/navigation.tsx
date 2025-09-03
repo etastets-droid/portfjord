@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, X, Globe } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import puertoFjordLogo from "@/assets/puerto-fjord-logo.png";
+import { Link } from "react-router-dom";
 interface NavigationProps {
   language: 'en' | 'es';
   onLanguageChange: (lang: 'en' | 'es') => void;
@@ -59,7 +60,7 @@ export function Navigation({
               {t.contact}
             </a>
             <Button variant="outline" size="sm" asChild>
-              <a href="/owner-login">{t.ownerPortal}</a>
+              <Link to="/owner-login">{t.ownerPortal}</Link>
             </Button>
           </div>
 
@@ -113,7 +114,7 @@ export function Navigation({
                 {t.contact}
               </a>
               <Button variant="outline" size="sm" className="self-start" asChild>
-                <a href="/owner-login">{t.ownerPortal}</a>
+                <Link to="/owner-login">{t.ownerPortal}</Link>
               </Button>
               <div className="flex items-center space-x-2">
                 <DropdownMenu>

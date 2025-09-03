@@ -86,6 +86,7 @@ interface Property {
   images: string[];
   status: string;
   address: string;
+  available_for_booking: boolean;
 }
 
 const HouseDetails = () => {
@@ -212,8 +213,8 @@ const HouseDetails = () => {
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-2xl">{property.name}</CardTitle>
-                  <Badge variant={property.status === 'active' ? "default" : "secondary"}>
-                    {property.status === 'active' ? t.available : t.unavailable}
+                  <Badge variant={property.available_for_booking ? "default" : "secondary"}>
+                    {property.available_for_booking ? t.available : t.unavailable}
                   </Badge>
                 </div>
                 <div className="flex items-center gap-4 text-muted-foreground">
@@ -243,7 +244,7 @@ const HouseDetails = () => {
                 
                 <Button 
                   className="w-full bg-gradient-fjord hover:opacity-90 transition-opacity"
-                  disabled={property.status !== 'active'}
+                  disabled={!property.available_for_booking}
                   onClick={() => setIsBookingModalOpen(true)}
                 >
                   <Calendar className="h-4 w-4 mr-2" />

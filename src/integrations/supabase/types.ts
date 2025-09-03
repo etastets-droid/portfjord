@@ -48,6 +48,7 @@ export type Database = {
         Row: {
           address: string | null
           amenities: string[] | null
+          available_for_booking: boolean | null
           bathrooms: number | null
           bedrooms: number | null
           created_at: string
@@ -64,6 +65,7 @@ export type Database = {
         Insert: {
           address?: string | null
           amenities?: string[] | null
+          available_for_booking?: boolean | null
           bathrooms?: number | null
           bedrooms?: number | null
           created_at?: string
@@ -80,6 +82,7 @@ export type Database = {
         Update: {
           address?: string | null
           amenities?: string[] | null
+          available_for_booking?: boolean | null
           bathrooms?: number | null
           bedrooms?: number | null
           created_at?: string

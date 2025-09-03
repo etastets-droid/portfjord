@@ -19,6 +19,7 @@ interface Property {
   amenities: string[];
   images: string[];
   status: string;
+  available_for_booking: boolean;
 }
 
 const translations = {
@@ -109,8 +110,8 @@ export function HousesSection({ language }: HousesSectionProps) {
                 
                   {/* Availability Badge */}
                   <div className="absolute top-4 right-4">
-                    <Badge variant={property.status === 'active' ? "default" : "secondary"} className="bg-white/90 text-foreground">
-                      {property.status === 'active' ? t.available : t.unavailable}
+                    <Badge variant={property.available_for_booking ? "default" : "secondary"} className="bg-white/90 text-foreground">
+                      {property.available_for_booking ? t.available : t.unavailable}
                     </Badge>
                   </div>
                 </div>
@@ -148,7 +149,7 @@ export function HousesSection({ language }: HousesSectionProps) {
                     </Link>
                     <Button 
                       className="flex-1 bg-gradient-fjord hover:opacity-90 transition-opacity"
-                      disabled={property.status !== 'active'}
+                      disabled={!property.available_for_booking}
                     >
                       <Calendar className="h-4 w-4 mr-2" />
                       {t.bookNow}

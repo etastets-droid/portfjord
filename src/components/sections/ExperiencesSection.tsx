@@ -5,11 +5,9 @@ import { Badge } from "@/components/ui/badge";
 import { Clock, Users, Star, Sparkles } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { ExperienceRequestModal } from "@/components/ExperienceRequestModal";
-
 interface ExperiencesSectionProps {
   language: 'en' | 'es';
 }
-
 interface Experience {
   id: string;
   name: string;
@@ -20,7 +18,6 @@ interface Experience {
   price_range: string;
   included_items: string[];
 }
-
 const translations = {
   en: {
     title: "Unforgettable Experiences",
@@ -45,7 +42,6 @@ const translations = {
     loading: "Cargando experiencias..."
   }
 };
-
 const difficultyColors = {
   'Easy': 'bg-green-100 text-green-800 border-green-200',
   'Intermediate': 'bg-yellow-100 text-yellow-800 border-yellow-200',
@@ -54,22 +50,22 @@ const difficultyColors = {
   'Intermedio': 'bg-yellow-100 text-yellow-800 border-yellow-200',
   'Avanzado': 'bg-red-100 text-red-800 border-red-200'
 };
-
-export function ExperiencesSection({ language }: ExperiencesSectionProps) {
+export function ExperiencesSection({
+  language
+}: ExperiencesSectionProps) {
   const [experiences, setExperiences] = useState<Experience[]>([]);
   const [loading, setLoading] = useState(true);
   const [isRequestModalOpen, setIsRequestModalOpen] = useState(false);
   const t = translations[language];
-
   useEffect(() => {
     const fetchExperiences = async () => {
       try {
-        const { data, error } = await supabase
-          .from('experiences')
-          .select('*')
-          .eq('status', 'active')
-          .order('created_at', { ascending: true });
-
+        const {
+          data,
+          error
+        } = await supabase.from('experiences').select('*').eq('status', 'active').order('created_at', {
+          ascending: true
+        });
         if (error) throw error;
         setExperiences(data || []);
       } catch (error) {
@@ -78,24 +74,18 @@ export function ExperiencesSection({ language }: ExperiencesSectionProps) {
         setLoading(false);
       }
     };
-
     fetchExperiences();
   }, []);
-
   if (loading) {
-    return (
-      <section id="experiences" className="py-24 bg-background">
+    return <section id="experiences" className="py-24 bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center py-12">
             <p className="text-muted-foreground">{t.loading}</p>
           </div>
         </div>
-      </section>
-    );
+      </section>;
   }
-
-  return (
-    <section id="experiences" className="py-24 bg-background">
+  return <section id="experiences" className="py-24 bg-background">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16">
@@ -109,18 +99,11 @@ export function ExperiencesSection({ language }: ExperiencesSectionProps) {
 
         {/* Experiences Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          {experiences.map((experience) => (
-            <Card key={experience.id} className="group overflow-hidden border-0 shadow-card hover:shadow-luxury transition-all duration-500 hover:scale-[1.02]">
+          {experiences.map(experience => <Card key={experience.id} className="group overflow-hidden border-0 shadow-card hover:shadow-luxury transition-all duration-500 hover:scale-[1.02]">
               <div className="relative h-48 overflow-hidden">
-                <img 
-                  src={experience.image_url} 
-                  alt={experience.name}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                />
+                <img src={experience.image_url} alt={experience.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                 <div className="absolute top-4 right-4">
-                  <Badge 
-                    className={`${difficultyColors[experience.difficulty_level as keyof typeof difficultyColors] || 'bg-gray-100 text-gray-800'} border`}
-                  >
+                  <Badge className={`${difficultyColors[experience.difficulty_level as keyof typeof difficultyColors] || 'bg-gray-100 text-gray-800'} border`}>
                     {experience.difficulty_level}
                   </Badge>
                 </div>
@@ -141,25 +124,19 @@ export function ExperiencesSection({ language }: ExperiencesSectionProps) {
                     <Clock className="h-4 w-4 mr-1" />
                     <span className="text-sm">{experience.duration}</span>
                   </div>
-                  <div className="text-sm font-semibold text-primary">
-                    {experience.name === 'Cueva del Milodón y Rupestre Full Day' ? 'Included' : experience.price_range}
-                  </div>
+                  
                 </div>
                 
                 {/* Included Items */}
                 <div className="mb-6">
                   <p className="text-sm font-medium text-foreground mb-2">{t.included}:</p>
                   <div className="flex flex-wrap gap-1">
-                    {experience.included_items.slice(0, 3).map((item, index) => (
-                      <Badge key={index} variant="outline" className="text-xs">
+                    {experience.included_items.slice(0, 3).map((item, index) => <Badge key={index} variant="outline" className="text-xs">
                         {item}
-                      </Badge>
-                    ))}
-                    {experience.included_items.length > 3 && (
-                      <Badge variant="outline" className="text-xs">
+                      </Badge>)}
+                    {experience.included_items.length > 3 && <Badge variant="outline" className="text-xs">
                         +{experience.included_items.length - 3} more
-                      </Badge>
-                    )}
+                      </Badge>}
                   </div>
                 </div>
                 
@@ -169,8 +146,7 @@ export function ExperiencesSection({ language }: ExperiencesSectionProps) {
                   {t.bookExperience}
                 </Button>
               </CardContent>
-            </Card>
-          ))}
+            </Card>)}
         </div>
 
         {/* Tailor-Made Experience CTA */}
@@ -186,11 +162,7 @@ export function ExperiencesSection({ language }: ExperiencesSectionProps) {
               <p className="text-muted-foreground mb-6 leading-relaxed">
                 {t.tailorMadeSubtitle}
               </p>
-              <Button 
-                size="lg" 
-                className="bg-gradient-fjord hover:opacity-90 transition-opacity"
-                onClick={() => setIsRequestModalOpen(true)}
-              >
+              <Button size="lg" className="bg-gradient-fjord hover:opacity-90 transition-opacity" onClick={() => setIsRequestModalOpen(true)}>
                 <Sparkles className="h-5 w-5 mr-2" />
                 {t.tailorMade}
               </Button>
@@ -200,11 +172,6 @@ export function ExperiencesSection({ language }: ExperiencesSectionProps) {
       </div>
 
       {/* Tailor-Made Experience Request Modal */}
-      <ExperienceRequestModal
-        isOpen={isRequestModalOpen}
-        onClose={() => setIsRequestModalOpen(false)}
-        language={language}
-      />
-    </section>
-  );
+      <ExperienceRequestModal isOpen={isRequestModalOpen} onClose={() => setIsRequestModalOpen(false)} language={language} />
+    </section>;
 }

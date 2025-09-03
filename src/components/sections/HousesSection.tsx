@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { MapPin, Users, Eye, Calendar } from "lucide-react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/lib/supabase";
+import { BookingModal } from "@/components/BookingModal";
 
 interface HousesSectionProps {
   language: 'en' | 'es';
@@ -48,6 +49,8 @@ const translations = {
 export function HousesSection({ language }: HousesSectionProps) {
   const [properties, setProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+  const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
   const t = translations[language];
 
   useEffect(() => {
@@ -69,6 +72,11 @@ export function HousesSection({ language }: HousesSectionProps) {
 
     fetchProperties();
   }, []);
+
+  const handleBookNow = (property: Property) => {
+    setSelectedProperty(property);
+    setIsBookingModalOpen(true);
+  };
 
   return (
     <section id="houses" className="py-24 bg-muted/30">
@@ -150,6 +158,7 @@ export function HousesSection({ language }: HousesSectionProps) {
                     <Button 
                       className="flex-1 bg-gradient-fjord hover:opacity-90 transition-opacity"
                       disabled={!property.available_for_booking}
+                      onClick={() => handleBookNow(property)}
                     >
                       <Calendar className="h-4 w-4 mr-2" />
                       {t.bookNow}
@@ -161,6 +170,24 @@ export function HousesSection({ language }: HousesSectionProps) {
           </div>
         )}
       </div>
+
+      {/* Booking Modal */}
+      {selectedProperty && (
+        <BookingModal
+          isOpen={isBookingModalOpen}
+          onClose={() => {
+            setIsBookingModalOpen(false);
+            setSelectedProperty(null);
+          }}
+          house={{
+            id: selectedProperty.id,
+            name: selectedProperty.name,
+            capacity: selectedProperty.max_guests,
+            price: selectedProperty.price_per_night
+          }}
+          language={language}
+        />
+      )}
     </section>
   );
 }

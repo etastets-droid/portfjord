@@ -177,7 +177,6 @@ const HouseDetails = () => {
   const getHouseImages = (propertyId: string) => {
     const imageMap: { [key: string]: string[] } = {
       'f854966e-2dfe-42f8-a7c7-b6e9f24e91fb': [
-        '/lovable-uploads/7fdec9b5-cb94-4cb7-acb3-c45bc24e24fb.png',
         '/lovable-uploads/659a3b5d-b708-40b4-b1e9-38cd5c57db7f.png',
         '/lovable-uploads/ff2919d1-55af-4a22-98a5-dde2ab8eb4ec.png',
         '/lovable-uploads/b4a8c260-828e-4b21-be2b-9190d959bf43.png',

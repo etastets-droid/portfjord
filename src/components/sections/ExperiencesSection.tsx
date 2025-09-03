@@ -104,11 +104,15 @@ export function ExperiencesSection({
           {experiences.map(experience => <Card key={experience.id} className="group overflow-hidden border-0 shadow-card hover:shadow-luxury transition-all duration-500 hover:scale-[1.02]">
               <div className="relative h-48 overflow-hidden">
                 <img 
-                  src={failedImages[experience.id]
-                    ? '/placeholder.svg'
-                    : (experience.image_url?.startsWith('/lovable-uploads/')
-                        ? experience.image_url
-                        : `${experience.image_url}${experience.image_url?.includes('?') ? '' : `?v=${encodeURIComponent(experience.updated_at || experience.id)}`}`)}
+                  src={
+                    failedImages[experience.id]
+                      ? '/placeholder.svg'
+                      : (experience.id === '51660a40-7675-4287-90bb-4335cf5f8500'
+                          ? '/lovable-uploads/140fd2e0-65fc-4262-99e3-ab71f4ab1b68.png'
+                          : experience.id === '0b1655cf-929c-41d4-a388-13fa725b4b6b'
+                            ? '/lovable-uploads/e0936169-fe06-4541-83f4-a9431fd2b0ca.png'
+                            : experience.image_url)
+                  }
                   alt={`${experience.name} - Patagonia experience`}
                   loading="lazy"
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"

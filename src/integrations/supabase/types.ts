@@ -113,9 +113,11 @@ export type Database = {
           guest_phone: string | null
           guests_count: number
           id: string
+          payment_status: string | null
           property_id: string
           special_requests: string | null
           status: string | null
+          stripe_session_id: string | null
           total_amount: number
           updated_at: string
         }
@@ -128,9 +130,11 @@ export type Database = {
           guest_phone?: string | null
           guests_count?: number
           id?: string
+          payment_status?: string | null
           property_id: string
           special_requests?: string | null
           status?: string | null
+          stripe_session_id?: string | null
           total_amount: number
           updated_at?: string
         }
@@ -143,9 +147,11 @@ export type Database = {
           guest_phone?: string | null
           guests_count?: number
           id?: string
+          payment_status?: string | null
           property_id?: string
           special_requests?: string | null
           status?: string | null
+          stripe_session_id?: string | null
           total_amount?: number
           updated_at?: string
         }

@@ -98,11 +98,9 @@ export function BookingModal({ isOpen, onClose, house, language }: BookingModalP
     if (isOpen && house.id) {
       const fetchReservations = async () => {
         try {
+          // Use the secure RPC function instead of direct table access
           const { data, error } = await supabase
-            .from('reservations')
-            .select('check_in, check_out')
-            .eq('property_id', house.id)
-            .in('status', ['confirmed', 'pending']); // Include pending reservations too
+            .rpc('get_reserved_dates', { _property_id: house.id });
 
           if (error) throw error;
           setExistingReservations(data || []);
@@ -209,7 +207,18 @@ export function BookingModal({ isOpen, onClose, house, language }: BookingModalP
           payment_status: 'pending'
         });
 
-      if (error) throw error;
+      if (error) {
+        // Check if it's an overlapping reservation error
+        if (error.code === 'P0001') {
+          toast({
+            title: "Error",
+            description: "Las fechas seleccionadas ya están reservadas. Por favor selecciona otras fechas.",
+            variant: "destructive",
+          });
+          return;
+        }
+        throw error;
+      }
 
       toast({
         title: "Success!",

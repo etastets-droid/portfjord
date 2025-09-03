@@ -260,7 +260,13 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_reserved_dates: {
+        Args: { _property_id: string }
+        Returns: {
+          check_in: string
+          check_out: string
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never

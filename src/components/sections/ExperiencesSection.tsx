@@ -142,7 +142,7 @@ export function ExperiencesSection({ language }: ExperiencesSectionProps) {
                     <span className="text-sm">{experience.duration}</span>
                   </div>
                   <div className="text-sm font-semibold text-primary">
-                    {experience.price_range}
+                    {experience.name === 'Cueva del Milodón y Rupestre Full Day' ? 'Included' : experience.price_range}
                   </div>
                 </div>
                 

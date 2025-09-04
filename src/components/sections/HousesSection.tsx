@@ -26,7 +26,7 @@ interface Property {
 const translations = {
   en: {
     title: "Exclusive Houses",
-    subtitle: "Five unique luxury retreats, each offering distinct experiences in pristine Patagonian wilderness",
+    subtitle: "Five unique luxury retreats, and one chill out house, each offering distinct experiences in pristine Patagonian wilderness",
     viewDetails: "View Details",
     bookNow: "Book Now",
     guests: "guests",

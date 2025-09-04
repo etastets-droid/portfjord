@@ -109,7 +109,7 @@ export function HeroSection({
               <Calendar className="h-5 w-5 mr-2" />
               {t.bookNow}
             </Button>
-            <Button variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10 backdrop-blur-sm transition-all duration-300 shadow-luxury text-lg px-8 py-6 rounded-lg" onClick={() => document.getElementById('houses')?.scrollIntoView({
+            <Button variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10 backdrop-blur-sm transition-all duration-300 shadow-luxury text-lg px-8 py-6 rounded-lg bg-[#000a00]/[0.31]" onClick={() => document.getElementById('houses')?.scrollIntoView({
             behavior: 'smooth'
           })}>
               {t.viewHouses}

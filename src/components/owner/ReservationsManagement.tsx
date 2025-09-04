@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Check, X, Eye, Filter } from "lucide-react";
+import { Check, X, Eye, Filter, Trash2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -117,12 +117,37 @@ export function ReservationsManagement() {
         description: `Reserva ${newStatus === 'confirmed' ? 'confirmada' : 'cancelada'} correctamente`
       });
       loadReservations();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error updating reservation:', error);
       toast({
         title: "Error",
-        description: "No se pudo actualizar la reserva",
+        description: `No se pudo actualizar la reserva: ${error.message || error}`,
         variant: "destructive"
+      });
+    }
+  };
+
+  const deleteReservation = async (reservationId: string) => {
+    if (!confirm('¿Deseas eliminar esta reserva de forma permanente?')) return;
+    try {
+      const { error } = await supabase
+        .from('reservations')
+        .delete()
+        .eq('id', reservationId);
+
+      if (error) throw error;
+
+      toast({
+        title: 'Reserva eliminada',
+        description: 'La reserva ha sido eliminada correctamente.'
+      });
+      loadReservations();
+    } catch (error: any) {
+      console.error('Error deleting reservation:', error);
+      toast({
+        title: 'Error',
+        description: `No se pudo eliminar la reserva: ${error.message || error}`,
+        variant: 'destructive'
       });
     }
   };
@@ -278,6 +303,14 @@ export function ReservationsManagement() {
                                 </Button>
                               </>
                             )}
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => deleteReservation(selectedReservation.id)}
+                            >
+                              <Trash2 className="h-4 w-4 mr-1" />
+                              Eliminar
+                            </Button>
                           </div>
                         </div>
                       )}

@@ -51,6 +51,22 @@ export function CalendarView() {
       const startOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1);
       const endOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 2, 0);
 
+      // First get properties owned by this owner
+      const { data: properties, error: propertiesError } = await supabase
+        .from('properties')
+        .select('id')
+        .eq('owner_id', owner.id);
+
+      if (propertiesError) throw propertiesError;
+
+      const propertyIds = properties?.map(p => p.id) || [];
+
+      if (propertyIds.length === 0) {
+        setReservations([]);
+        return;
+      }
+
+      // Then get reservations for those properties
       const { data, error } = await supabase
         .from('reservations')
         .select(`
@@ -59,7 +75,7 @@ export function CalendarView() {
             name
           )
         `)
-        .eq('properties.owner_id', owner.id)
+        .in('property_id', propertyIds)
         .gte('check_in', startOfMonth.toISOString().split('T')[0])
         .lte('check_out', endOfMonth.toISOString().split('T')[0]);
 
@@ -131,15 +147,25 @@ export function CalendarView() {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'confirmed':
-        return 'bg-green-100 text-green-800';
+        return 'bg-green-500 text-white border-green-600';
       case 'pending':
-        return 'bg-yellow-100 text-yellow-800';
+        return 'bg-yellow-500 text-white border-yellow-600';
       case 'cancelled':
-        return 'bg-red-100 text-red-800';
+        return 'bg-red-500 text-white border-red-600';
       case 'completed':
-        return 'bg-blue-100 text-blue-800';
+        return 'bg-blue-500 text-white border-blue-600';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-gray-500 text-white border-gray-600';
+    }
+  };
+
+  const getStatusText = (status: string) => {
+    switch (status) {
+      case 'confirmed': return 'Confirmada';
+      case 'pending': return 'Pendiente';
+      case 'cancelled': return 'Cancelada';
+      case 'completed': return 'Completada';
+      default: return status;
     }
   };
 
@@ -207,7 +233,7 @@ export function CalendarView() {
             {days.map((day, index) => (
               <div
                 key={index}
-                className={`min-h-24 p-1 border rounded-lg ${
+                className={`min-h-32 p-2 border rounded-lg ${
                   day.isCurrentMonth 
                     ? 'border-border' 
                     : 'border-muted bg-muted/30'
@@ -217,25 +243,33 @@ export function CalendarView() {
                     : ''
                 }`}
               >
-                <div className={`text-sm font-medium ${
+                <div className={`text-sm font-medium mb-2 ${
                   day.isCurrentMonth ? 'text-foreground' : 'text-muted-foreground'
                 }`}>
                   {day.date.getDate()}
                 </div>
                 
-                <div className="space-y-1 mt-1">
-                  {day.reservations.slice(0, 2).map((reservation) => (
+                <div className="space-y-1">
+                  {day.reservations.slice(0, 3).map((reservation) => (
                     <div
                       key={reservation.id}
-                      className={`text-xs p-1 rounded truncate ${getStatusColor(reservation.status)}`}
-                      title={`${reservation.guest_name} - ${reservation.properties?.name}`}
+                      className={`text-xs p-1.5 rounded border ${getStatusColor(reservation.status)}`}
+                      title={`${reservation.properties?.name} - ${reservation.guest_name} (${getStatusText(reservation.status)})`}
                     >
-                      {reservation.guest_name}
+                      <div className="font-medium truncate">
+                        {reservation.properties?.name}
+                      </div>
+                      <div className="truncate opacity-90">
+                        {reservation.guest_name}
+                      </div>
+                      <div className="text-xs opacity-75">
+                        {getStatusText(reservation.status)}
+                      </div>
                     </div>
                   ))}
-                  {day.reservations.length > 2 && (
-                    <div className="text-xs text-muted-foreground">
-                      +{day.reservations.length - 2} más
+                  {day.reservations.length > 3 && (
+                    <div className="text-xs text-muted-foreground p-1">
+                      +{day.reservations.length - 3} más
                     </div>
                   )}
                 </div>
@@ -253,19 +287,19 @@ export function CalendarView() {
         <CardContent>
           <div className="flex flex-wrap gap-4">
             <div className="flex items-center space-x-2">
-              <div className="w-4 h-4 bg-green-100 border rounded"></div>
+              <div className="w-4 h-4 bg-green-500 border rounded"></div>
               <span className="text-sm">Confirmada</span>
             </div>
             <div className="flex items-center space-x-2">
-              <div className="w-4 h-4 bg-yellow-100 border rounded"></div>
+              <div className="w-4 h-4 bg-yellow-500 border rounded"></div>
               <span className="text-sm">Pendiente</span>
             </div>
             <div className="flex items-center space-x-2">
-              <div className="w-4 h-4 bg-blue-100 border rounded"></div>
+              <div className="w-4 h-4 bg-blue-500 border rounded"></div>
               <span className="text-sm">Completada</span>
             </div>
             <div className="flex items-center space-x-2">
-              <div className="w-4 h-4 bg-red-100 border rounded"></div>
+              <div className="w-4 h-4 bg-red-500 border rounded"></div>
               <span className="text-sm">Cancelada</span>
             </div>
           </div>

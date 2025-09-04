@@ -62,6 +62,22 @@ export function ReservationsManagement() {
 
       if (!owner) return;
 
+      // First get properties owned by this owner
+      const { data: properties, error: propertiesError } = await supabase
+        .from('properties')
+        .select('id')
+        .eq('owner_id', owner.id);
+
+      if (propertiesError) throw propertiesError;
+
+      const propertyIds = properties?.map(p => p.id) || [];
+
+      if (propertyIds.length === 0) {
+        setReservations([]);
+        return;
+      }
+
+      // Then get reservations for those properties
       const { data, error } = await supabase
         .from('reservations')
         .select(`
@@ -70,7 +86,7 @@ export function ReservationsManagement() {
             name
           )
         `)
-        .eq('properties.owner_id', owner.id)
+        .in('property_id', propertyIds)
         .order('created_at', { ascending: false });
 
       if (error) throw error;

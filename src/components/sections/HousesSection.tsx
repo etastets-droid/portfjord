@@ -59,7 +59,8 @@ export function HousesSection({ language }: HousesSectionProps) {
         const { data, error } = await supabase
           .from('properties')
           .select('*')
-          .order('created_at', { ascending: true });
+          .eq('status', 'active')
+          .order('created_at', { ascending: false });
 
         if (error) throw error;
         setProperties(data || []);

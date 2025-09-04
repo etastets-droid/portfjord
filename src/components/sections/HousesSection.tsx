@@ -102,20 +102,37 @@ export function HousesSection({ language }: HousesSectionProps) {
               <Card key={property.id} className="group overflow-hidden border-0 shadow-card hover:shadow-luxury transition-all duration-500 hover:scale-[1.02]">
                 <div className="relative h-64 bg-gradient-to-r from-stone-light to-cedar-light overflow-hidden">
                   {/* Property image */}
-                  {property.images && property.images.length > 0 ? (
-                    <img 
-                      src={property.images[0]} 
-                      alt={property.name}
-                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                    />
-                  ) : (
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
-                      <div className="text-center text-white">
-                        <Eye className="h-12 w-12 mx-auto mb-2 opacity-70" />
-                        <p className="text-sm opacity-80">{property.name}</p>
+                  {(() => {
+                    // Use specific image for Chill Out House
+                    if (property.name === "Chill Out House" || property.id === "b26a2595-5958-4cb1-a8c2-f7740e3ad9c0") {
+                      return (
+                        <img 
+                          src="/lovable-uploads/c974ef80-9246-42d6-97c2-8066235501fb.png" 
+                          alt={property.name}
+                          className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        />
+                      );
+                    }
+                    // Default behavior for other properties
+                    if (property.images && property.images.length > 0) {
+                      return (
+                        <img 
+                          src={property.images[0]} 
+                          alt={property.name}
+                          className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        />
+                      );
+                    }
+                    // Fallback for properties without images
+                    return (
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
+                        <div className="text-center text-white">
+                          <Eye className="h-12 w-12 mx-auto mb-2 opacity-70" />
+                          <p className="text-sm opacity-80">{property.name}</p>
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    );
+                  })()}
                 
                   {/* Availability Badge */}
                   <div className="absolute top-4 right-4">

@@ -45,9 +45,13 @@ export function HeroSection({
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => 
-        prevIndex === heroImages.length - 1 ? 0 : prevIndex + 1
-      );
+      setCurrentImageIndex((prevIndex) => {
+        // Se detiene después de mostrar todas las imágenes una vez
+        if (prevIndex === heroImages.length - 1) {
+          return prevIndex; // Se queda en la última imagen
+        }
+        return prevIndex + 1;
+      });
     }, 4000); // Cambia cada 4 segundos
 
     return () => clearInterval(interval);

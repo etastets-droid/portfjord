@@ -192,7 +192,11 @@ const HouseDetails = () => {
         '/lovable-uploads/813a5dd0-b086-4e17-acc6-657d9c0f0560.png',
         '/lovable-uploads/9b881fa3-5578-4f76-85ec-1c5bf200f199.png',
         '/lovable-uploads/c952ac40-25cb-4843-b552-44cb3c9476e7.png',
-        '/lovable-uploads/6973eb9d-c871-46a6-b6ee-bc100dc0f370.png'
+        '/lovable-uploads/6973eb9d-c871-46a6-b6ee-bc100dc0f370.png',
+        '/lovable-uploads/954746cd-b00a-4d31-b3d5-96df75b0a9f5.png',
+        '/lovable-uploads/2bc8dcdb-f746-46d2-91a2-07a31f3f24ad.png',
+        '/lovable-uploads/c8dd0d7f-fd4c-467f-916e-d487c9ee830a.png',
+        '/lovable-uploads/d083c4c5-5043-4f7e-95d9-ed4342f016b4.png'
       ],
       '88179db7-4dc8-44ac-a623-fa48c516e8c1': [
         '/lovable-uploads/edb62099-11a5-42e4-98c5-b1d722711bc3.png',

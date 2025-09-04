@@ -234,6 +234,7 @@ const HouseDetails = () => {
       ],
       // Chill Out House
       'b26a2595-5958-4cb1-a8c2-f7740e3ad9c0': [
+        '/lovable-uploads/c974ef80-9246-42d6-97c2-8066235501fb.png',
         '/lovable-uploads/8db2f189-b749-45f5-9e7f-96d764cc49fd.png',
         '/lovable-uploads/d12936f6-0d9a-4c46-873a-d1dc585ea9f2.png',
         '/lovable-uploads/f34914c1-7a99-437c-af7c-517fed06bd46.png',

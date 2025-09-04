@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/lib/supabase";
 
 const CreateOwner = () => {
   const [loading, setLoading] = useState(false);
@@ -12,33 +13,25 @@ const CreateOwner = () => {
   const handleCreateWoodsOwner = async () => {
     setLoading(true);
     try {
-      const response = await fetch('/supabase/functions/v1/create-owner-user', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
+      const { data, error } = await supabase.functions.invoke('create-owner-user', {
+        body: {
           email: 'tcpatagonia30@hotmail.com',
           password: 'WoodsHouse2024!',
           name: 'Woods House Owner',
-          propertyId: '9c83de44-dbf7-4b7c-a5c0-b6934a867d81' // The Woods House ID
-        })
+          propertyId: '9c83de44-dbf7-4b7c-a5c0-b6934a867d81'
+        }
       });
 
-      const data = await response.json();
-      
-      if (response.ok) {
-        toast({
-          title: "Usuario creado exitosamente",
-          description: `Owner creado para The Woods House. Email: tcpatagonia30@hotmail.com, Password: WoodsHouse2024!`
-        });
-      } else {
-        throw new Error(data.error);
-      }
-    } catch (error) {
+      if (error) throw error;
+
+      toast({
+        title: "Usuario creado exitosamente",
+        description: `Owner creado para The Woods House. Email: tcpatagonia30@hotmail.com, Password: WoodsHouse2024!`
+      });
+    } catch (error: any) {
       toast({
         title: "Error",
-        description: `Error al crear usuario: ${error}`,
+        description: `Error al crear usuario: ${error.message || error}`,
         variant: "destructive"
       });
     } finally {

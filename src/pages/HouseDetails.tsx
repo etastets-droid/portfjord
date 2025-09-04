@@ -269,7 +269,7 @@ const HouseDetails = () => {
           <div className="lg:w-2/3">
             <div className="grid grid-cols-1 gap-4">
               {/* Main Image */}
-              <div className="relative h-96 bg-muted rounded-lg overflow-hidden">
+              <div className="relative h-[32rem] bg-muted rounded-lg overflow-hidden">
                 <img 
                   src={houseImages[selectedImage] || '/placeholder.svg'} 
                   alt={property.name}
@@ -284,7 +284,7 @@ const HouseDetails = () => {
                     <button
                       key={index}
                       onClick={() => setSelectedImage(index)}
-                      className={`h-36 bg-muted rounded-lg overflow-hidden border-2 transition-colors ${
+                      className={`h-48 bg-muted rounded-lg overflow-hidden border-2 transition-colors ${
                         selectedImage === index ? 'border-primary' : 'border-transparent'
                       }`}
                     >

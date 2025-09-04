@@ -169,7 +169,10 @@ export function ExperiencesSection({
                 </div>
                 
                 {/* Book Button */}
-                <Button className="w-full bg-gradient-fjord hover:opacity-90 transition-opacity">
+                <Button 
+                  className="w-full bg-gradient-fjord hover:opacity-90 transition-opacity"
+                  onClick={() => setIsRequestModalOpen(true)}
+                >
                   <Star className="h-4 w-4 mr-2" />
                   {t.bookExperience}
                 </Button>

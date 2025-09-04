@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { MapPin, Calendar } from "lucide-react";
 import { FjordLogo } from "@/components/ui/FjordLogo";
-import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import { useEffect, useState } from "react";
 
 const heroImages = [
@@ -55,29 +54,20 @@ export function HeroSection({
   }, []);
 
   return <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Carousel */}
-      <Carousel 
-        className="absolute inset-0 w-full h-full"
-        opts={{
-          align: "start",
-          loop: true,
-        }}
-      >
-        <CarouselContent className="ml-0">
-          {heroImages.map((image, index) => (
-            <CarouselItem key={index} className="pl-0 basis-full">
-              <img 
-                src={image} 
-                alt={language === 'es' ? 'Fiordos y montañas de la Patagonia' : 'Patagonian fjords and mountains'} 
-                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
-                  index === currentImageIndex ? 'opacity-100' : 'opacity-0'
-                }`}
-                style={{ objectPosition: '50% 35%' }}
-              />
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-      </Carousel>
+      {/* Background Images with Auto-rotate */}
+      <div className="absolute inset-0 w-full h-full">
+        {heroImages.map((image, index) => (
+          <img 
+            key={index}
+            src={image} 
+            alt={language === 'es' ? 'Fiordos y montañas de la Patagonia' : 'Patagonian fjords and mountains'} 
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+              index === currentImageIndex ? 'opacity-100' : 'opacity-0'
+            }`}
+            style={{ objectPosition: '50% 35%' }}
+          />
+        ))}
+      </div>
       
       {/* Gradient Overlay */}
       <div className="absolute inset-0 z-[1]" style={{

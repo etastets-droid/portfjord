@@ -150,7 +150,11 @@ export function HeroSection({
           
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
-            <Button size="lg" className="bg-gradient-fjord hover:opacity-90 transition-all duration-300 shadow-luxury text-lg px-8 py-6 rounded-lg">
+            <Button 
+              size="lg" 
+              className="bg-gradient-fjord hover:opacity-90 transition-all duration-300 shadow-luxury text-lg px-8 py-6 rounded-lg"
+              onClick={() => document.getElementById('houses')?.scrollIntoView({ behavior: 'smooth' })}
+            >
               <Calendar className="h-5 w-5 mr-2" />
               {t.bookNow}
             </Button>

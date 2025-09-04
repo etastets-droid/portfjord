@@ -207,6 +207,7 @@ const HouseDetails = () => {
         '/lovable-uploads/e4a1c558-ea16-4c0a-98f0-f7e32e10bc8d.png'
       ],
       '88179db7-4dc8-44ac-a623-fa48c516e8c1': [
+        '/lovable-uploads/94227c44-31e7-4567-8030-807e2de9b181.png',
         '/lovable-uploads/edb62099-11a5-42e4-98c5-b1d722711bc3.png',
         '/lovable-uploads/26f30d1b-66be-4751-ae27-1130fd6c5093.png',
         '/lovable-uploads/b5150852-88e3-47aa-9903-36686f21cd6e.png',

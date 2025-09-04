@@ -178,26 +178,40 @@ const HouseDetails = () => {
 
   // Static image gallery mapping for each house
   const getHouseImages = (propertyId: string) => {
+    const fjordImages: string[] = [
+      '/lovable-uploads/659a3b5d-b708-40b4-b1e9-38cd5c57db7f.png',
+      '/lovable-uploads/ff2919d1-55af-4a22-98a5-dde2ab8eb4ec.png',
+      '/lovable-uploads/b4a8c260-828e-4b21-be2b-9190d959bf43.png',
+      '/lovable-uploads/a2a1cc54-1618-482f-bf78-e1fbe3b30f42.png',
+      '/lovable-uploads/b501e720-d0a3-4945-9bb8-d169d38901e5.png',
+      '/lovable-uploads/82de9304-8a9f-4fb2-9075-45227e8d67b8.png',
+      '/lovable-uploads/9d574bb2-45bb-4e24-a1e2-a0ebf532631b.png',
+      '/lovable-uploads/f3d0cdd0-a755-49af-b716-18ad435b188e.png',
+      '/lovable-uploads/a4122e07-21b1-4f05-b165-67dfef26e578.png',
+      '/lovable-uploads/813a5dd0-b086-4e17-acc6-657d9c0f0560.png',
+      '/lovable-uploads/9b881fa3-5578-4f76-85ec-1c5bf200f199.png',
+      '/lovable-uploads/c952ac40-25cb-4843-b552-44cb3c9476e7.png',
+      '/lovable-uploads/6973eb9d-c871-46a6-b6ee-bc100dc0f370.png',
+      // Nuevas exteriores añadidas
+      '/lovable-uploads/954746cd-b00a-4d31-b3d5-96df75b0a9f5.png',
+      '/lovable-uploads/2bc8dcdb-f746-46d2-91a2-07a31f3f24ad.png',
+      '/lovable-uploads/c8dd0d7f-fd4c-467f-916e-d487c9ee830a.png',
+      '/lovable-uploads/d083c4c5-5043-4f7e-95d9-ed4342f016b4.png',
+      // Nuevas interiores añadidas ahora
+      '/lovable-uploads/9787d25e-9cc3-4e3e-8d8a-4c289f905705.png',
+      '/lovable-uploads/914fa924-7ddc-48d2-b08c-5ef6cc78219b.png',
+      '/lovable-uploads/0b0fde2b-8193-4136-afe5-09ac7039ca9a.png',
+      '/lovable-uploads/1ea933a1-cecb-4ebc-a61c-e5cd1c003fd6.png',
+      '/lovable-uploads/ef9b15ab-9362-4a44-bb31-d80ba88947d3.png',
+      '/lovable-uploads/c209115e-d552-44a6-9ab7-53ca9efc814e.png',
+      '/lovable-uploads/8ab3933a-00cc-41bc-aa36-d8e3a59475e1.png',
+      '/lovable-uploads/caa0059c-5c02-4c1a-a16a-297f389d0346.png'
+    ];
+
     const imageMap: { [key: string]: string[] } = {
-      'f854966e-2dfe-42f8-a7c7-b6e9f24e91fb': [
-        '/lovable-uploads/659a3b5d-b708-40b4-b1e9-38cd5c57db7f.png',
-        '/lovable-uploads/ff2919d1-55af-4a22-98a5-dde2ab8eb4ec.png',
-        '/lovable-uploads/b4a8c260-828e-4b21-be2b-9190d959bf43.png',
-        '/lovable-uploads/a2a1cc54-1618-482f-bf78-e1fbe3b30f42.png',
-        '/lovable-uploads/b501e720-d0a3-4945-9bb8-d169d38901e5.png',
-        '/lovable-uploads/82de9304-8a9f-4fb2-9075-45227e8d67b8.png',
-        '/lovable-uploads/9d574bb2-45bb-4e24-a1e2-a0ebf532631b.png',
-        '/lovable-uploads/f3d0cdd0-a755-49af-b716-18ad435b188e.png',
-        '/lovable-uploads/a4122e07-21b1-4f05-b165-67dfef26e578.png',
-        '/lovable-uploads/813a5dd0-b086-4e17-acc6-657d9c0f0560.png',
-        '/lovable-uploads/9b881fa3-5578-4f76-85ec-1c5bf200f199.png',
-        '/lovable-uploads/c952ac40-25cb-4843-b552-44cb3c9476e7.png',
-        '/lovable-uploads/6973eb9d-c871-46a6-b6ee-bc100dc0f370.png',
-        '/lovable-uploads/954746cd-b00a-4d31-b3d5-96df75b0a9f5.png',
-        '/lovable-uploads/2bc8dcdb-f746-46d2-91a2-07a31f3f24ad.png',
-        '/lovable-uploads/c8dd0d7f-fd4c-467f-916e-d487c9ee830a.png',
-        '/lovable-uploads/d083c4c5-5043-4f7e-95d9-ed4342f016b4.png'
-      ],
+      // Fjord House (ID conocido) y el ID de la ruta actual apuntan a la misma galería
+      'f854966e-2dfe-42f8-a7c7-b6e9f24e91fb': fjordImages,
+      'bd37ba86-11cd-4b70-936d-c192f6bf0b0d': fjordImages,
       '88179db7-4dc8-44ac-a623-fa48c516e8c1': [
         '/lovable-uploads/edb62099-11a5-42e4-98c5-b1d722711bc3.png',
         '/lovable-uploads/26f30d1b-66be-4751-ae27-1130fd6c5093.png',

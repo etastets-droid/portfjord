@@ -132,7 +132,7 @@ export function ExperiencesSection({
                 />
                 <div className="absolute top-4 right-4">
                   <Badge className={`${difficultyColors[experience.difficulty_level as keyof typeof difficultyColors] || 'bg-gray-100 text-gray-800'} border`}>
-                    {experience.difficulty_level}
+                    Intermediate
                   </Badge>
                 </div>
               </div>

@@ -2,14 +2,7 @@ import { Button } from "@/components/ui/button";
 import { MapPin, Calendar, ChevronLeft, ChevronRight } from "lucide-react";
 import { FjordLogo } from "@/components/ui/FjordLogo";
 import { useEffect, useState } from "react";
-
-const heroImages = [
-  "/lovable-uploads/8f96ad03-30fd-406a-b41d-5744095159b4.png",
-  "/lovable-uploads/d1a96e69-1766-4e4b-8806-c2769640ce1d.png", 
-  "/lovable-uploads/c09c8416-c052-4bd1-88cd-5cbb6ffadbd5.png",
-  "/lovable-uploads/7d18abe5-d372-4a27-94b7-d2a39f1d5206.png",
-  "/lovable-uploads/91c5ba44-ef47-4b82-99f2-d833f69dbd76.png"
-];
+const heroImages = ["/lovable-uploads/8f96ad03-30fd-406a-b41d-5744095159b4.png", "/lovable-uploads/d1a96e69-1766-4e4b-8806-c2769640ce1d.png", "/lovable-uploads/c09c8416-c052-4bd1-88cd-5cbb6ffadbd5.png", "/lovable-uploads/7d18abe5-d372-4a27-94b7-d2a39f1d5206.png", "/lovable-uploads/91c5ba44-ef47-4b82-99f2-d833f69dbd76.png"];
 interface HeroSectionProps {
   language: 'en' | 'es';
 }
@@ -38,87 +31,49 @@ export function HeroSection({
 }: HeroSectionProps) {
   const t = translations[language];
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => 
-        prevIndex === heroImages.length - 1 ? 0 : prevIndex + 1
-      );
+      setCurrentImageIndex(prevIndex => prevIndex === heroImages.length - 1 ? 0 : prevIndex + 1);
     }, 4000); // Cambia cada 4 segundos
 
     return () => clearInterval(interval);
   }, []);
-
   const goToPrevious = () => {
-    setCurrentImageIndex((prevIndex) => 
-      prevIndex === 0 ? heroImages.length - 1 : prevIndex - 1
-    );
+    setCurrentImageIndex(prevIndex => prevIndex === 0 ? heroImages.length - 1 : prevIndex - 1);
   };
-
   const goToNext = () => {
-    setCurrentImageIndex((prevIndex) => 
-      prevIndex === heroImages.length - 1 ? 0 : prevIndex + 1
-    );
+    setCurrentImageIndex(prevIndex => prevIndex === heroImages.length - 1 ? 0 : prevIndex + 1);
   };
-
   return <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Images with Auto-rotate */}
       <div className="absolute inset-0 w-full h-full">
-        {heroImages.map((image, index) => (
-          <img 
-            key={index}
-            src={image} 
-            alt={language === 'es' ? 'Fiordos y montañas de la Patagonia' : 'Patagonian fjords and mountains'} 
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
-              index === currentImageIndex ? 'opacity-100' : 'opacity-0'
-            }`}
-            style={{ objectPosition: '50% 35%' }}
-          />
-        ))}
+        {heroImages.map((image, index) => <img key={index} src={image} alt={language === 'es' ? 'Fiordos y montañas de la Patagonia' : 'Patagonian fjords and mountains'} className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${index === currentImageIndex ? 'opacity-100' : 'opacity-0'}`} style={{
+        objectPosition: '50% 35%'
+      }} />)}
       </div>
 
       {/* Navigation Controls */}
       <div className="absolute left-4 top-1/2 -translate-y-1/2 z-20">
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={goToPrevious}
-          className="bg-white/10 border-white/30 text-white hover:bg-white/20 backdrop-blur-sm"
-        >
+        <Button variant="outline" size="icon" onClick={goToPrevious} className="bg-white/10 border-white/30 text-white hover:bg-white/20 backdrop-blur-sm">
           <ChevronLeft className="h-4 w-4" />
         </Button>
       </div>
       
       <div className="absolute right-4 top-1/2 -translate-y-1/2 z-20">
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={goToNext}
-          className="bg-white/10 border-white/30 text-white hover:bg-white/20 backdrop-blur-sm"
-        >
+        <Button variant="outline" size="icon" onClick={goToNext} className="bg-white/10 border-white/30 text-white hover:bg-white/20 backdrop-blur-sm">
           <ChevronRight className="h-4 w-4" />
         </Button>
       </div>
 
       {/* Image Indicators */}
       <div className="absolute bottom-20 left-1/2 -translate-x-1/2 z-20 flex space-x-2">
-        {heroImages.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentImageIndex(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
-              index === currentImageIndex 
-                ? 'bg-white scale-110' 
-                : 'bg-white/50 hover:bg-white/70'
-            }`}
-          />
-        ))}
+        {heroImages.map((_, index) => <button key={index} onClick={() => setCurrentImageIndex(index)} className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentImageIndex ? 'bg-white scale-110' : 'bg-white/50 hover:bg-white/70'}`} />)}
       </div>
       
       {/* Gradient Overlay */}
       <div className="absolute inset-0 z-[1]" style={{
-        background: 'var(--gradient-hero)'
-      }} />
+      background: 'var(--gradient-hero)'
+    }} />
       
       
       {/* Content */}
@@ -150,20 +105,13 @@ export function HeroSection({
           
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
-            <Button 
-              size="lg" 
-              className="bg-gradient-fjord hover:opacity-90 transition-all duration-300 shadow-luxury text-lg px-8 py-6 rounded-lg"
-              onClick={() => document.getElementById('houses')?.scrollIntoView({ behavior: 'smooth' })}
-            >
+            <Button size="lg" className="bg-gradient-fjord hover:opacity-90 transition-all duration-300 shadow-luxury text-lg px-8 py-6 rounded-lg bg-[#000a00]/[0.31]">
               <Calendar className="h-5 w-5 mr-2" />
               {t.bookNow}
             </Button>
-            <Button 
-              variant="outline" 
-              size="lg" 
-              className="border-white/50 backdrop-blur-sm text-lg px-8 py-6 transition-all duration-300 hover:border-white text-slate-400 rounded-sm bg-black/[0.09]"
-              onClick={() => document.getElementById('houses')?.scrollIntoView({ behavior: 'smooth' })}
-            >
+            <Button variant="outline" size="lg" className="border-white/50 backdrop-blur-sm text-lg px-8 py-6 transition-all duration-300 hover:border-white text-slate-400 rounded-sm bg-black/[0.09]" onClick={() => document.getElementById('houses')?.scrollIntoView({
+            behavior: 'smooth'
+          })}>
               {t.viewHouses}
             </Button>
           </div>

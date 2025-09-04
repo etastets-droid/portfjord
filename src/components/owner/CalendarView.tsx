@@ -18,15 +18,27 @@ interface Reservation {
   };
 }
 
+interface Property {
+  id: string;
+  name: string;
+}
+
+interface PropertyStatus {
+  property: Property;
+  status: 'available' | 'confirmed' | 'pending' | 'completed' | 'cancelled';
+  reservation?: Reservation;
+}
+
 interface CalendarDay {
   date: Date;
   isCurrentMonth: boolean;
-  reservations: Reservation[];
+  propertyStatuses: PropertyStatus[];
 }
 
 export function CalendarView() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [reservations, setReservations] = useState<Reservation[]>([]);
+  const [properties, setProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
 
@@ -47,24 +59,25 @@ export function CalendarView() {
 
       if (!owner) return;
 
-      // Get reservations for the current month and adjacent months
-      const startOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1);
-      const endOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 2, 0);
-
-      // First get properties owned by this owner
-      const { data: properties, error: propertiesError } = await supabase
+      // Get all properties owned by this owner
+      const { data: propertiesData, error: propertiesError } = await supabase
         .from('properties')
-        .select('id')
+        .select('id, name')
         .eq('owner_id', owner.id);
 
       if (propertiesError) throw propertiesError;
+      setProperties(propertiesData || []);
 
-      const propertyIds = properties?.map(p => p.id) || [];
+      const propertyIds = propertiesData?.map(p => p.id) || [];
 
       if (propertyIds.length === 0) {
         setReservations([]);
         return;
       }
+
+      // Get reservations for the current month and adjacent months
+      const startOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1);
+      const endOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 2, 0);
 
       // Then get reservations for those properties
       const { data, error } = await supabase
@@ -107,18 +120,36 @@ export function CalendarView() {
     endDate.setDate(endDate.getDate() + 41); // 6 weeks
     
     for (let date = new Date(startDate); date <= endDate; date.setDate(date.getDate() + 1)) {
-      const dayReservations = reservations.filter(reservation => {
-        const checkIn = new Date(reservation.check_in);
-        const checkOut = new Date(reservation.check_out);
-        const currentDay = new Date(date);
-        
-        return currentDay >= checkIn && currentDay <= checkOut;
+      const currentDay = new Date(date);
+      
+      // For each property, determine its status on this day
+      const propertyStatuses: PropertyStatus[] = properties.map(property => {
+        const dayReservation = reservations.find(reservation => {
+          const checkIn = new Date(reservation.check_in);
+          const checkOut = new Date(reservation.check_out);
+          
+          return reservation.property_id === property.id &&
+                 currentDay >= checkIn && currentDay <= checkOut;
+        });
+
+        if (dayReservation) {
+          return {
+            property,
+            status: dayReservation.status as 'confirmed' | 'pending' | 'completed' | 'cancelled',
+            reservation: dayReservation
+          };
+        } else {
+          return {
+            property,
+            status: 'available' as const
+          };
+        }
       });
       
       days.push({
         date: new Date(date),
         isCurrentMonth: date.getMonth() === month,
-        reservations: dayReservations
+        propertyStatuses
       });
     }
     
@@ -146,14 +177,16 @@ export function CalendarView() {
 
   const getStatusColor = (status: string) => {
     switch (status) {
+      case 'available':
+        return 'bg-green-100 text-green-800 border-green-200';
       case 'confirmed':
-        return 'bg-green-500 text-white border-green-600';
+        return 'bg-blue-500 text-white border-blue-600';
       case 'pending':
         return 'bg-yellow-500 text-white border-yellow-600';
       case 'cancelled':
         return 'bg-red-500 text-white border-red-600';
       case 'completed':
-        return 'bg-blue-500 text-white border-blue-600';
+        return 'bg-purple-500 text-white border-purple-600';
       default:
         return 'bg-gray-500 text-white border-gray-600';
     }
@@ -161,11 +194,23 @@ export function CalendarView() {
 
   const getStatusText = (status: string) => {
     switch (status) {
+      case 'available': return 'Disponible';
       case 'confirmed': return 'Confirmada';
       case 'pending': return 'Pendiente';
       case 'cancelled': return 'Cancelada';
       case 'completed': return 'Completada';
       default: return status;
+    }
+  };
+
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case 'available': return '✓';
+      case 'confirmed': return '●';
+      case 'pending': return '○';
+      case 'cancelled': return '✕';
+      case 'completed': return '★';
+      default: return '?';
     }
   };
 
@@ -233,7 +278,7 @@ export function CalendarView() {
             {days.map((day, index) => (
               <div
                 key={index}
-                className={`min-h-32 p-2 border rounded-lg ${
+                className={`min-h-40 p-2 border rounded-lg ${
                   day.isCurrentMonth 
                     ? 'border-border' 
                     : 'border-muted bg-muted/30'
@@ -250,28 +295,27 @@ export function CalendarView() {
                 </div>
                 
                 <div className="space-y-1">
-                  {day.reservations.slice(0, 3).map((reservation) => (
+                  {day.propertyStatuses.map((propertyStatus) => (
                     <div
-                      key={reservation.id}
-                      className={`text-xs p-1.5 rounded border ${getStatusColor(reservation.status)}`}
-                      title={`${reservation.properties?.name} - ${reservation.guest_name} (${getStatusText(reservation.status)})`}
+                      key={propertyStatus.property.id}
+                      className={`text-xs p-1.5 rounded border ${getStatusColor(propertyStatus.status)}`}
+                      title={`${propertyStatus.property.name} - ${getStatusText(propertyStatus.status)}${propertyStatus.reservation ? ` (${propertyStatus.reservation.guest_name})` : ''}`}
                     >
-                      <div className="font-medium truncate">
-                        {reservation.properties?.name}
+                      <div className="flex items-center justify-between">
+                        <div className="font-medium truncate flex-1">
+                          {propertyStatus.property.name}
+                        </div>
+                        <div className="ml-1">
+                          {getStatusIcon(propertyStatus.status)}
+                        </div>
                       </div>
-                      <div className="truncate opacity-90">
-                        {reservation.guest_name}
-                      </div>
-                      <div className="text-xs opacity-75">
-                        {getStatusText(reservation.status)}
-                      </div>
+                      {propertyStatus.reservation && (
+                        <div className="truncate opacity-90 mt-0.5">
+                          {propertyStatus.reservation.guest_name}
+                        </div>
+                      )}
                     </div>
                   ))}
-                  {day.reservations.length > 3 && (
-                    <div className="text-xs text-muted-foreground p-1">
-                      +{day.reservations.length - 3} más
-                    </div>
-                  )}
                 </div>
               </div>
             ))}
@@ -287,20 +331,24 @@ export function CalendarView() {
         <CardContent>
           <div className="flex flex-wrap gap-4">
             <div className="flex items-center space-x-2">
-              <div className="w-4 h-4 bg-green-500 border rounded"></div>
-              <span className="text-sm">Confirmada</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <div className="w-4 h-4 bg-yellow-500 border rounded"></div>
-              <span className="text-sm">Pendiente</span>
+              <div className="w-4 h-4 bg-green-100 border border-green-200 rounded"></div>
+              <span className="text-sm">✓ Disponible</span>
             </div>
             <div className="flex items-center space-x-2">
               <div className="w-4 h-4 bg-blue-500 border rounded"></div>
-              <span className="text-sm">Completada</span>
+              <span className="text-sm">● Confirmada</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <div className="w-4 h-4 bg-yellow-500 border rounded"></div>
+              <span className="text-sm">○ Pendiente</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <div className="w-4 h-4 bg-purple-500 border rounded"></div>
+              <span className="text-sm">★ Completada</span>
             </div>
             <div className="flex items-center space-x-2">
               <div className="w-4 h-4 bg-red-500 border rounded"></div>
-              <span className="text-sm">Cancelada</span>
+              <span className="text-sm">✕ Cancelada</span>
             </div>
           </div>
         </CardContent>

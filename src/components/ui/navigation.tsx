@@ -91,7 +91,7 @@ export function Navigation({
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-            <Button className="bg-gradient-fjord hover:opacity-90 transition-opacity shadow-luxury">
+            <Button className="bg-gradient-fjord hover:opacity-90 transition-opacity shadow-luxury" onClick={() => handleNavClick('houses')}>
               {t.bookNow}
             </Button>
           </div>
@@ -142,7 +142,7 @@ export function Navigation({
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
-                <Button className="bg-gradient-fjord hover:opacity-90 transition-opacity">
+                <Button className="bg-gradient-fjord hover:opacity-90 transition-opacity" onClick={() => handleNavClick('houses')}>
                   {t.bookNow}
                 </Button>
               </div>

@@ -105,12 +105,22 @@ export function ReservationsManagement() {
 
   const updateReservationStatus = async (reservationId: string, newStatus: string) => {
     try {
-      const { error } = await supabase
-        .from('reservations')
-        .update({ status: newStatus })
-        .eq('id', reservationId);
+      if (newStatus === 'confirmed') {
+        // Use the new RPC function for atomic confirmation
+        const { error } = await supabase.rpc('confirm_reservation', {
+          p_reservation_id: reservationId
+        });
 
-      if (error) throw error;
+        if (error) throw error;
+      } else {
+        // For other status updates (like cancellation)
+        const { error } = await supabase
+          .from('reservations')
+          .update({ status: newStatus })
+          .eq('id', reservationId);
+
+        if (error) throw error;
+      }
       
       toast({
         title: "Éxito",

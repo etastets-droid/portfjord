@@ -308,6 +308,27 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      confirm_reservation: {
+        Args: { p_reservation_id: string }
+        Returns: {
+          check_in: string
+          check_out: string
+          created_at: string
+          guest_email: string
+          guest_name: string
+          guest_phone: string | null
+          guests_count: number
+          id: string
+          payment_status: string | null
+          property_id: string
+          special_requests: string | null
+          status: string | null
+          stripe_session_id: string | null
+          total_amount: number
+          updated_at: string
+          user_id: string | null
+        }
+      }
       get_reserved_dates: {
         Args: { _property_id: string }
         Returns: {

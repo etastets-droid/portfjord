@@ -99,7 +99,10 @@ const HouseDetails = () => {
 
   useEffect(() => {
     const fetchProperty = async () => {
-      if (!id) return;
+      if (!id) {
+        setLoading(false);
+        return;
+      }
       
       try {
         const { data, error } = await supabase

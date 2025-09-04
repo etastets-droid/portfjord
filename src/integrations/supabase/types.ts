@@ -329,6 +329,20 @@ export type Database = {
           user_id: string | null
         }
       }
+      get_anonymized_experience_requests: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          created_at: string
+          experience_type: string
+          group_size: number
+          id: string
+          message: string
+          preferred_dates: string
+          request_reference: string
+          special_requirements: string
+          status: string
+        }[]
+      }
       get_reserved_dates: {
         Args: { _property_id: string }
         Returns: {

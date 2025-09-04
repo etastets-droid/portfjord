@@ -4,15 +4,11 @@ import { FjordLogo } from "@/components/ui/FjordLogo";
 import { useEffect, useState } from "react";
 
 const heroImages = [
-  "/lovable-uploads/d595f609-fd89-411c-af90-5e08d32837f3.png",
-  "/lovable-uploads/26f30d1b-66be-4751-ae27-1130fd6c5093.png",
-  "/lovable-uploads/94227c44-31e7-4567-8030-807e2de9b181.png",
-  "/lovable-uploads/c974ef80-9246-42d6-97c2-8066235501fb.png",
-  "/lovable-uploads/ae303e6f-02ca-4ab5-876a-586e41c7a41e.png",
-  "/lovable-uploads/f9185dfa-cad9-420e-bd1b-745546600b19.png",
-  "/lovable-uploads/b45a7ffb-5864-40af-8f0c-c768df53b37b.png",
-  "/lovable-uploads/1b9dee42-9805-44e8-aad1-501abeb15a41.png",
-  "/lovable-uploads/d72b8862-868b-4ff7-a778-2fa079c15e3a.png"
+  "/lovable-uploads/8f96ad03-30fd-406a-b41d-5744095159b4.png",
+  "/lovable-uploads/d1a96e69-1766-4e4b-8806-c2769640ce1d.png", 
+  "/lovable-uploads/c09c8416-c052-4bd1-88cd-5cbb6ffadbd5.png",
+  "/lovable-uploads/7d18abe5-d372-4a27-94b7-d2a39f1d5206.png",
+  "/lovable-uploads/91c5ba44-ef47-4b82-99f2-d833f69dbd76.png"
 ];
 interface HeroSectionProps {
   language: 'en' | 'es';

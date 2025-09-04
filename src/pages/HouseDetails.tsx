@@ -234,10 +234,13 @@ const HouseDetails = () => {
       ],
       // Chill Out House
       'b26a2595-5958-4cb1-a8c2-f7740e3ad9c0': [
-        '/lovable-uploads/5fccdd0b-83a4-4e3e-b3f9-bec2c5139eeb.png',
-        '/lovable-uploads/63e495eb-27aa-4961-9a03-680d6a0e8b50.png',
-        '/lovable-uploads/658a7807-c55f-457e-bbd7-157d3cf08f66.png',
-        '/lovable-uploads/c5e7ccaf-ffd9-401f-bc65-d26f8c97f2b9.png'
+        '/lovable-uploads/8db2f189-b749-45f5-9e7f-96d764cc49fd.png',
+        '/lovable-uploads/d12936f6-0d9a-4c46-873a-d1dc585ea9f2.png',
+        '/lovable-uploads/f34914c1-7a99-437c-af7c-517fed06bd46.png',
+        '/lovable-uploads/e0e46d61-9380-43ef-ba7c-22032c9b10d7.png',
+        '/lovable-uploads/6962d84d-6c9f-4103-a0b9-a584a9149463.png',
+        '/lovable-uploads/fec027c8-650e-4291-a83d-43719b48f7fe.png',
+        '/lovable-uploads/bee68107-eae8-4858-8a8c-bd06b8c0e78c.png'
       ],
       'default': [
         '/lovable-uploads/08b74d86-2681-410b-aa81-9a19bb942530.png',

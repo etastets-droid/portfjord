@@ -1,7 +1,16 @@
 import { Button } from "@/components/ui/button";
 import { MapPin, Calendar } from "lucide-react";
 import { FjordLogo } from "@/components/ui/FjordLogo";
-const heroImage = "/lovable-uploads/d595f609-fd89-411c-af90-5e08d32837f3.png";
+import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
+import { useEffect, useState } from "react";
+
+const heroImages = [
+  "/lovable-uploads/d595f609-fd89-411c-af90-5e08d32837f3.png",
+  "/lovable-uploads/26f30d1b-66be-4751-ae27-1130fd6c5093.png",
+  "/lovable-uploads/94227c44-31e7-4567-8030-807e2de9b181.png",
+  "/lovable-uploads/c974ef80-9246-42d6-97c2-8066235501fb.png",
+  "/lovable-uploads/ae303e6f-02ca-4ab5-876a-586e41c7a41e.png"
+];
 interface HeroSectionProps {
   language: 'en' | 'es';
 }
@@ -29,16 +38,47 @@ export function HeroSection({
   language
 }: HeroSectionProps) {
   const t = translations[language];
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => 
+        prevIndex === heroImages.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 4000); // Cambia cada 4 segundos
+
+    return () => clearInterval(interval);
+  }, []);
+
   return <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image */}
-      <img src={heroImage} alt={language === 'es' ? 'Fiordos y montañas de la Patagonia' : 'Patagonian fjords and mountains'} className="absolute inset-0 w-full h-full object-cover" style={{
-      objectPosition: '50% 35%'
-    }} />
+      {/* Background Carousel */}
+      <Carousel 
+        className="absolute inset-0 w-full h-full"
+        opts={{
+          align: "start",
+          loop: true,
+        }}
+      >
+        <CarouselContent className="ml-0">
+          {heroImages.map((image, index) => (
+            <CarouselItem key={index} className="pl-0 basis-full">
+              <img 
+                src={image} 
+                alt={language === 'es' ? 'Fiordos y montañas de la Patagonia' : 'Patagonian fjords and mountains'} 
+                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+                  index === currentImageIndex ? 'opacity-100' : 'opacity-0'
+                }`}
+                style={{ objectPosition: '50% 35%' }}
+              />
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </Carousel>
       
       {/* Gradient Overlay */}
-      <div className="absolute inset-0" style={{
-      background: 'var(--gradient-hero)'
-    }} />
+      <div className="absolute inset-0 z-[1]" style={{
+        background: 'var(--gradient-hero)'
+      }} />
       
       
       {/* Content */}

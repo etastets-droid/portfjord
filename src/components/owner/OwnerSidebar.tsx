@@ -86,7 +86,15 @@ export function OwnerSidebar({ activeSection, onSectionChange }: OwnerSidebarPro
           </SidebarGroupContent>
         </SidebarGroup>
 
-        <div className="mt-auto p-4">
+        <div className="mt-auto p-4 space-y-2">
+          <Button 
+            variant="ghost" 
+            onClick={() => navigate("/")}
+            className="w-full justify-start"
+          >
+            <Home className={`h-4 w-4 ${collapsed ? "" : "mr-3"}`} />
+            {!collapsed && <span>Ir al Sitio</span>}
+          </Button>
           <Button 
             variant="outline" 
             onClick={handleLogout}

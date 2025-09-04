@@ -8,6 +8,7 @@ import NotFound from "./pages/NotFound";
 import OwnerLogin from "./pages/OwnerLogin";
 import OwnerPortal from "./pages/OwnerPortal";
 import HouseDetails from "./pages/HouseDetails";
+import CreateOwner from "./pages/CreateOwner";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,7 @@ const App = () => (
           <Route path="/house/:id" element={<HouseDetails />} />
           <Route path="/owner-login" element={<OwnerLogin />} />
           <Route path="/owner-portal" element={<OwnerPortal />} />
+          <Route path="/create-owner" element={<CreateOwner />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

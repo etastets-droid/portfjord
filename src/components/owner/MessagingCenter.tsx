@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Send, Search, MessageCircle } from "lucide-react";
+import { Send, Search, MessageCircle, Plus } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -7,25 +7,41 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/lib/supabase";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
 
-interface Message {
+interface AdminMessage {
   id: string;
-  guest_name: string;
-  guest_email: string;
+  sender_id: string;
+  sender_type: 'owner' | 'admin';
+  receiver_id: string | null;
+  receiver_type: 'owner' | 'admin' | null;
   subject: string;
   message: string;
   response: string | null;
   status: 'pending' | 'responded';
   created_at: string;
-  property_name?: string;
+  updated_at: string;
 }
 
 export function MessagingCenter() {
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
+  const [messages, setMessages] = useState<AdminMessage[]>([]);
+  const [selectedMessage, setSelectedMessage] = useState<AdminMessage | null>(null);
   const [response, setResponse] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
+  const [isNewMessageOpen, setIsNewMessageOpen] = useState(false);
+  const [newMessageData, setNewMessageData] = useState({
+    subject: "",
+    message: ""
+  });
   const { toast } = useToast();
 
   useEffect(() => {
@@ -34,45 +50,25 @@ export function MessagingCenter() {
 
   const loadMessages = async () => {
     try {
-      // For demo purposes, we'll create some example messages
-      // In a real implementation, you'd have a messages table in Supabase
-      const exampleMessages: Message[] = [
-        {
-          id: "1",
-          guest_name: "María González",
-          guest_email: "maria.gonzalez@email.com",
-          subject: "Consulta sobre check-in tardío",
-          message: "Hola, quería consultar si es posible hacer el check-in después de las 22:00. Mi vuelo llega tarde.",
-          response: null,
-          status: 'pending',
-          created_at: new Date().toISOString(),
-          property_name: "Casa Lago Patagonia"
-        },
-        {
-          id: "2",
-          guest_name: "Carlos Rodríguez",
-          guest_email: "carlos.rodriguez@email.com",
-          subject: "Pregunta sobre amenidades",
-          message: "¿La propiedad cuenta con WiFi y aire acondicionado? También quería saber si hay estacionamiento disponible.",
-          response: "Hola Carlos, sí contamos con WiFi de alta velocidad y aire acondicionado en todas las habitaciones. El estacionamiento está incluido sin costo adicional.",
-          status: 'responded',
-          created_at: new Date(Date.now() - 86400000).toISOString(),
-          property_name: "Cabaña Bosque Encantado"
-        },
-        {
-          id: "3",
-          guest_name: "Ana Silva",
-          guest_email: "ana.silva@email.com",
-          subject: "Solicitud de cancelación",
-          message: "Debido a una emergencia familiar, necesito cancelar mi reserva. ¿Cuál es la política de cancelación?",
-          response: null,
-          status: 'pending',
-          created_at: new Date(Date.now() - 43200000).toISOString(),
-          property_name: "Departamento Centro Turístico"
-        }
-      ];
+      const { data: user } = await supabase.auth.getUser();
+      if (!user.user) return;
 
-      setMessages(exampleMessages);
+      const { data: owner } = await supabase
+        .from('owners')
+        .select('id')
+        .eq('user_id', user.user.id)
+        .single();
+
+      if (!owner) return;
+
+      const { data, error } = await supabase
+        .from('admin_messages')
+        .select('*')
+        .or(`sender_id.eq.${owner.id},receiver_id.eq.${owner.id}`)
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      setMessages((data || []) as AdminMessage[]);
     } catch (error) {
       console.error('Error loading messages:', error);
       toast({
@@ -89,16 +85,24 @@ export function MessagingCenter() {
     if (!selectedMessage || !response.trim()) return;
 
     try {
-      // In a real implementation, you'd update the database
-      const updatedMessages = messages.map(msg => 
-        msg.id === selectedMessage.id 
-          ? { ...msg, response: response, status: 'responded' as const }
-          : msg
-      );
+      const { error } = await supabase
+        .from('admin_messages')
+        .update({ 
+          response: response, 
+          status: 'responded',
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', selectedMessage.id);
+
+      if (error) throw error;
       
-      setMessages(updatedMessages);
-      setSelectedMessage({ ...selectedMessage, response: response, status: 'responded' });
+      setSelectedMessage({ 
+        ...selectedMessage, 
+        response: response, 
+        status: 'responded' 
+      });
       setResponse("");
+      await loadMessages();
       
       toast({
         title: "Éxito",
@@ -114,8 +118,52 @@ export function MessagingCenter() {
     }
   };
 
+  const handleNewMessage = async () => {
+    if (!newMessageData.subject.trim() || !newMessageData.message.trim()) return;
+
+    try {
+      const { data: user } = await supabase.auth.getUser();
+      if (!user.user) return;
+
+      const { data: owner } = await supabase
+        .from('owners')
+        .select('id')
+        .eq('user_id', user.user.id)
+        .single();
+
+      if (!owner) return;
+
+      const { error } = await supabase
+        .from('admin_messages')
+        .insert({
+          sender_id: owner.id,
+          sender_type: 'owner',
+          receiver_type: 'admin',
+          subject: newMessageData.subject,
+          message: newMessageData.message
+        });
+
+      if (error) throw error;
+
+      setNewMessageData({ subject: "", message: "" });
+      setIsNewMessageOpen(false);
+      await loadMessages();
+      
+      toast({
+        title: "Éxito",
+        description: "Mensaje enviado a administración"
+      });
+    } catch (error) {
+      console.error('Error sending message:', error);
+      toast({
+        title: "Error",
+        description: "No se pudo enviar el mensaje",
+        variant: "destructive"
+      });
+    }
+  };
+
   const filteredMessages = messages.filter(message =>
-    message.guest_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     message.subject.toLowerCase().includes(searchTerm.toLowerCase()) ||
     message.message.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -141,18 +189,77 @@ export function MessagingCenter() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold">Centro de Mensajería</h1>
-          <p className="text-muted-foreground">Gestiona la comunicación con tus huéspedes</p>
+          <h1 className="text-3xl font-bold">Centro de Mensajería - Administración</h1>
+          <p className="text-muted-foreground">Comunícate con el equipo de administración</p>
         </div>
         
-        <div className="flex items-center space-x-2">
-          <Search className="h-4 w-4 text-muted-foreground" />
-          <Input
-            placeholder="Buscar mensajes..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-64"
-          />
+        <div className="flex items-center space-x-4">
+          <Dialog open={isNewMessageOpen} onOpenChange={setIsNewMessageOpen}>
+            <DialogTrigger asChild>
+              <Button>
+                <Plus className="h-4 w-4 mr-2" />
+                Nuevo Mensaje
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Enviar mensaje a administración</DialogTitle>
+                <DialogDescription>
+                  Escribe tu consulta o solicitud para el equipo administrativo
+                </DialogDescription>
+              </DialogHeader>
+              
+              <div className="space-y-4">
+                <div>
+                  <Label htmlFor="subject">Asunto</Label>
+                  <Input
+                    id="subject"
+                    value={newMessageData.subject}
+                    onChange={(e) => setNewMessageData({
+                      ...newMessageData, 
+                      subject: e.target.value
+                    })}
+                    placeholder="Escribe el asunto del mensaje"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="message">Mensaje</Label>
+                  <Textarea
+                    id="message"
+                    value={newMessageData.message}
+                    onChange={(e) => setNewMessageData({
+                      ...newMessageData, 
+                      message: e.target.value
+                    })}
+                    placeholder="Escribe tu mensaje aquí..."
+                    rows={6}
+                  />
+                </div>
+                <div className="flex justify-end space-x-2">
+                  <Button variant="outline" onClick={() => setIsNewMessageOpen(false)}>
+                    Cancelar
+                  </Button>
+                  <Button 
+                    onClick={handleNewMessage}
+                    disabled={!newMessageData.subject.trim() || !newMessageData.message.trim()}
+                  >
+                    <Send className="h-4 w-4 mr-2" />
+                    Enviar Mensaje
+                  </Button>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
+          
+          <div className="flex items-center space-x-2">
+            <Search className="h-4 w-4 text-muted-foreground" />
+            <Input
+              placeholder="Buscar mensajes..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-64"
+            />
+          </div>
         </div>
       </div>
 
@@ -172,7 +279,9 @@ export function MessagingCenter() {
               <CardContent className="p-4">
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <h3 className="font-medium truncate">{message.guest_name}</h3>
+                    <h3 className="font-medium truncate">
+                      {message.sender_type === 'admin' ? 'Administración' : 'Mi mensaje'}
+                    </h3>
                     <Badge variant={message.status === 'pending' ? 'destructive' : 'default'}>
                       {message.status === 'pending' ? 'Pendiente' : 'Respondido'}
                     </Badge>
@@ -183,8 +292,7 @@ export function MessagingCenter() {
                   <p className="text-sm text-muted-foreground line-clamp-2">
                     {message.message}
                   </p>
-                  <div className="flex items-center justify-between text-xs text-muted-foreground">
-                    <span>{message.property_name}</span>
+                  <div className="flex items-center justify-end text-xs text-muted-foreground">
                     <span>{formatDate(message.created_at)}</span>
                   </div>
                 </div>
@@ -212,10 +320,7 @@ export function MessagingCenter() {
                   <div>
                     <CardTitle>{selectedMessage.subject}</CardTitle>
                     <p className="text-sm text-muted-foreground">
-                      De: {selectedMessage.guest_name} ({selectedMessage.guest_email})
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                      Propiedad: {selectedMessage.property_name}
+                      {selectedMessage.sender_type === 'admin' ? 'De: Administración' : 'Tu mensaje a administración'}
                     </p>
                   </div>
                   <div className="text-right">
@@ -248,8 +353,8 @@ export function MessagingCenter() {
                   </div>
                 )}
 
-                {/* Response Form */}
-                {selectedMessage.status === 'pending' && (
+                {/* Response Form - Only for received messages from admin */}
+                {selectedMessage.status === 'pending' && selectedMessage.sender_type === 'admin' && (
                   <div>
                     <h4 className="font-medium mb-2">Escribir respuesta:</h4>
                     <div className="space-y-4">

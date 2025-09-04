@@ -14,6 +14,48 @@ export type Database = {
   }
   public: {
     Tables: {
+      admin_messages: {
+        Row: {
+          created_at: string
+          id: string
+          message: string
+          receiver_id: string | null
+          receiver_type: string | null
+          response: string | null
+          sender_id: string
+          sender_type: string
+          status: string
+          subject: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          message: string
+          receiver_id?: string | null
+          receiver_type?: string | null
+          response?: string | null
+          sender_id: string
+          sender_type: string
+          status?: string
+          subject: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          message?: string
+          receiver_id?: string | null
+          receiver_type?: string | null
+          response?: string | null
+          sender_id?: string
+          sender_type?: string
+          status?: string
+          subject?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       experience_requests: {
         Row: {
           created_at: string

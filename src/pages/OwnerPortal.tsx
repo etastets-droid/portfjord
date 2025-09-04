@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { OwnerSidebar } from "@/components/owner/OwnerSidebar";
 import { OwnerDashboard } from "@/components/owner/OwnerDashboard";
@@ -8,11 +8,32 @@ import { CalendarView } from "@/components/owner/CalendarView";
 import { FinancialReports } from "@/components/owner/FinancialReports";
 import { MessagingCenter } from "@/components/owner/MessagingCenter";
 import { ProfileSettings } from "@/components/owner/ProfileSettings";
+import { useNavigate } from "react-router-dom";
+import { supabase } from "@/lib/supabase";
 
 export type OwnerPortalSection = 'dashboard' | 'properties' | 'reservations' | 'calendar' | 'reports' | 'messages' | 'profile';
 
 const OwnerPortal = () => {
   const [activeSection, setActiveSection] = useState<OwnerPortalSection>('dashboard');
+  const [checkingAuth, setCheckingAuth] = useState(true);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Listen for auth changes first
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (!session) navigate('/owner-login');
+    });
+
+    // Then check existing session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (!session) navigate('/owner-login');
+      setCheckingAuth(false);
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, [navigate]);
 
   const renderActiveSection = () => {
     switch (activeSection) {

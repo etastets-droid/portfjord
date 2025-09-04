@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { MapPin, Calendar } from "lucide-react";
+import { MapPin, Calendar, ChevronLeft, ChevronRight } from "lucide-react";
 import { FjordLogo } from "@/components/ui/FjordLogo";
 import { useEffect, useState } from "react";
 
@@ -41,17 +41,25 @@ export function HeroSection({
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => {
-        // Se detiene después de mostrar todas las imágenes una vez
-        if (prevIndex === heroImages.length - 1) {
-          return prevIndex; // Se queda en la última imagen
-        }
-        return prevIndex + 1;
-      });
+      setCurrentImageIndex((prevIndex) => 
+        prevIndex === heroImages.length - 1 ? 0 : prevIndex + 1
+      );
     }, 4000); // Cambia cada 4 segundos
 
     return () => clearInterval(interval);
   }, []);
+
+  const goToPrevious = () => {
+    setCurrentImageIndex((prevIndex) => 
+      prevIndex === 0 ? heroImages.length - 1 : prevIndex - 1
+    );
+  };
+
+  const goToNext = () => {
+    setCurrentImageIndex((prevIndex) => 
+      prevIndex === heroImages.length - 1 ? 0 : prevIndex + 1
+    );
+  };
 
   return <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Images with Auto-rotate */}
@@ -65,6 +73,44 @@ export function HeroSection({
               index === currentImageIndex ? 'opacity-100' : 'opacity-0'
             }`}
             style={{ objectPosition: '50% 35%' }}
+          />
+        ))}
+      </div>
+
+      {/* Navigation Controls */}
+      <div className="absolute left-4 top-1/2 -translate-y-1/2 z-20">
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={goToPrevious}
+          className="bg-white/10 border-white/30 text-white hover:bg-white/20 backdrop-blur-sm"
+        >
+          <ChevronLeft className="h-4 w-4" />
+        </Button>
+      </div>
+      
+      <div className="absolute right-4 top-1/2 -translate-y-1/2 z-20">
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={goToNext}
+          className="bg-white/10 border-white/30 text-white hover:bg-white/20 backdrop-blur-sm"
+        >
+          <ChevronRight className="h-4 w-4" />
+        </Button>
+      </div>
+
+      {/* Image Indicators */}
+      <div className="absolute bottom-20 left-1/2 -translate-x-1/2 z-20 flex space-x-2">
+        {heroImages.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentImageIndex(index)}
+            className={`w-3 h-3 rounded-full transition-all duration-300 ${
+              index === currentImageIndex 
+                ? 'bg-white scale-110' 
+                : 'bg-white/50 hover:bg-white/70'
+            }`}
           />
         ))}
       </div>

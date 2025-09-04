@@ -196,6 +196,13 @@ const HouseDetails = () => {
       // Fjord House (ID conocido) y el ID de la ruta actual apuntan a la misma galería
       'f854966e-2dfe-42f8-a7c7-b6e9f24e91fb': fjordImages,
       'bd37ba86-11cd-4b70-936d-c192f6bf0b0d': fjordImages,
+      // The Cliff House
+      '602aa52d-547f-4ae6-8efa-e75508b47afe': [
+        '/lovable-uploads/c2211a1c-9054-4e0d-b583-bda2a4342df0.png',
+        '/lovable-uploads/f5f5b351-37c6-47b0-91b4-46dabb01a9fd.png',
+        '/lovable-uploads/97b354fd-4261-4f82-9843-b06abd8867f6.png',
+        '/lovable-uploads/c0cbb8a9-d761-473b-8d3b-fae0e46b02ea.png'
+      ],
       '88179db7-4dc8-44ac-a623-fa48c516e8c1': [
         '/lovable-uploads/edb62099-11a5-42e4-98c5-b1d722711bc3.png',
         '/lovable-uploads/26f30d1b-66be-4751-ae27-1130fd6c5093.png',

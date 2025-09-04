@@ -179,7 +179,13 @@ const HouseDetails = () => {
   // Static image gallery mapping for each house
   const getHouseImages = (propertyId: string) => {
     const fjordImages: string[] = [
-      // Fotos serán agregadas por el usuario
+      '/lovable-uploads/dca1d4b2-f06b-4306-8227-05cfc258688e.png',
+      '/lovable-uploads/2a80d552-093f-4931-82d2-df469d15a9dc.png',
+      '/lovable-uploads/c9e06990-019e-41bd-a040-06cc5f7b98a8.png',
+      '/lovable-uploads/4c1dab20-e27f-4f5b-883e-3941ca0be8f6.png',
+      '/lovable-uploads/2d1e29bb-846b-4904-8073-1223c4c4198e.png',
+      '/lovable-uploads/9ba8c519-f883-4c3f-9ade-506276899faf.png',
+      '/lovable-uploads/0b5abd9d-ab6f-421c-8467-490b5f6d564f.png'
     ];
 
     const imageMap: { [key: string]: string[] } = {

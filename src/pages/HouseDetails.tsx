@@ -232,6 +232,13 @@ const HouseDetails = () => {
         '/lovable-uploads/eb3c7203-9636-4aa6-96b0-b0f772fcdd04.png',
         '/lovable-uploads/f50e3bae-ea93-499e-9898-ab3a1f232536.png'
       ],
+      // Chill Out House - galería de imágenes
+      'chill-out-house': [
+        '/lovable-uploads/5fccdd0b-83a4-4e3e-b3f9-bec2c5139eeb.png',
+        '/lovable-uploads/63e495eb-27aa-4961-9a03-680d6a0e8b50.png',
+        '/lovable-uploads/658a7807-c55f-457e-bbd7-157d3cf08f66.png',
+        '/lovable-uploads/c5e7ccaf-ffd9-401f-bc65-d26f8c97f2b9.png'
+      ],
       'default': [
         '/lovable-uploads/08b74d86-2681-410b-aa81-9a19bb942530.png',
         '/lovable-uploads/09c0e326-5d72-4c1a-95d0-32513b39dfb6.png'

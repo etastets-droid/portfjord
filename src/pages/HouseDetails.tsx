@@ -194,16 +194,16 @@ const HouseDetails = () => {
 
     // New images specifically for The Valley House
     const valleyHouseImages: string[] = [
-      'public/lovable-uploads/a00f0342-a6b7-4578-8a20-59d5ff9a7120.png',
-      'public/lovable-uploads/3c9874e6-c6da-45f9-8c15-cf4ccac7e791.png',
-      'public/lovable-uploads/f999e61c-9f1e-4fb5-a3d5-435bb4804fa8.png',
-      'public/lovable-uploads/0704c8fc-70b4-426f-b7a9-72f08c7fe02c.png',
-      'public/lovable-uploads/7b446477-6ac5-4262-bd91-fe932054c840.png',
-      'public/lovable-uploads/cb6e4cfa-f304-4f2f-b856-87a7b7ff6d75.png',
-      'public/lovable-uploads/0ec87913-fca2-4f0e-a043-c79ef90c8e72.png',
-      'public/lovable-uploads/133ae580-313a-49d1-8693-67dfc552ee5a.png',
-      'public/lovable-uploads/7220e1d8-c778-41b4-a333-1ecf820077f1.png',
-      'public/lovable-uploads/8ed02ef6-4a94-428f-aa21-fcfc7e1a15fb.png'
+      '/lovable-uploads/a00f0342-a6b7-4578-8a20-59d5ff9a7120.png',
+      '/lovable-uploads/3c9874e6-c6da-45f9-8c15-cf4ccac7e791.png',
+      '/lovable-uploads/f999e61c-9f1e-4fb5-a3d5-435bb4804fa8.png',
+      '/lovable-uploads/0704c8fc-70b4-426f-b7a9-72f08c7fe02c.png',
+      '/lovable-uploads/7b446477-6ac5-4262-bd91-fe932054c840.png',
+      '/lovable-uploads/cb6e4cfa-f304-4f2f-b856-87a7b7ff6d75.png',
+      '/lovable-uploads/0ec87913-fca2-4f0e-a043-c79ef90c8e72.png',
+      '/lovable-uploads/133ae580-313a-49d1-8693-67dfc552ee5a.png',
+      '/lovable-uploads/7220e1d8-c778-41b4-a333-1ecf820077f1.png',
+      '/lovable-uploads/8ed02ef6-4a94-428f-aa21-fcfc7e1a15fb.png'
     ];
 
     const imageMap: { [key: string]: string[] } = {

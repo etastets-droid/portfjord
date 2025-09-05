@@ -192,9 +192,24 @@ const HouseDetails = () => {
       '/lovable-uploads/6adcdfb8-3db6-4df1-a0a3-7c62b52fe042.png'
     ];
 
+    // New images specifically for The Valley House
+    const valleyHouseImages: string[] = [
+      '/lovable-uploads/a00f0342-a6b7-4578-8a20-59d5ff9a7120.png', // Living room with mountain view
+      '/lovable-uploads/3c9874e6-c6da-45f9-8c15-cf4ccac7e791.png', // Bedroom with panoramic view
+      '/lovable-uploads/f999e61c-9f1e-4fb5-a3d5-435bb4804fa8.png', // Modern wooden bathroom
+      '/lovable-uploads/0704c8fc-70b4-426f-b7a9-72f08c7fe02c.png', // Kitchen and dining area
+      '/lovable-uploads/7b446477-6ac5-4262-bd91-fe932054c840.png', // Exterior with red chairs
+      '/lovable-uploads/cb6e4cfa-f304-4f2f-b856-87a7b7ff6d75.png', // Night exterior view
+      '/lovable-uploads/0ec87913-fca2-4f0e-a043-c79ef90c8e72.png', // Entrance with red door
+      '/lovable-uploads/133ae580-313a-49d1-8693-67dfc552ee5a.png', // Deck view with mountains
+      '/lovable-uploads/7220e1d8-c778-41b4-a333-1ecf820077f1.png', // Landscape with house
+      '/lovable-uploads/8ed02ef6-4a94-428f-aa21-fcfc7e1a15fb.png'  // Mountain vista
+    ];
+
     const imageMap: { [key: string]: string[] } = {
-      // Fjord House (ID conocido) y el ID de la ruta actual apuntan a la misma galería
-      'f854966e-2dfe-42f8-a7c7-b6e9f24e91fb': fjordImages,
+      // The Valley House - now with its own specific images
+      'f854966e-2dfe-42f8-a7c7-b6e9f24e91fb': valleyHouseImages,
+      // Fjord House (other ID) keeps the original fjordImages
       'bd37ba86-11cd-4b70-936d-c192f6bf0b0d': fjordImages,
       // The Cliff House
       '602aa52d-547f-4ae6-8efa-e75508b47afe': [

@@ -1,5 +1,6 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import { Wrapper, Status } from '@googlemaps/react-wrapper';
+
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -95,15 +96,17 @@ export function GoogleMap({ language }: GoogleMapProps) {
     return () => clearTimeout(id);
   }, [isReady]);
 
+  // Memoize libraries and center to avoid re-initialization loops
+  const libraries = useMemo(() => ['marker'] as any, []);
+  const center = useMemo(() => ({
+    lat: -51.592324626389164,
+    lng: -72.6646527857463,
+  }), []);
+
   const handleSaveApiKey = () => {
     localStorage.setItem('googleMapsApiKey', tempApiKey);
     setApiKey(tempApiKey);
     setTempApiKey('');
-  };
-
-  const puertoFjordLocation = {
-    lat: -51.592324626389164,
-    lng: -72.6646527857463,
   };
 
   if (!apiKey) {
@@ -157,9 +160,9 @@ export function GoogleMap({ language }: GoogleMapProps) {
   }
 
   return (
-    <Wrapper apiKey={apiKey} render={render} libraries={['marker']} language={language === 'es' ? 'es-419' : 'en'}>
+    <Wrapper apiKey={apiKey} render={render} libraries={libraries} language={language === 'es' ? 'es-419' : 'en'}>
       <MapComponent
-        center={puertoFjordLocation}
+        center={center}
         zoom={14}
         className="h-80 w-full rounded-lg"
         onReady={() => setIsReady(true)}

@@ -80,21 +80,37 @@ export function ExperiencesSection({
   useEffect(() => {
     const fetchExperiences = async () => {
       try {
-        const {
-          data,
-          error
-        } = await supabase.from('experiences').select('*').eq('status', 'active').order('created_at', {
-          ascending: true
-        });
-        if (error) throw error;
+        setLoading(true);
+        const { data, error } = await supabase
+          .from('experiences')
+          .select('*')
+          .eq('status', 'active')
+          .order('created_at', { ascending: true });
+        
+        if (error) {
+          console.error('Supabase error:', error);
+          setExperiences([]);
+          setLoading(false);
+          return;
+        }
+        
         setExperiences(data || []);
       } catch (error) {
         console.error('Error fetching experiences:', error);
+        setExperiences([]);
       } finally {
         setLoading(false);
       }
     };
+
+    // Add timeout to prevent infinite loading
+    const timeoutId = setTimeout(() => {
+      setLoading(false);
+    }, 10000); // 10 second timeout
+
     fetchExperiences();
+
+    return () => clearTimeout(timeoutId);
   }, []);
   if (loading) {
     return <section id="experiences" className="py-24 bg-background">

@@ -56,22 +56,37 @@ export function HousesSection({ language }: HousesSectionProps) {
   useEffect(() => {
     const fetchProperties = async () => {
       try {
+        setLoading(true);
         const { data, error } = await supabase
           .from('properties')
           .select('*')
           .eq('status', 'active')
           .order('created_at', { ascending: false });
 
-        if (error) throw error;
+        if (error) {
+          console.error('Supabase error:', error);
+          setProperties([]);
+          setLoading(false);
+          return;
+        }
+        
         setProperties(data || []);
       } catch (error) {
         console.error('Error fetching properties:', error);
+        setProperties([]);
       } finally {
         setLoading(false);
       }
     };
 
+    // Add timeout to prevent infinite loading
+    const timeoutId = setTimeout(() => {
+      setLoading(false);
+    }, 10000); // 10 second timeout
+
     fetchProperties();
+
+    return () => clearTimeout(timeoutId);
   }, []);
 
   const handleBookNow = (property: Property) => {

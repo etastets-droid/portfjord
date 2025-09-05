@@ -10,9 +10,10 @@ interface MapProps {
   center: google.maps.LatLngLiteral;
   zoom: number;
   className?: string;
+  onReady?: () => void;
 }
 
-function MapComponent({ center, zoom, className }: MapProps) {
+function MapComponent({ center, zoom, className, onReady }: MapProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<google.maps.Map>();
 
@@ -49,6 +50,7 @@ function MapComponent({ center, zoom, className }: MapProps) {
       });
       
       setMap(newMap);
+      onReady?.();
     }
   }, [ref, map, center, zoom]);
 
@@ -83,6 +85,15 @@ export function GoogleMap({ language }: GoogleMapProps) {
     return localStorage.getItem('googleMapsApiKey') || 'AIzaSyCcfudX5U7TRN8b1lyimvKRt01yghsQzM8';
   });
   const [tempApiKey, setTempApiKey] = useState('');
+  const [isReady, setIsReady] = useState(false);
+  const [useFallback, setUseFallback] = useState(false);
+
+  useEffect(() => {
+    const id = setTimeout(() => {
+      if (!isReady) setUseFallback(true);
+    }, 9000);
+    return () => clearTimeout(id);
+  }, [isReady]);
 
   const handleSaveApiKey = () => {
     localStorage.setItem('googleMapsApiKey', tempApiKey);
@@ -132,12 +143,26 @@ export function GoogleMap({ language }: GoogleMapProps) {
     );
   }
 
+  if (useFallback) {
+    return (
+      <div className="h-80 bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center rounded-lg">
+        <div className="text-center">
+          <p className="text-muted-foreground mb-2">
+            {language === 'en' ? 'Map temporarily unavailable' : 'Mapa temporalmente no disponible'}
+          </p>
+          <p className="text-xs text-muted-foreground/80">-51.592°, -72.665°</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <Wrapper apiKey={apiKey} render={render} libraries={['marker']} language={language === 'es' ? 'es-419' : 'en'}>
       <MapComponent
         center={puertoFjordLocation}
         zoom={14}
         className="h-80 w-full rounded-lg"
+        onReady={() => setIsReady(true)}
       />
     </Wrapper>
   );

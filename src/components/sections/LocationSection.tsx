@@ -72,7 +72,14 @@ export function LocationSection({ language }: LocationSectionProps) {
             {/* Map */}
             <Card className="overflow-hidden shadow-card">
               <div className="relative">
-                <GoogleMap language={language} />
+                <div className="h-80 bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center rounded-lg">
+                  <div className="text-center">
+                    <p className="text-muted-foreground mb-2">
+                      {language === 'en' ? 'Map temporarily disabled' : 'Mapa deshabilitado temporalmente'}
+                    </p>
+                    <p className="text-xs text-muted-foreground/80">-51.592°, -72.665°</p>
+                  </div>
+                </div>
                 {/* Coordinates Badge */}
                 <div className="absolute top-4 left-4">
                   <Badge variant="secondary" className="font-mono text-xs bg-white/90 text-foreground">

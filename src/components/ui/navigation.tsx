@@ -33,7 +33,17 @@ export function Navigation({
   onLanguageChange
 }: NavigationProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const t = translations[language];
+
+  // Detect scroll for background effect
+  useState(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  });
 
   const handleNavClick = (id: string) => {
     setIsOpen(false);
@@ -43,7 +53,7 @@ export function Navigation({
     }
   };
 
-  return <nav className="fixed top-0 left-0 right-0 z-50 bg-transparent">
+  return <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-background/80 backdrop-blur-md shadow-sm' : 'bg-transparent'}`}>
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
@@ -105,31 +115,33 @@ export function Navigation({
         </div>
 
         {/* Mobile Navigation */}
-        {isOpen && <div className="lg:hidden py-4 border-t border-border/50">
-            <div className="flex flex-col space-y-4">
-              <button onClick={() => handleNavClick('home')} className="text-foreground hover:text-primary transition-colors text-left">
+        {isOpen && <div className="lg:hidden py-6 px-4 bg-background/95 backdrop-blur-lg border-t border-border/50 shadow-lg animate-slide-in-right">
+            <div className="flex flex-col space-y-5">
+              <button onClick={() => handleNavClick('home')} className="text-foreground hover:text-primary transition-colors text-left text-lg py-2 font-medium">
                 {t.home}
               </button>
-              <button onClick={() => handleNavClick('houses')} className="text-foreground hover:text-primary transition-colors text-left">
+              <button onClick={() => handleNavClick('houses')} className="text-foreground hover:text-primary transition-colors text-left text-lg py-2 font-medium">
                 {t.houses}
               </button>
-              <button onClick={() => handleNavClick('experiences')} className="text-foreground hover:text-primary transition-colors text-left">
+              <button onClick={() => handleNavClick('experiences')} className="text-foreground hover:text-primary transition-colors text-left text-lg py-2 font-medium">
                 {t.experiences}
               </button>
-              <button onClick={() => handleNavClick('location')} className="text-foreground hover:text-primary transition-colors text-left">
+              <button onClick={() => handleNavClick('location')} className="text-foreground hover:text-primary transition-colors text-left text-lg py-2 font-medium">
                 {t.location}
               </button>
-              <button onClick={() => handleNavClick('contact')} className="text-foreground hover:text-primary transition-colors text-left">
+              <button onClick={() => handleNavClick('contact')} className="text-foreground hover:text-primary transition-colors text-left text-lg py-2 font-medium">
                 {t.contact}
               </button>
-              <Button variant="outline" size="sm" className="self-start" asChild>
-                <Link to="/owner-login">{t.ownerPortal}</Link>
-              </Button>
-              <div className="flex items-center space-x-2">
+              
+              <div className="pt-4 border-t border-border/30 space-y-4">
+                <Button variant="outline" size="lg" className="w-full justify-start" asChild>
+                  <Link to="/owner-login">{t.ownerPortal}</Link>
+                </Button>
+                
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="sm">
-                      <Globe className="h-4 w-4 mr-2" />
+                    <Button variant="ghost" size="lg" className="w-full justify-start">
+                      <Globe className="h-5 w-5 mr-2" />
                       {language.toUpperCase()}
                     </Button>
                   </DropdownMenuTrigger>
@@ -142,7 +154,8 @@ export function Navigation({
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
-                <Button className="bg-gradient-fjord hover:opacity-90 transition-opacity" onClick={() => handleNavClick('houses')}>
+                
+                <Button className="w-full bg-gradient-fjord hover:opacity-90 transition-opacity shadow-luxury" size="lg" onClick={() => handleNavClick('houses')}>
                   {t.bookNow}
                 </Button>
               </div>

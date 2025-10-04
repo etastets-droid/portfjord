@@ -118,6 +118,16 @@ export function HousesSection({ language }: HousesSectionProps) {
                 <div className="relative h-64 bg-gradient-to-r from-stone-light to-cedar-light overflow-hidden">
                   {/* Property image */}
                   {(() => {
+                    // Use specific image for The Woods House
+                    if (property.name === "The Woods House") {
+                      return (
+                        <img 
+                          src="/lovable-uploads/woods-house-new.jpg" 
+                          alt={property.name}
+                          className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        />
+                      );
+                    }
                     // Use specific image for Chill Out House
                     if (property.name === "Chill Out House" || property.id === "b26a2595-5958-4cb1-a8c2-f7740e3ad9c0") {
                       return (

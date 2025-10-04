@@ -70,7 +70,14 @@ export function HousesSection({ language }: HousesSectionProps) {
           return;
         }
         
-        setProperties(data || []);
+        // Sort properties with "Chill Out House" last
+        const sortedData = (data || []).sort((a, b) => {
+          if (a.name === "Chill Out House") return 1;
+          if (b.name === "Chill Out House") return -1;
+          return 0;
+        });
+        
+        setProperties(sortedData);
       } catch (error) {
         console.error('Error fetching properties:', error);
         setProperties([]);

@@ -3,6 +3,7 @@ import { Navigation } from "@/components/ui/navigation";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { HousesSection } from "@/components/sections/HousesSection";
 import { ExperiencesSection } from "@/components/sections/ExperiencesSection";
+import GallerySection from "@/components/sections/GallerySection";
 import { LocationSection } from "@/components/sections/LocationSection";
 import { ContactSection } from "@/components/sections/ContactSection";
 
@@ -16,6 +17,7 @@ const Index = () => {
         <HeroSection language={language} />
         <HousesSection language={language} />
         <ExperiencesSection language={language} />
+        <GallerySection language={language} />
         <LocationSection language={language} />
         <ContactSection language={language} />
       </main>

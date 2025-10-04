@@ -206,7 +206,16 @@ const HouseDetails = () => {
       '/lovable-uploads/8ed02ef6-4a94-428f-aa21-fcfc7e1a15fb.png'
     ];
 
+    // Images for The Woods House
+    const woodsHouseImages: string[] = [
+      '/lovable-uploads/woods-house-new.jpg',
+      '/lovable-uploads/woods-house-interior-1.jpg',
+      '/lovable-uploads/woods-house-interior-2.jpg'
+    ];
+
     const imageMap: { [key: string]: string[] } = {
+      // The Woods House
+      '9c83de44-dbf7-4b7c-a5c0-b6934a867d81': woodsHouseImages,
       // The Valley House - now with its own specific images
       'f854966e-2dfe-42f8-a7c7-b6e9f24e91fb': valleyHouseImages,
       // Fjord House (other ID) keeps the original fjordImages

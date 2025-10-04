@@ -10,7 +10,7 @@ const translations = {
   en: {
     title: "Puerto Fjord",
     subtitle: "Adventure Retreat & Marina",
-    description: "Experience unparalleled luxury in pristine Patagonian wilderness. Five exclusive houses offering breathtaking fjord views, world-class amenities, and unforgettable adventures.",
+    description: "Discover unparalleled luxury in the heart of Patagonia. Nestled along pristine fjords, our five exclusive residences blend world class comfort with breathtaking views. Wake up to majestic landscapes, indulge in refined amenities, and embark on unforgettable adventures.",
     location: "Puerto Natales, Patagonia",
     bookNow: "Book Your Experience",
     viewHouses: "View Houses",

@@ -187,7 +187,12 @@ export function ExperiencesSection({
                 {/* Book Button */}
                 <Button 
                   className="w-full bg-gradient-fjord hover:opacity-90 transition-opacity"
-                  onClick={() => setIsRequestModalOpen(true)}
+                  onClick={() => {
+                    const contactSection = document.getElementById('contact');
+                    if (contactSection) {
+                      contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                  }}
                 >
                   <Star className="h-4 w-4 mr-2" />
                   {t.bookExperience}
@@ -209,7 +214,16 @@ export function ExperiencesSection({
               <p className="text-muted-foreground mb-6 leading-relaxed">
                 {t.tailorMadeSubtitle}
               </p>
-              <Button size="lg" className="bg-gradient-fjord hover:opacity-90 transition-opacity" onClick={() => setIsRequestModalOpen(true)}>
+              <Button 
+                size="lg" 
+                className="bg-gradient-fjord hover:opacity-90 transition-opacity" 
+                onClick={() => {
+                  const contactSection = document.getElementById('contact');
+                  if (contactSection) {
+                    contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }
+                }}
+              >
                 <Sparkles className="h-5 w-5 mr-2" />
                 {t.tailorMade}
               </Button>

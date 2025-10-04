@@ -105,13 +105,13 @@ export function HeroSection({
           
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
-            <Button size="lg" className="bg-gradient-fjord hover:opacity-90 transition-all duration-300 shadow-luxury text-lg px-8 py-6 rounded-lg bg-[#000a00]/[0.31]">
+            <Button variant="hero" size="lg" className="text-lg px-8 py-6">
               <Calendar className="h-5 w-5 mr-2" />
               {t.bookNow}
             </Button>
-            <Button variant="outline" size="lg" onClick={() => document.getElementById('houses')?.scrollIntoView({
-            behavior: 'smooth'
-          })} className="-bottom-0.5 -bottom-0.5 hover:-bottom-0 -bottom-10 -bottom-0 -bottom-20 duration-300 text-lg px-8 py-6 rounded-lg bg-[#000a00]/[0.31]">
+            <Button variant="hero" size="lg" onClick={() => document.getElementById('houses')?.scrollIntoView({
+              behavior: 'smooth'
+            })} className="text-lg px-8 py-6">
               {t.viewHouses}
             </Button>
           </div>

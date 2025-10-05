@@ -46,10 +46,6 @@ const GallerySection = ({
     thumbnail: '/lovable-uploads/2d1e29bb-846b-4904-8073-1223c4c4198e.png'
   }, {
     type: 'image',
-    url: '/lovable-uploads/70bb7ae7-217c-4eba-91a3-45ccc3760b16.png',
-    thumbnail: '/lovable-uploads/70bb7ae7-217c-4eba-91a3-45ccc3760b16.png'
-  }, {
-    type: 'image',
     url: '/lovable-uploads/0aff0d40-a153-4c10-8d90-894daddd609a.png',
     thumbnail: '/lovable-uploads/0aff0d40-a153-4c10-8d90-894daddd609a.png'
   }, {

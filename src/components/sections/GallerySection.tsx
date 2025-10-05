@@ -64,6 +64,34 @@ const GallerySection = ({
     type: 'image',
     url: '/lovable-uploads/8f96ad03-30fd-406a-b41d-5744095159b4.png',
     thumbnail: '/lovable-uploads/8f96ad03-30fd-406a-b41d-5744095159b4.png'
+  }, {
+    type: 'image',
+    url: '/lovable-uploads/terraza_nest_noche.jpg',
+    thumbnail: '/lovable-uploads/terraza_nest_noche.jpg'
+  }, {
+    type: 'image',
+    url: '/lovable-uploads/navegacion.jpg',
+    thumbnail: '/lovable-uploads/navegacion.jpg'
+  }, {
+    type: 'image',
+    url: '/lovable-uploads/nest_4.jpg',
+    thumbnail: '/lovable-uploads/nest_4.jpg'
+  }, {
+    type: 'image',
+    url: '/lovable-uploads/invierno.jpg',
+    thumbnail: '/lovable-uploads/invierno.jpg'
+  }, {
+    type: 'image',
+    url: '/lovable-uploads/kayaks.jpg',
+    thumbnail: '/lovable-uploads/kayaks.jpg'
+  }, {
+    type: 'image',
+    url: '/lovable-uploads/nest_3.jpg',
+    thumbnail: '/lovable-uploads/nest_3.jpg'
+  }, {
+    type: 'image',
+    url: '/lovable-uploads/nest_2.jpg',
+    thumbnail: '/lovable-uploads/nest_2.jpg'
   }];
   return <section id="gallery" className="py-24 bg-gradient-to-b from-background to-background/80">
       <div className="container px-4 mx-auto">

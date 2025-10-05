@@ -32,7 +32,7 @@ const translations = {
     },
     contact: {
       title: "Contact Information",
-      email: "reservations@puertofjord.com",
+      email: "gustavo@puertofjord.com",
       phone: "+56 999 447 999",
       address: "Puerto Natales, Patagonia, Chile"
     },
@@ -60,7 +60,7 @@ const translations = {
     },
     contact: {
       title: "Información de Contacto",
-      email: "reservas@puertofjord.com",
+      email: "gustavo@puertofjord.com",
       phone: "+56 999 447 999",
       address: "Puerto Natales, Patagonia, Chile"
     },

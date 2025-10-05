@@ -410,6 +410,8 @@ const HouseDetails = () => {
                       <li>• {t.noPets}</li>
                       <li>• {t.maxGuests}</li>
                       <li>• {t.quietHours}</li>
+                      <li>• SHOES: We ask that you remove shoes in the house. Please use slippers.</li>
+                      <li>• Other useful information can be found in the information book.</li>
                     </ul>
                   </CardContent>
                 </Card>

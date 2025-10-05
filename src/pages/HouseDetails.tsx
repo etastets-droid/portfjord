@@ -488,6 +488,15 @@ const HouseDetails = () => {
                       />
                       <p className="text-sm text-muted-foreground">{property.address}</p>
                     </div>
+                  ) : property.id === 'b26a2595-5958-4cb1-a8c2-f7740e3ad9c0' ? (
+                    <div className="space-y-4">
+                      <img 
+                        src="/lovable-uploads/location-chillout.jpg" 
+                        alt="Chill Out House Location Map"
+                        className="w-full h-auto rounded-lg"
+                      />
+                      <p className="text-sm text-muted-foreground">{property.address}</p>
+                    </div>
                   ) : (
                     <div className="h-64 bg-muted rounded-lg flex items-center justify-center">
                       <div className="text-center text-muted-foreground">

@@ -34,6 +34,7 @@ const translations = {
       title: "Contact Information",
       email: "gustavo@puertofjord.com",
       phone: "+56 999 447 999",
+      phone2: "+56 997 329 998",
       address: "Puerto Natales, Patagonia, Chile"
     },
     success: "Message sent successfully! We'll get back to you within 24 hours.",
@@ -62,6 +63,7 @@ const translations = {
       title: "Información de Contacto",
       email: "gustavo@puertofjord.com",
       phone: "+56 999 447 999",
+      phone2: "+56 997 329 998",
       address: "Puerto Natales, Patagonia, Chile"
     },
     success: "¡Mensaje enviado exitosamente! Te responderemos dentro de 24 horas.",
@@ -203,6 +205,7 @@ export function ContactSection({
                   <div>
                     <p className="font-medium text-foreground">Phone</p>
                     <p className="text-muted-foreground">{t.contact.phone}</p>
+                    <p className="text-muted-foreground">{t.contact.phone2}</p>
                   </div>
                 </div>
                 

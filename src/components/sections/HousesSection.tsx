@@ -191,7 +191,7 @@ export function HousesSection({ language }: HousesSectionProps) {
                   
                   {/* Features */}
                   <div className="flex flex-wrap gap-2 mb-6">
-                    {property.amenities && property.amenities.slice(0, 3).map((amenity, idx) => (
+                    {property.amenities && property.amenities.map((amenity, idx) => (
                       <Badge key={idx} variant="outline" className="text-xs">
                         {amenity}
                       </Badge>

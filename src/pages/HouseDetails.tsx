@@ -443,13 +443,24 @@ const HouseDetails = () => {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-64 bg-muted rounded-lg flex items-center justify-center">
-                    <div className="text-center text-muted-foreground">
-                      <MapPin className="h-12 w-12 mx-auto mb-2 opacity-50" />
-                      <p>Interactive map will be displayed here</p>
-                      <p className="text-sm">{property.address}</p>
+                  {property.id === '88179db7-4dc8-44ac-a623-fa48c516e8c1' ? (
+                    <div className="space-y-4">
+                      <img 
+                        src="/lovable-uploads/location-nest.jpg" 
+                        alt="Nest House Location Map"
+                        className="w-full h-auto rounded-lg"
+                      />
+                      <p className="text-sm text-muted-foreground">{property.address}</p>
                     </div>
-                  </div>
+                  ) : (
+                    <div className="h-64 bg-muted rounded-lg flex items-center justify-center">
+                      <div className="text-center text-muted-foreground">
+                        <MapPin className="h-12 w-12 mx-auto mb-2 opacity-50" />
+                        <p>Interactive map will be displayed here</p>
+                        <p className="text-sm">{property.address}</p>
+                      </div>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             </TabsContent>

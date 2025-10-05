@@ -66,10 +66,6 @@ const GallerySection = ({
     thumbnail: '/lovable-uploads/6962d84d-6c9f-4103-a0b9-a584a9149463.png'
   }, {
     type: 'image',
-    url: '/lovable-uploads/cb6e4cfa-f304-4f2f-b856-87a7b7ff6d75.png',
-    thumbnail: '/lovable-uploads/cb6e4cfa-f304-4f2f-b856-87a7b7ff6d75.png'
-  }, {
-    type: 'image',
     url: '/lovable-uploads/8f96ad03-30fd-406a-b41d-5744095159b4.png',
     thumbnail: '/lovable-uploads/8f96ad03-30fd-406a-b41d-5744095159b4.png'
   }];

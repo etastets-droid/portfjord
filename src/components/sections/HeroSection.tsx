@@ -84,7 +84,7 @@ export function HeroSection({
             <img 
               src={puertoFjordLogo} 
               alt="Puerto Fjord Logo" 
-              className="mx-auto h-24 md:h-32 w-auto opacity-90"
+              className="mx-auto h-24 md:h-32 w-auto brightness-0 invert opacity-90"
             />
           </div>
           

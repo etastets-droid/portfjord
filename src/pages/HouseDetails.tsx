@@ -452,6 +452,15 @@ const HouseDetails = () => {
                       />
                       <p className="text-sm text-muted-foreground">{property.address}</p>
                     </div>
+                  ) : property.id === '602aa52d-547f-4ae6-8efa-e75508b47afe' ? (
+                    <div className="space-y-4">
+                      <img 
+                        src="/lovable-uploads/location-cliff.jpg" 
+                        alt="The Cliff House Location Map"
+                        className="w-full h-auto rounded-lg"
+                      />
+                      <p className="text-sm text-muted-foreground">{property.address}</p>
+                    </div>
                   ) : (
                     <div className="h-64 bg-muted rounded-lg flex items-center justify-center">
                       <div className="text-center text-muted-foreground">

@@ -173,6 +173,7 @@ const HouseDetails = () => {
       '602aa52d-547f-4ae6-8efa-e75508b47afe': '/lovable-uploads/cliff-house-floorplan.jpg',
       'bd37ba86-11cd-4b70-936d-c192f6bf0b0d': '/lovable-uploads/fjord-house-floorplan.jpg',
       '9c83de44-dbf7-4b7c-a5c0-b6934a867d81': '/lovable-uploads/woods-house-floorplan.jpg',
+      'b26a2595-5958-4cb1-a8c2-f7740e3ad9c0': '/lovable-uploads/chillout-house-floorplan.jpg',
       'default': '/lovable-uploads/c24e6f57-34df-4e54-a66d-f2efc64762fb.png'
     };
     

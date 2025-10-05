@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { MapPin, Calendar, ChevronLeft, ChevronRight } from "lucide-react";
-import { FjordLogo } from "@/components/ui/FjordLogo";
 import { useEffect, useState } from "react";
+import puertoFjordLogo from "@/assets/puerto-fjord-logo-new.png";
 const heroImages = ["/lovable-uploads/8f96ad03-30fd-406a-b41d-5744095159b4.png", "/lovable-uploads/d1a96e69-1766-4e4b-8806-c2769640ce1d.png", "/lovable-uploads/c09c8416-c052-4bd1-88cd-5cbb6ffadbd5.png", "/lovable-uploads/7d18abe5-d372-4a27-94b7-d2a39f1d5206.png", "/lovable-uploads/91c5ba44-ef47-4b82-99f2-d833f69dbd76.png"];
 interface HeroSectionProps {
   language: 'en' | 'es';
@@ -81,9 +81,11 @@ export function HeroSection({
         <div className="max-w-4xl mx-auto">
           {/* Puerto Fjord Logo */}
           <div className="mb-6">
-            <div className="transform scale-x-150">
-              <FjordLogo className="text-white mx-auto" size={120} />
-            </div>
+            <img 
+              src={puertoFjordLogo} 
+              alt="Puerto Fjord Logo" 
+              className="mx-auto h-24 md:h-32 w-auto opacity-90"
+            />
           </div>
           
           {/* Location Badge */}

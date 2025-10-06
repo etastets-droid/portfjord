@@ -134,7 +134,7 @@ const GallerySection = ({
         <div className="max-w-4xl mx-auto">
           <Carousel className="w-full">
             <CarouselContent>
-              {galleryItems.slice(0, 4).map((item, index) => <CarouselItem key={index}>
+              {galleryItems.map((item, index) => <CarouselItem key={index}>
                   <Card className="overflow-hidden">
                     <img src={item.thumbnail} alt={`Featured ${index + 1}`} className="w-full h-96 object-cover" />
                   </Card>

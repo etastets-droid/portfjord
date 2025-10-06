@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, CarouselApi } from "@/components/ui/carousel";
 import { Play, Image as ImageIcon, X } from "lucide-react";
 interface GallerySectionProps {
   language: 'en' | 'es';
@@ -30,10 +30,15 @@ const GallerySection = ({
   language
 }: GallerySectionProps) => {
   const t = translations[language];
-  const [selectedMedia, setSelectedMedia] = useState<{
-    type: 'image' | 'video';
-    url: string;
-  } | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [carouselApi, setCarouselApi] = useState<CarouselApi>();
+
+  useEffect(() => {
+    if (!carouselApi) return;
+    
+    carouselApi.scrollTo(selectedIndex);
+  }, [selectedIndex, carouselApi]);
 
   // Sample gallery items - replace with actual data from Supabase if needed
   const galleryItems: Array<{
@@ -107,28 +112,58 @@ const GallerySection = ({
 
         {/* Gallery Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          {galleryItems.map((item, index) => <Dialog key={index}>
-              <DialogTrigger asChild>
-                <Card className="group relative overflow-hidden cursor-pointer hover:shadow-glow transition-all duration-300 aspect-square">
-                  
-                  
-                  <img src={item.thumbnail} alt={`Gallery item ${index + 1}`} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-                  
-                  
-
-                  <Badge variant="secondary" className="absolute top-4 right-4 z-20 bg-background/90">
-                    {item.type === 'video' ? t.videos : t.photos}
-                  </Badge>
-                </Card>
-              </DialogTrigger>
-              
-              <DialogContent className="max-w-5xl w-full p-0 bg-black/95 border-0">
-                <div className="relative">
-                  {item.type === 'image' ? <img src={item.url} alt={`Gallery item ${index + 1}`} className="w-full h-auto max-h-[85vh] object-contain" /> : <video src={item.url} controls className="w-full h-auto max-h-[85vh]" autoPlay />}
-                </div>
-              </DialogContent>
-            </Dialog>)}
+          {galleryItems.map((item, index) => (
+            <Card 
+              key={index}
+              className="group relative overflow-hidden cursor-pointer hover:shadow-glow transition-all duration-300 aspect-square"
+              onClick={() => {
+                setSelectedIndex(index);
+                setIsDialogOpen(true);
+              }}
+            >
+              <img 
+                src={item.thumbnail} 
+                alt={`Gallery item ${index + 1}`} 
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
+              />
+              <Badge variant="secondary" className="absolute top-4 right-4 z-20 bg-background/90">
+                {item.type === 'video' ? t.videos : t.photos}
+              </Badge>
+            </Card>
+          ))}
         </div>
+
+        {/* Dialog with Carousel */}
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <DialogContent className="max-w-5xl w-full p-0 bg-black/95 border-0">
+            <Carousel setApi={setCarouselApi} className="w-full">
+              <CarouselContent>
+                {galleryItems.map((item, index) => (
+                  <CarouselItem key={index}>
+                    <div className="relative flex items-center justify-center">
+                      {item.type === 'image' ? (
+                        <img 
+                          src={item.url} 
+                          alt={`Gallery item ${index + 1}`} 
+                          className="w-full h-auto max-h-[85vh] object-contain" 
+                        />
+                      ) : (
+                        <video 
+                          src={item.url} 
+                          controls 
+                          className="w-full h-auto max-h-[85vh]" 
+                          autoPlay 
+                        />
+                      )}
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="left-4" />
+              <CarouselNext className="right-4" />
+            </Carousel>
+          </DialogContent>
+        </Dialog>
 
         {/* Optional: Carousel for featured items */}
         <div className="max-w-4xl mx-auto">

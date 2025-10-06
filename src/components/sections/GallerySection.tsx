@@ -93,10 +93,6 @@ const GallerySection = ({
     type: 'image',
     url: '/lovable-uploads/nest_3.jpg',
     thumbnail: '/lovable-uploads/nest_3.jpg'
-  }, {
-    type: 'image',
-    url: '/lovable-uploads/nest_2.jpg',
-    thumbnail: '/lovable-uploads/nest_2.jpg'
   }];
   return <section id="gallery" className="py-24 bg-gradient-to-b from-background to-background/80">
       <div className="container px-4 mx-auto">

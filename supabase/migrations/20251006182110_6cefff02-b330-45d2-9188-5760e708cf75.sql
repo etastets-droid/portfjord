@@ -1,0 +1,3 @@
+UPDATE properties 
+SET description = 'Tucked gently into the trees, the Woods House feels quiet and rooted, designed to blend in seamlessly with its surroundings. Wrapped in forest tones and clean modern lines, it''s surrounded by woodland yet opens toward the fjord and distant snowy peaks. A space made for contemplation, slow mornings, and watching the light shift across the hills, each window framing the ever changing vastness of Patagonia.'
+WHERE id = '9c83de44-dbf7-4b7c-a5c0-b6934a867d81';

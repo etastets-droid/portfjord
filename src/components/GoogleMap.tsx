@@ -23,27 +23,10 @@ function MapComponent({ center, zoom, className, onReady }: MapProps) {
       const newMap = new window.google.maps.Map(ref.current, {
         center,
         zoom,
-        mapId: 'puerto-fjord-map', // Add mapId for Advanced Markers
-        styles: [
-          {
-            featureType: 'all',
-            elementType: 'geometry',
-            stylers: [{ color: '#f5f5f5' }],
-          },
-          {
-            featureType: 'water',
-            elementType: 'geometry',
-            stylers: [{ color: '#a8c4d4' }],
-          },
-          {
-            featureType: 'landscape',
-            elementType: 'geometry',
-            stylers: [{ color: '#e8e8e8' }],
-          },
-        ],
+        mapId: 'puerto-fjord-map',
       });
       
-      // Add marker using regular Marker as fallback
+      // Add marker
       new window.google.maps.Marker({
         position: center,
         map: newMap,

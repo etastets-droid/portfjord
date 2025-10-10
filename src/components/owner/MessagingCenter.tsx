@@ -50,16 +50,12 @@ export function MessagingCenter() {
 
   const loadMessages = async () => {
     try {
-      const { data: user } = await supabase.auth.getUser();
-      if (!user.user) return;
-
-      const { data: owner } = await supabase
-        .from('owners')
-        .select('id')
-        .eq('user_id', user.user.id)
+      // Use centralized secure owner verification
+      const { data: owner, error: ownerError } = await supabase
+        .rpc('get_current_owner')
         .single();
 
-      if (!owner) return;
+      if (ownerError || !owner) return;
 
       const { data, error } = await supabase
         .from('admin_messages')

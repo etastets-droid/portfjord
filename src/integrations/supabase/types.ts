@@ -386,7 +386,17 @@ export type Database = {
           user_id: string | null
         }
       }
-      get_anonymized_experience_requests: {
+      get_current_owner: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          email: string
+          id: string
+          name: string
+          phone: string
+          user_id: string
+        }[]
+      }
+      get_pending_experience_requests: {
         Args: Record<PropertyKey, never>
         Returns: {
           created_at: string
@@ -400,18 +410,15 @@ export type Database = {
           status: string
         }[]
       }
-      get_reserved_dates: {
-        Args: { _property_id: string }
-        Returns: {
-          check_in: string
-          check_out: string
-        }[]
-      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
           _user_id: string
         }
+        Returns: boolean
+      }
+      is_date_range_available: {
+        Args: { _check_in: string; _check_out: string; _property_id: string }
         Returns: boolean
       }
     }

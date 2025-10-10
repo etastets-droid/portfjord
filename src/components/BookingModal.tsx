@@ -93,25 +93,13 @@ export function BookingModal({ isOpen, onClose, house, language }: BookingModalP
   const { toast } = useToast();
   const t = translations[language];
 
-  // Load existing reservations when modal opens
+  // Note: We no longer fetch all reserved dates for security reasons.
+  // Date availability is now checked individually when user selects dates.
   useEffect(() => {
-    if (isOpen && house.id) {
-      const fetchReservations = async () => {
-        try {
-          // Use the secure RPC function instead of direct table access
-          const { data, error } = await supabase
-            .rpc('get_reserved_dates', { _property_id: house.id });
-
-          if (error) throw error;
-          setExistingReservations(data || []);
-        } catch (error) {
-          console.error('Error fetching reservations:', error);
-        }
-      };
-
-      fetchReservations();
+    if (isOpen) {
+      setExistingReservations([]);
     }
-  }, [isOpen, house.id]);
+  }, [isOpen]);
 
   // Function to check if a date is disabled (already booked)
   const isDateDisabled = (date: Date) => {

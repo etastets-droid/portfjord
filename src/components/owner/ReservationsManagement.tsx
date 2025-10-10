@@ -51,16 +51,12 @@ export function ReservationsManagement() {
 
   const loadReservations = async () => {
     try {
-      const { data: user } = await supabase.auth.getUser();
-      if (!user.user) return;
-
-      const { data: owner } = await supabase
-        .from('owners')
-        .select('id')
-        .eq('user_id', user.user.id)
+      // Use centralized secure owner verification
+      const { data: owner, error: ownerError } = await supabase
+        .rpc('get_current_owner')
         .single();
 
-      if (!owner) return;
+      if (ownerError || !owner) return;
 
       // First get properties owned by this owner
       const { data: properties, error: propertiesError } = await supabase

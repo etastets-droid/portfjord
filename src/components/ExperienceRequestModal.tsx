@@ -8,12 +8,24 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Sparkles } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { useToast } from "@/hooks/use-toast";
+import { z } from "zod";
 
 interface ExperienceRequestModalProps {
   isOpen: boolean;
   onClose: () => void;
   language: 'en' | 'es';
 }
+
+const experienceRequestSchema = z.object({
+  guest_name: z.string().trim().min(2, "Name must be at least 2 characters").max(100, "Name must be less than 100 characters"),
+  guest_email: z.string().trim().email("Invalid email address").max(255, "Email must be less than 255 characters"),
+  guest_phone: z.string().trim().regex(/^\+?[1-9]\d{1,14}$/, "Invalid phone number format").optional().or(z.literal("")),
+  experience_type: z.string().min(1, "Experience type is required").max(100, "Experience type must be less than 100 characters"),
+  preferred_dates: z.string().max(200, "Preferred dates must be less than 200 characters").optional(),
+  special_requirements: z.string().max(2000, "Special requirements must be less than 2000 characters").optional(),
+  message: z.string().max(2000, "Message must be less than 2000 characters").optional(),
+  group_size: z.number().min(1, "At least 1 person required").max(50, "Maximum 50 people allowed"),
+});
 
 const translations = {
   en: {
@@ -89,14 +101,27 @@ export function ExperienceRequestModal({ isOpen, onClose, language }: Experience
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Validation
-    if (!guestName || !guestEmail || !experienceType || !groupSize) {
-      toast({
-        title: "Error",
-        description: t.requiredFields,
-        variant: "destructive",
+    // Validate form data with zod schema
+    try {
+      experienceRequestSchema.parse({
+        guest_name: guestName,
+        guest_email: guestEmail,
+        guest_phone: guestPhone || "",
+        experience_type: experienceType,
+        preferred_dates: preferredDates || "",
+        special_requirements: specialRequirements || "",
+        message: message || "",
+        group_size: parseInt(groupSize) || 1,
       });
-      return;
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        toast({
+          title: "Validation Error",
+          description: error.errors[0].message,
+          variant: "destructive",
+        });
+        return;
+      }
     }
 
     setIsLoading(true);

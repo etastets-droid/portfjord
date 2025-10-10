@@ -12,6 +12,7 @@ import { format, differenceInDays, parseISO, isWithinInterval } from "date-fns";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/lib/supabase";
 import { useToast } from "@/hooks/use-toast";
+import { z } from "zod";
 
 interface Reservation {
   check_in: string;
@@ -29,6 +30,14 @@ interface BookingModalProps {
   };
   language: 'en' | 'es';
 }
+
+const bookingSchema = z.object({
+  guest_name: z.string().trim().min(2, "Name must be at least 2 characters").max(100, "Name must be less than 100 characters"),
+  guest_email: z.string().trim().email("Invalid email address").max(255, "Email must be less than 255 characters"),
+  guest_phone: z.string().trim().regex(/^\+?[1-9]\d{1,14}$/, "Invalid phone number format").optional().or(z.literal("")),
+  special_requests: z.string().max(2000, "Special requests must be less than 2000 characters").optional(),
+  guests_count: z.number().min(1, "At least 1 guest required").max(50, "Maximum 50 guests allowed"),
+});
 
 const translations = {
   en: {
@@ -139,13 +148,33 @@ export function BookingModal({ isOpen, onClose, house, language }: BookingModalP
     e.preventDefault();
     
     // Validation
-    if (!checkIn || !checkOut || !guestName || !guestEmail) {
+    if (!checkIn || !checkOut) {
       toast({
         title: "Error",
         description: t.requiredFields,
         variant: "destructive",
       });
       return;
+    }
+
+    // Validate form data with zod schema
+    try {
+      bookingSchema.parse({
+        guest_name: guestName,
+        guest_email: guestEmail,
+        guest_phone: guestPhone || "",
+        special_requests: specialRequests || "",
+        guests_count: guestsCount,
+      });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        toast({
+          title: "Validation Error",
+          description: error.errors[0].message,
+          variant: "destructive",
+        });
+        return;
+      }
     }
 
     if (checkOut <= checkIn) {

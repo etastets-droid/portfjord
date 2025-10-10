@@ -121,7 +121,7 @@ export function HousesSection({ language }: HousesSectionProps) {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
             {properties.map((property) => (
-              <Card key={property.id} className="group overflow-hidden border-0 shadow-card hover:shadow-luxury transition-all duration-500 hover:scale-[1.02]">
+              <Card key={property.id} className="group overflow-hidden border-0 shadow-card hover:shadow-luxury transition-all duration-500 hover:scale-[1.02] flex flex-col h-full">
                 <div className="relative h-64 bg-gradient-to-r from-stone-light to-cedar-light overflow-hidden">
                   {/* Property image */}
                   {(() => {
@@ -174,7 +174,7 @@ export function HousesSection({ language }: HousesSectionProps) {
                   </div>
                 </div>
                 
-                <CardContent className="p-6">
+                <CardContent className="p-6 flex flex-col flex-grow">
                   <div className="flex items-start justify-between mb-4">
                     <h3 className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors">
                       {property.name}
@@ -199,7 +199,7 @@ export function HousesSection({ language }: HousesSectionProps) {
                   </div>
                   
                   {/* Actions */}
-                  <div className="flex gap-3">
+                  <div className="flex gap-3 mt-auto">
                     <Link to={`/house/${property.id}`} className="flex-1">
                       <Button variant="outline" className="w-full">
                         {t.viewDetails}

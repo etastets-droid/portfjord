@@ -135,7 +135,7 @@ export function ExperiencesSection({
 
         {/* Experiences Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          {experiences.map(experience => <Card key={experience.id} className="group overflow-hidden border-0 shadow-card hover:shadow-luxury transition-all duration-500 hover:scale-[1.02]">
+          {experiences.map(experience => <Card key={experience.id} className="group overflow-hidden border-0 shadow-card hover:shadow-luxury transition-all duration-500 hover:scale-[1.02] flex flex-col h-full">
               <div className="relative h-48 overflow-hidden">
                 <img 
                   src={failedImages[experience.id]
@@ -153,7 +153,7 @@ export function ExperiencesSection({
                 </div>
               </div>
               
-              <CardContent className="p-6">
+              <CardContent className="p-6 flex flex-col flex-grow">
                 <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
                   {experience.name}
                 </h3>
@@ -186,7 +186,7 @@ export function ExperiencesSection({
                 
                 {/* Book Button */}
                 <Button 
-                  className="w-full bg-gradient-fjord hover:opacity-90 transition-opacity"
+                  className="w-full bg-gradient-fjord hover:opacity-90 transition-opacity mt-auto"
                   onClick={() => {
                     const contactSection = document.getElementById('contact');
                     if (contactSection) {

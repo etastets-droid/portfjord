@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 interface ContactSectionProps {
   language: 'en' | 'es';
 }
@@ -89,9 +90,19 @@ export function ContactSection({
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const { error } = await supabase
+        .from('contact_messages')
+        .insert({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone || null,
+          inquiry_type: formData.inquiryType,
+          message: formData.message
+        });
+
+      if (error) throw error;
+
       toast({
         title: "Success",
         description: t.success
@@ -104,6 +115,7 @@ export function ContactSection({
         message: ""
       });
     } catch (error) {
+      console.error('Error saving contact message:', error);
       toast({
         title: "Error",
         description: t.error,

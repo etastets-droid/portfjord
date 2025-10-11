@@ -14,7 +14,9 @@ interface HousesSectionProps {
 interface Property {
   id: string;
   name: string;
+  name_es: string | null;
   description: string;
+  description_es: string | null;
   price_per_night: number;
   max_guests: number;
   amenities: string[];
@@ -177,7 +179,7 @@ export function HousesSection({ language }: HousesSectionProps) {
                 <CardContent className="p-6 flex flex-col flex-grow">
                   <div className="flex items-start justify-between mb-4">
                     <h3 className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors">
-                      {property.name}
+                      {language === 'es' && property.name_es ? property.name_es : property.name}
                     </h3>
                     <div className="flex items-center text-muted-foreground">
                       <Users className="h-4 w-4 mr-1" />
@@ -186,7 +188,7 @@ export function HousesSection({ language }: HousesSectionProps) {
                   </div>
                   
                   <p className="text-muted-foreground mb-4 leading-relaxed">
-                    {property.description}
+                    {language === 'es' && property.description_es ? property.description_es : property.description}
                   </p>
                   
                   {/* Features */}

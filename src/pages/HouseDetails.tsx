@@ -247,7 +247,6 @@ const HouseDetails = () => {
         '/lovable-uploads/6af8cb45-a90e-4af9-89ef-d1cc61dbd844.png',
         '/lovable-uploads/ab618131-d578-4437-82d8-1950a3ddf561.png',
         '/lovable-uploads/2d7ee075-9f9d-4826-bd4a-8ce9bdad60dd.png',
-        '/lovable-uploads/70bb7ae7-217c-4eba-91a3-45ccc3760b16.png',
         '/lovable-uploads/casa-nest-terraza.jpg'
       ],
       'a1b2c3d4-e5f6-7890-abcd-ef1234567890': [

@@ -9,6 +9,7 @@ import { BookingModal } from "@/components/BookingModal";
 import { supabase } from "@/lib/supabase";
 import { 
   ArrowLeft, 
+  ArrowRight,
   MapPin, 
   Users, 
   Bed, 
@@ -22,7 +23,9 @@ import {
   Waves,
   TreePine,
   Home,
-  ImageIcon
+  ImageIcon,
+  ChevronLeft,
+  ChevronRight
 } from "lucide-react";
 
 const translations = {
@@ -284,6 +287,14 @@ const HouseDetails = () => {
 
   const houseImages = getHouseImages(property.id);
 
+  const handlePreviousImage = () => {
+    setSelectedImage((prev) => (prev === 0 ? houseImages.length - 1 : prev - 1));
+  };
+
+  const handleNextImage = () => {
+    setSelectedImage((prev) => (prev === houseImages.length - 1 ? 0 : prev + 1));
+  };
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -300,12 +311,39 @@ const HouseDetails = () => {
           <div className="lg:w-2/3">
             <div className="grid grid-cols-1 gap-4">
               {/* Main Image */}
-              <div className="relative h-[32rem] bg-muted rounded-lg overflow-hidden">
+              <div className="relative h-[32rem] bg-muted rounded-lg overflow-hidden group">
                 <img 
                   src={houseImages[selectedImage] || '/placeholder.svg'} 
                   alt={property.name}
                   className="w-full h-full object-cover"
                 />
+                
+                {/* Navigation Buttons */}
+                {houseImages.length > 1 && (
+                  <>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      className="absolute left-4 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-background/80 backdrop-blur-sm hover:bg-background/90"
+                      onClick={handlePreviousImage}
+                    >
+                      <ChevronLeft className="h-6 w-6" />
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      className="absolute right-4 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-background/80 backdrop-blur-sm hover:bg-background/90"
+                      onClick={handleNextImage}
+                    >
+                      <ChevronRight className="h-6 w-6" />
+                    </Button>
+                    
+                    {/* Image Counter */}
+                    <div className="absolute bottom-4 right-4 bg-background/80 backdrop-blur-sm px-3 py-1 rounded-full text-sm">
+                      {selectedImage + 1} / {houseImages.length}
+                    </div>
+                  </>
+                )}
               </div>
               
               {/* Thumbnail Images */}

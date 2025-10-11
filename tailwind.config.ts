@@ -93,7 +93,7 @@ export default {
 			},
 		fontFamily: {
 			'sans': ['Inter', 'system-ui', 'sans-serif'],
-			'display': ['Playfair Display', 'serif'],
+			'display': ['Quicksand', 'sans-serif'],
 		},
 			keyframes: {
 				'accordion-down': {

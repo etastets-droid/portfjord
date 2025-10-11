@@ -11,7 +11,9 @@ interface ExperiencesSectionProps {
 interface Experience {
   id: string;
   name: string;
+  name_es: string | null;
   description: string;
+  description_es: string | null;
   image_url: string;
   duration: string;
   difficulty_level: string;
@@ -155,11 +157,11 @@ export function ExperiencesSection({
               
               <CardContent className="p-6 flex flex-col flex-grow">
                 <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
-                  {experience.name}
+                  {language === 'es' && experience.name_es ? experience.name_es : experience.name}
                 </h3>
                 
                 <p className="text-muted-foreground mb-4 leading-relaxed text-sm">
-                  {experience.description}
+                  {language === 'es' && experience.description_es ? experience.description_es : experience.description}
                 </p>
                 
                 {/* Duration and Price */}

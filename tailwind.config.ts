@@ -91,9 +91,10 @@ export default {
 				'luxury': 'var(--transition-luxury)',
 				'smooth': 'var(--transition-smooth)',
 			},
-			fontFamily: {
-				'sans': ['Inter', 'system-ui', 'sans-serif'],
-			},
+		fontFamily: {
+			'sans': ['Inter', 'system-ui', 'sans-serif'],
+			'display': ['Playfair Display', 'serif'],
+		},
 			keyframes: {
 				'accordion-down': {
 					from: {

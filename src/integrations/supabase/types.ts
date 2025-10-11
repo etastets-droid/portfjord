@@ -144,12 +144,14 @@ export type Database = {
         Row: {
           created_at: string
           description: string
+          description_es: string | null
           difficulty_level: string | null
           duration: string | null
           id: string
           image_url: string | null
           included_items: string[] | null
           name: string
+          name_es: string | null
           price_range: string | null
           status: string | null
           updated_at: string
@@ -157,12 +159,14 @@ export type Database = {
         Insert: {
           created_at?: string
           description: string
+          description_es?: string | null
           difficulty_level?: string | null
           duration?: string | null
           id?: string
           image_url?: string | null
           included_items?: string[] | null
           name: string
+          name_es?: string | null
           price_range?: string | null
           status?: string | null
           updated_at?: string
@@ -170,12 +174,14 @@ export type Database = {
         Update: {
           created_at?: string
           description?: string
+          description_es?: string | null
           difficulty_level?: string | null
           duration?: string | null
           id?: string
           image_url?: string | null
           included_items?: string[] | null
           name?: string
+          name_es?: string | null
           price_range?: string | null
           status?: string | null
           updated_at?: string
@@ -221,10 +227,12 @@ export type Database = {
           bedrooms: number | null
           created_at: string
           description: string | null
+          description_es: string | null
           id: string
           images: string[] | null
           max_guests: number | null
           name: string
+          name_es: string | null
           owner_id: string
           price_per_night: number | null
           status: string | null
@@ -238,10 +246,12 @@ export type Database = {
           bedrooms?: number | null
           created_at?: string
           description?: string | null
+          description_es?: string | null
           id?: string
           images?: string[] | null
           max_guests?: number | null
           name: string
+          name_es?: string | null
           owner_id: string
           price_per_night?: number | null
           status?: string | null
@@ -255,10 +265,12 @@ export type Database = {
           bedrooms?: number | null
           created_at?: string
           description?: string | null
+          description_es?: string | null
           id?: string
           images?: string[] | null
           max_guests?: number | null
           name?: string
+          name_es?: string | null
           owner_id?: string
           price_per_night?: number | null
           status?: string | null

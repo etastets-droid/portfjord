@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
+import { Navigation } from "@/components/ui/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -94,7 +95,7 @@ interface Property {
 
 const HouseDetails = () => {
   const { id } = useParams();
-  const [language] = useState<'en' | 'es'>('en');
+  const [language, setLanguage] = useState<'en' | 'es'>('en');
   const [selectedImage, setSelectedImage] = useState(0);
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [property, setProperty] = useState<Property | null>(null);
@@ -297,6 +298,7 @@ const HouseDetails = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Navigation language={language} onLanguageChange={setLanguage} />
       {/* Header */}
       <div className="container mx-auto px-4 py-6">
         <Link to="/">

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { Navigation } from "@/components/ui/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -95,7 +95,6 @@ interface Property {
 
 const HouseDetails = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
   const [language, setLanguage] = useState<'en' | 'es'>('en');
   const [selectedImage, setSelectedImage] = useState(0);
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
@@ -144,7 +143,9 @@ const HouseDetails = () => {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-foreground mb-4">House not found</h1>
-          <Button onClick={() => navigate('/#houses')}>{t.backToHomes}</Button>
+          <Button asChild>
+            <Link to="/#houses">{t.backToHomes}</Link>
+          </Button>
         </div>
       </div>
     );
@@ -300,12 +301,11 @@ const HouseDetails = () => {
       <Navigation language={language} onLanguageChange={setLanguage} />
       {/* Header */}
       <div className="container mx-auto px-4 py-6">
-        <Button variant="ghost" className="mb-6" onClick={() => {
-          console.log('Back to houses clicked, navigating...');
-          navigate('/', { state: { scrollTo: 'houses' } });
-        }}>
-          <ArrowLeft className="h-4 w-4 mr-2" />
-          {t.backToHomes}
+        <Button variant="ghost" className="mb-6" asChild>
+          <Link to="/#houses">
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            {t.backToHomes}
+          </Link>
         </Button>
         
         <div className="flex flex-col lg:flex-row gap-8">

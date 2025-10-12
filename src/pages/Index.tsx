@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useState } from "react";
+import { ScrollToHashElement } from "@cascadia-code/scroll-to-hash-element";
 import { Navigation } from "@/components/ui/navigation";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { HousesSection } from "@/components/sections/HousesSection";
@@ -11,44 +11,10 @@ import { VideoSection } from "@/components/sections/VideoSection";
 
 const Index = () => {
   const [language, setLanguage] = useState<'en' | 'es'>('en');
-  const location = useLocation();
-
-  // Handle hash navigation on mount and when hash changes
-  useEffect(() => {
-    console.log('Index useEffect - Hash:', location.hash, 'Pathname:', location.pathname, 'State:', location.state);
-    
-    // Check if there's a scrollTo instruction in state
-    if (location.state && (location.state as any).scrollTo) {
-      const id = (location.state as any).scrollTo;
-      console.log('Scrolling to from state:', id);
-      setTimeout(() => {
-        const element = document.getElementById(id);
-        if (element) {
-          console.log('Element found, scrolling...');
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }, 100);
-      return;
-    }
-    
-    // Otherwise check for hash
-    if (location.hash) {
-      const id = location.hash.replace('#', '');
-      console.log('Looking for element with id:', id);
-      setTimeout(() => {
-        const element = document.getElementById(id);
-        if (element) {
-          console.log('Element found, scrolling to:', id);
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        } else {
-          console.log('Element NOT found with id:', id);
-        }
-      }, 100);
-    }
-  }, [location]);
 
   return (
     <div className="min-h-screen bg-background">
+      <ScrollToHashElement />
       <Navigation language={language} onLanguageChange={setLanguage} />
       <main>
         <div id="home">

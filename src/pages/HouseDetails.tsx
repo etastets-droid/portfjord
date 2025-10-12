@@ -146,8 +146,21 @@ const HouseDetails = () => {
           <h1 className="text-2xl font-bold text-foreground mb-4">House not found</h1>
           <Button 
             onClick={() => {
-              console.log('Navigating to houses section...');
-              navigate('/#houses');
+              console.log('=== BACK TO HOUSES CLICKED ===');
+              console.log('Current location:', window.location.href);
+              console.log('Attempting navigation to /#houses');
+              
+              // First navigate to home
+              window.location.href = '/';
+              
+              // Then after a small delay, scroll to houses
+              setTimeout(() => {
+                const element = document.getElementById('houses');
+                console.log('Houses element found:', !!element);
+                if (element) {
+                  element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+              }, 500);
             }}
           >
             {t.backToHomes}
@@ -311,8 +324,21 @@ const HouseDetails = () => {
           variant="ghost" 
           className="mb-6"
           onClick={() => {
-            console.log('Navigating to houses section...');
-            navigate('/#houses');
+            console.log('=== BACK TO HOUSES CLICKED (top button) ===');
+            console.log('Current location:', window.location.href);
+            console.log('Attempting navigation to /#houses');
+            
+            // First navigate to home
+            window.location.href = '/';
+            
+            // Then after a small delay, scroll to houses
+            setTimeout(() => {
+              const element = document.getElementById('houses');
+              console.log('Houses element found:', !!element);
+              if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
+            }, 500);
           }}
         >
           <ArrowLeft className="h-4 w-4 mr-2" />

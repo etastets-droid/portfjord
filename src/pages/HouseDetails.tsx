@@ -144,22 +144,11 @@ const HouseDetails = () => {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-foreground mb-4">House not found</h1>
-          <Link 
-            to="/#houses"
-            onClick={(e) => {
-              if (window.location.pathname === '/') {
-                e.preventDefault();
-                const el = document.getElementById('houses');
-                if (el) {
-                  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-              }
-            }}
-          >
+          <a href="/#houses">
             <Button>
               {t.backToHomes}
             </Button>
-          </Link>
+          </a>
         </div>
       </div>
     );
@@ -315,20 +304,7 @@ const HouseDetails = () => {
       <Navigation language={language} onLanguageChange={setLanguage} />
       {/* Header */}
       <div className="container mx-auto px-4 py-6">
-        <Link 
-          to="/#houses"
-          onClick={(e) => {
-            // If we're navigating from another page, let the link work normally
-            // The useEffect in Index will handle the scroll
-            if (window.location.pathname === '/') {
-              e.preventDefault();
-              const el = document.getElementById('houses');
-              if (el) {
-                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              }
-            }
-          }}
-        >
+        <a href="/#houses" className="inline-block">
           <Button 
             variant="ghost" 
             className="mb-6"
@@ -336,7 +312,7 @@ const HouseDetails = () => {
             <ArrowLeft className="h-4 w-4 mr-2" />
             {t.backToHomes}
           </Button>
-        </Link>
+        </a>
         
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Images Section */}

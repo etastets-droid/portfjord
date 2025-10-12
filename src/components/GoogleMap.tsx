@@ -30,11 +30,11 @@ export function GoogleMap({ language }: GoogleMapProps) {
       maxZoom: 19,
     }).addTo(map);
 
-    // Add scale control
+    // Add scale control (coordinates display)
     L.control.scale({
       metric: true,
       imperial: false,
-      position: 'bottomleft'
+      position: 'topright'
     }).addTo(map);
 
     // Add marker

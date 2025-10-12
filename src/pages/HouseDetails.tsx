@@ -146,7 +146,8 @@ const HouseDetails = () => {
           <h1 className="text-2xl font-bold text-foreground mb-4">House not found</h1>
           <Button 
             onClick={() => {
-              window.location.href = '/#houses';
+              sessionStorage.setItem('scrollToHouses', 'true');
+              navigate('/');
             }}
           >
             {t.backToHomes}
@@ -310,7 +311,8 @@ const HouseDetails = () => {
           variant="ghost" 
           className="mb-6"
           onClick={() => {
-            window.location.href = '/#houses';
+            sessionStorage.setItem('scrollToHouses', 'true');
+            navigate('/');
           }}
         >
           <ArrowLeft className="h-4 w-4 mr-2" />

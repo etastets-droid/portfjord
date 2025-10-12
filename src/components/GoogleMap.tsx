@@ -22,7 +22,7 @@ export function GoogleMap({ language }: GoogleMapProps) {
     if (!mapRef.current || mapInstanceRef.current) return;
 
     // Initialize map
-    const map = L.map(mapRef.current).setView([-51.592324626389164, -72.6646527857463], 14);
+    const map = L.map(mapRef.current).setView([-51.592324626389164, -72.6646527857463], 11);
 
     // Add tile layer
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {

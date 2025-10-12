@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { ScrollToHashElement } from "@cascadia-code/scroll-to-hash-element";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { Navigation } from "@/components/ui/navigation";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { HousesSection } from "@/components/sections/HousesSection";
@@ -11,10 +11,24 @@ import { VideoSection } from "@/components/sections/VideoSection";
 
 const Index = () => {
   const [language, setLanguage] = useState<'en' | 'es'>('en');
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.replace('#', '');
+      // Delay to ensure DOM is ready
+      const timer = setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [location.hash, location.pathname]);
 
   return (
     <div className="min-h-screen bg-background">
-      <ScrollToHashElement />
       <Navigation language={language} onLanguageChange={setLanguage} />
       <main>
         <div id="home">

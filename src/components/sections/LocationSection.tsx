@@ -74,7 +74,7 @@ export function LocationSection({ language }: LocationSectionProps) {
               <div className="relative">
                 <GoogleMap language={language} />
                 {/* Coordinates Badge */}
-                <div className="absolute top-4 left-4 z-10">
+                <div className="absolute bottom-4 left-4 z-10">
                   <Badge variant="secondary" className="font-mono text-xs bg-white/90 text-foreground">
                     {t.coordinates}: -51.592°, -72.665°
                   </Badge>

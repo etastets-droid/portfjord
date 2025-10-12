@@ -303,7 +303,7 @@ const HouseDetails = () => {
     <div className="min-h-screen bg-background">
       <Navigation language={language} onLanguageChange={setLanguage} />
       {/* Header */}
-      <div className="container mx-auto px-4 py-6">
+      <div className="container mx-auto px-4 pt-24 pb-6">
         <a href="/#houses" className="inline-block">
           <Button 
             variant="ghost" 

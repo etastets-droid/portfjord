@@ -146,13 +146,7 @@ const HouseDetails = () => {
           <h1 className="text-2xl font-bold text-foreground mb-4">House not found</h1>
           <Button 
             onClick={() => {
-              navigate('/');
-              setTimeout(() => {
-                const element = document.getElementById('houses');
-                if (element) {
-                  element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-              }, 100);
+              window.location.href = '/#houses';
             }}
           >
             {t.backToHomes}
@@ -316,13 +310,7 @@ const HouseDetails = () => {
           variant="ghost" 
           className="mb-6"
           onClick={() => {
-            navigate('/');
-            setTimeout(() => {
-              const element = document.getElementById('houses');
-              if (element) {
-                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              }
-            }, 100);
+            window.location.href = '/#houses';
           }}
         >
           <ArrowLeft className="h-4 w-4 mr-2" />

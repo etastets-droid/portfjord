@@ -16,13 +16,13 @@ const Index = () => {
   useEffect(() => {
     if (location.hash) {
       const id = location.hash.replace('#', '');
-      // Delay to ensure DOM is ready
+      // Increased delay to ensure DOM is fully ready
       const timer = setTimeout(() => {
         const element = document.getElementById(id);
         if (element) {
           element.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-      }, 100);
+      }, 300);
       return () => clearTimeout(timer);
     }
   }, [location.hash, location.pathname]);

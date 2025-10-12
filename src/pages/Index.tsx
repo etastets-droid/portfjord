@@ -14,25 +14,15 @@ const Index = () => {
   const location = useLocation();
 
   useEffect(() => {
-    console.log('=== INDEX PAGE LOADED ===');
-    console.log('Current hash:', location.hash);
-    console.log('Current pathname:', location.pathname);
-    
     if (location.hash) {
       const id = location.hash.replace('#', '');
-      console.log('Attempting to scroll to section:', id);
-      
-      // Delay to ensure DOM is fully ready
+      // Increased delay to ensure DOM is fully ready
       const timer = setTimeout(() => {
         const element = document.getElementById(id);
-        console.log('Element found for', id, ':', !!element);
-        
         if (element) {
-          console.log('Scrolling to element:', id);
           element.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-      }, 500);
-      
+      }, 100);
       return () => clearTimeout(timer);
     }
   }, [location.hash, location.pathname]);

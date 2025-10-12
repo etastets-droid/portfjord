@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { Navigation } from "@/components/ui/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -144,27 +144,11 @@ const HouseDetails = () => {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-foreground mb-4">House not found</h1>
-          <Button 
-            onClick={() => {
-              console.log('=== BACK TO HOUSES CLICKED ===');
-              console.log('Current location:', window.location.href);
-              console.log('Attempting navigation to /#houses');
-              
-              // First navigate to home
-              window.location.href = '/';
-              
-              // Then after a small delay, scroll to houses
-              setTimeout(() => {
-                const element = document.getElementById('houses');
-                console.log('Houses element found:', !!element);
-                if (element) {
-                  element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-              }, 500);
-            }}
-          >
-            {t.backToHomes}
-          </Button>
+          <Link to="/#houses">
+            <Button>
+              {t.backToHomes}
+            </Button>
+          </Link>
         </div>
       </div>
     );
@@ -320,30 +304,15 @@ const HouseDetails = () => {
       <Navigation language={language} onLanguageChange={setLanguage} />
       {/* Header */}
       <div className="container mx-auto px-4 py-6">
-        <Button 
-          variant="ghost" 
-          className="mb-6"
-          onClick={() => {
-            console.log('=== BACK TO HOUSES CLICKED (top button) ===');
-            console.log('Current location:', window.location.href);
-            console.log('Attempting navigation to /#houses');
-            
-            // First navigate to home
-            window.location.href = '/';
-            
-            // Then after a small delay, scroll to houses
-            setTimeout(() => {
-              const element = document.getElementById('houses');
-              console.log('Houses element found:', !!element);
-              if (element) {
-                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              }
-            }, 500);
-          }}
-        >
-          <ArrowLeft className="h-4 w-4 mr-2" />
-          {t.backToHomes}
-        </Button>
+        <Link to="/#houses">
+          <Button 
+            variant="ghost" 
+            className="mb-6"
+          >
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            {t.backToHomes}
+          </Button>
+        </Link>
         
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Images Section */}

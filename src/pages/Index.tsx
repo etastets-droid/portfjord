@@ -14,27 +14,17 @@ const Index = () => {
   const location = useLocation();
 
   useEffect(() => {
-    // Check sessionStorage for scroll target
-    const shouldScrollToHouses = sessionStorage.getItem('scrollToHouses');
-    
-    if (shouldScrollToHouses) {
-      sessionStorage.removeItem('scrollToHouses');
-      const timer = setTimeout(() => {
-        const element = document.getElementById('houses');
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }, 100);
-      return () => clearTimeout(timer);
-    }
-    
-    // Handle hash-based navigation
     if (location.hash) {
       const id = location.hash.replace('#', '');
+      console.log('Scrolling to section:', id);
+      // Delay to ensure DOM is fully ready
       const timer = setTimeout(() => {
         const element = document.getElementById(id);
         if (element) {
+          console.log('Element found, scrolling to:', id);
           element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          console.log('Element not found:', id);
         }
       }, 300);
       return () => clearTimeout(timer);

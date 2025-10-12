@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { Navigation } from "@/components/ui/navigation";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { HousesSection } from "@/components/sections/HousesSection";
@@ -10,18 +11,42 @@ import { VideoSection } from "@/components/sections/VideoSection";
 
 const Index = () => {
   const [language, setLanguage] = useState<'en' | 'es'>('en');
+  const location = useLocation();
+
+  // Handle hash navigation on mount and when hash changes
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.replace('#', '');
+      setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+    }
+  }, [location]);
 
   return (
     <div className="min-h-screen bg-background">
       <Navigation language={language} onLanguageChange={setLanguage} />
       <main>
-        <HeroSection language={language} />
-        <HousesSection language={language} />
-        <ExperiencesSection language={language} />
+        <div id="home">
+          <HeroSection language={language} />
+        </div>
+        <div id="houses">
+          <HousesSection language={language} />
+        </div>
+        <div id="experiences">
+          <ExperiencesSection language={language} />
+        </div>
         <VideoSection language={language} />
         <GallerySection language={language} />
-        <LocationSection language={language} />
-        <ContactSection language={language} />
+        <div id="location">
+          <LocationSection language={language} />
+        </div>
+        <div id="contact">
+          <ContactSection language={language} />
+        </div>
       </main>
     </div>
   );

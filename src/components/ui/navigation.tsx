@@ -49,16 +49,21 @@ export function Navigation({
   }, []);
 
   const handleNavClick = (id: string) => {
+    console.log('Navigation clicked:', id, 'Current path:', location.pathname);
     setIsOpen(false);
     
     // If we're not on the home page, navigate to home with hash
     if (location.pathname !== '/') {
+      console.log('Navigating to home with hash:', `/#${id}`);
       navigate(`/#${id}`);
     } else {
       // If we're on home page, just scroll to the element
+      console.log('Already on home, scrolling to:', id);
       const el = document.getElementById(id);
       if (el) {
         el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        console.log('Element not found:', id);
       }
     }
   };

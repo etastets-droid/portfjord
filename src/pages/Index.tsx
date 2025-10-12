@@ -15,12 +15,17 @@ const Index = () => {
 
   // Handle hash navigation on mount and when hash changes
   useEffect(() => {
+    console.log('Index useEffect - Hash changed:', location.hash, 'Pathname:', location.pathname);
     if (location.hash) {
       const id = location.hash.replace('#', '');
+      console.log('Looking for element with id:', id);
       setTimeout(() => {
         const element = document.getElementById(id);
         if (element) {
+          console.log('Element found, scrolling to:', id);
           element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          console.log('Element NOT found with id:', id);
         }
       }, 100);
     }

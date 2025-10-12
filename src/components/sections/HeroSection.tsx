@@ -8,7 +8,7 @@ interface HeroSectionProps {
 }
 const translations = {
   en: {
-    title: "Puerto Fjord",
+    title: "puerto fjord",
     subtitle: "Adventure Retreat & Marina",
     description: "Discover unparalleled luxury in the heart of Patagonia. Nestled along pristine fjords, our five exclusive residences blend world class comfort with breathtaking views. Wake up to majestic landscapes, indulge in refined amenities, and embark on unforgettable adventures.",
     location: "Puerto Natales, Patagonia",
@@ -17,7 +17,7 @@ const translations = {
     coordinates: "51°35'32.4\"S 72°39'52.7\"W"
   },
   es: {
-    title: "Puerto Fjord",
+    title: "puerto fjord",
     subtitle: "Adventure Retreat & Marina",
     description: "Experimenta lujo incomparable en la naturaleza prístina de la Patagonia. Cinco casas exclusivas que ofrecen vistas impresionantes a los fiordos, amenities de clase mundial y aventuras inolvidables.",
     location: "Puerto Natales, Patagonia",

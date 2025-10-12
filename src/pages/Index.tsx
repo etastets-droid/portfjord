@@ -15,7 +15,23 @@ const Index = () => {
 
   // Handle hash navigation on mount and when hash changes
   useEffect(() => {
-    console.log('Index useEffect - Hash changed:', location.hash, 'Pathname:', location.pathname);
+    console.log('Index useEffect - Hash:', location.hash, 'Pathname:', location.pathname, 'State:', location.state);
+    
+    // Check if there's a scrollTo instruction in state
+    if (location.state && (location.state as any).scrollTo) {
+      const id = (location.state as any).scrollTo;
+      console.log('Scrolling to from state:', id);
+      setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element) {
+          console.log('Element found, scrolling...');
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+      return;
+    }
+    
+    // Otherwise check for hash
     if (location.hash) {
       const id = location.hash.replace('#', '');
       console.log('Looking for element with id:', id);

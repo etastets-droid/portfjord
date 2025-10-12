@@ -301,8 +301,8 @@ const HouseDetails = () => {
       {/* Header */}
       <div className="container mx-auto px-4 py-6">
         <Button variant="ghost" className="mb-6" onClick={() => {
-          console.log('Back to houses clicked');
-          navigate('/#houses');
+          console.log('Back to houses clicked, navigating...');
+          navigate('/', { state: { scrollTo: 'houses' } });
         }}>
           <ArrowLeft className="h-4 w-4 mr-2" />
           {t.backToHomes}

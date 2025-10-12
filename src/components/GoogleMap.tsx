@@ -30,6 +30,13 @@ export function GoogleMap({ language }: GoogleMapProps) {
       maxZoom: 19,
     }).addTo(map);
 
+    // Add scale control
+    L.control.scale({
+      metric: true,
+      imperial: false,
+      position: 'bottomleft'
+    }).addTo(map);
+
     // Add marker
     const marker = L.marker([-51.592324626389164, -72.6646527857463]).addTo(map);
     

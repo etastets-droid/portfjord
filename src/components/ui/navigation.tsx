@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Globe } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import puertoFjordLogo from "@/assets/puerto-fjord-logo.png";
 import { Link } from "react-router-dom";
+import puertoFjordLogo from "@/assets/puerto-fjord-logo.png";
 interface NavigationProps {
   language: 'en' | 'es';
   onLanguageChange: (lang: 'en' | 'es') => void;
@@ -34,6 +35,8 @@ export function Navigation({
 }: NavigationProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
   const t = translations[language];
 
   // Detect scroll for background effect
@@ -47,9 +50,16 @@ export function Navigation({
 
   const handleNavClick = (id: string) => {
     setIsOpen(false);
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    
+    // If we're not on the home page, navigate to home with hash
+    if (location.pathname !== '/') {
+      navigate(`/#${id}`);
+    } else {
+      // If we're on home page, just scroll to the element
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     }
   };
 
@@ -63,21 +73,21 @@ export function Navigation({
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-8">
-            <Link to="/#home" className="text-foreground hover:text-primary transition-colors">
+            <button onClick={() => handleNavClick('home')} className="text-foreground hover:text-primary transition-colors">
               {t.home}
-            </Link>
-            <Link to="/#houses" className="text-foreground hover:text-primary transition-colors">
+            </button>
+            <button onClick={() => handleNavClick('houses')} className="text-foreground hover:text-primary transition-colors">
               {t.houses}
-            </Link>
-            <Link to="/#experiences" className="text-foreground hover:text-primary transition-colors">
+            </button>
+            <button onClick={() => handleNavClick('experiences')} className="text-foreground hover:text-primary transition-colors">
               {t.experiences}
-            </Link>
-            <Link to="/#location" className="text-foreground hover:text-primary transition-colors">
+            </button>
+            <button onClick={() => handleNavClick('location')} className="text-foreground hover:text-primary transition-colors">
               {t.location}
-            </Link>
-            <Link to="/#contact" className="text-foreground hover:text-primary transition-colors">
+            </button>
+            <button onClick={() => handleNavClick('contact')} className="text-foreground hover:text-primary transition-colors">
               {t.contact}
-            </Link>
+            </button>
             <Button variant="outline" size="sm" asChild>
               <Link to="/owner-login">{t.ownerPortal}</Link>
             </Button>
@@ -101,8 +111,8 @@ export function Navigation({
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-            <Button className="bg-gradient-fjord hover:opacity-90 transition-opacity shadow-luxury" asChild>
-              <Link to="/#houses">{t.bookNow}</Link>
+            <Button className="bg-gradient-fjord hover:opacity-90 transition-opacity shadow-luxury" onClick={() => handleNavClick('houses')}>
+              {t.bookNow}
             </Button>
           </div>
 
@@ -117,21 +127,21 @@ export function Navigation({
         {/* Mobile Navigation */}
         {isOpen && <div className="lg:hidden py-6 px-4 bg-background/95 backdrop-blur-lg border-t border-border/50 shadow-lg animate-slide-in-right">
             <div className="flex flex-col space-y-5">
-              <Link to="/#home" onClick={() => setIsOpen(false)} className="text-foreground hover:text-primary transition-colors text-left text-lg py-2 font-medium">
+              <button onClick={() => handleNavClick('home')} className="text-foreground hover:text-primary transition-colors text-left text-lg py-2 font-medium">
                 {t.home}
-              </Link>
-              <Link to="/#houses" onClick={() => setIsOpen(false)} className="text-foreground hover:text-primary transition-colors text-left text-lg py-2 font-medium">
+              </button>
+              <button onClick={() => handleNavClick('houses')} className="text-foreground hover:text-primary transition-colors text-left text-lg py-2 font-medium">
                 {t.houses}
-              </Link>
-              <Link to="/#experiences" onClick={() => setIsOpen(false)} className="text-foreground hover:text-primary transition-colors text-left text-lg py-2 font-medium">
+              </button>
+              <button onClick={() => handleNavClick('experiences')} className="text-foreground hover:text-primary transition-colors text-left text-lg py-2 font-medium">
                 {t.experiences}
-              </Link>
-              <Link to="/#location" onClick={() => setIsOpen(false)} className="text-foreground hover:text-primary transition-colors text-left text-lg py-2 font-medium">
+              </button>
+              <button onClick={() => handleNavClick('location')} className="text-foreground hover:text-primary transition-colors text-left text-lg py-2 font-medium">
                 {t.location}
-              </Link>
-              <Link to="/#contact" onClick={() => setIsOpen(false)} className="text-foreground hover:text-primary transition-colors text-left text-lg py-2 font-medium">
+              </button>
+              <button onClick={() => handleNavClick('contact')} className="text-foreground hover:text-primary transition-colors text-left text-lg py-2 font-medium">
                 {t.contact}
-              </Link>
+              </button>
               
               <div className="pt-4 border-t border-border/30 space-y-4">
                 <Button variant="outline" size="lg" className="w-full justify-start" asChild>
@@ -155,8 +165,8 @@ export function Navigation({
                   </DropdownMenuContent>
                 </DropdownMenu>
                 
-                <Button className="w-full bg-gradient-fjord hover:opacity-90 transition-opacity shadow-luxury" size="lg" asChild>
-                  <Link to="/#houses" onClick={() => setIsOpen(false)}>{t.bookNow}</Link>
+                <Button className="w-full bg-gradient-fjord hover:opacity-90 transition-opacity shadow-luxury" size="lg" onClick={() => handleNavClick('houses')}>
+                  {t.bookNow}
                 </Button>
               </div>
             </div>

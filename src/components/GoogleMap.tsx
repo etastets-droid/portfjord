@@ -24,11 +24,27 @@ export function GoogleMap({ language }: GoogleMapProps) {
     // Initialize map
     const map = L.map(mapRef.current).setView([-51.592324626389164, -72.6646527857463], 10);
 
-    // Add tile layer
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    // Define base layers
+    const streetMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       maxZoom: 19,
-    }).addTo(map);
+    });
+
+    const satelliteMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+      attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
+      maxZoom: 19,
+    });
+
+    // Add default layer (street map)
+    streetMap.addTo(map);
+
+    // Add layer control to switch between street and satellite
+    const baseMaps = {
+      [language === 'en' ? 'Map' : 'Mapa']: streetMap,
+      [language === 'en' ? 'Satellite' : 'Satélite']: satelliteMap,
+    };
+
+    L.control.layers(baseMaps).addTo(map);
 
     // Add scale control (coordinates display)
     L.control.scale({

@@ -45,7 +45,7 @@ export function GoogleMap({ language }: GoogleMapProps) {
         <strong>Puerto Fjord</strong><br/>
         ${language === 'en' ? 'Luxury Patagonian Retreat' : 'Refugio de Lujo en la Patagonia'}
       </div>`
-    );
+    ).openPopup();
 
     mapInstanceRef.current = map;
 

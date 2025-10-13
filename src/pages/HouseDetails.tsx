@@ -173,7 +173,7 @@ const HouseDetails = () => {
   // Static floor plan mapping for each house
   const getFloorPlanImage = (propertyId: string) => {
     const floorPlanMap: { [key: string]: string } = {
-      'f854966e-2dfe-42f8-a7c7-b6e9f24e91fb': '/lovable-uploads/valley-house-floorplan.jpg',
+      'f854966e-2dfe-42f8-a7c7-b6e9f24e91fb': '/lovable-uploads/valley-house-floorplan-new.png',
       'a1b2c3d4-e5f6-7890-abcd-ef1234567890': '/lovable-uploads/e8ef856c-36ca-4f82-bfd4-0c1dbd92b574.png',
       'b2c3d4e5-f6g7-8901-bcde-f12345678901': '/lovable-uploads/5f799eb3-4541-4035-8877-a2835e042144.png',
       'c3d4e5f6-g7h8-9012-cdef-123456789012': '/lovable-uploads/7c73e2bf-2738-449d-8d1e-31c47d8bb826.png',

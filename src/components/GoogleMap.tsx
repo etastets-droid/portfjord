@@ -35,19 +35,18 @@ export function GoogleMap({ language }: GoogleMapProps) {
       maxZoom: 19,
     });
 
-    // Create hybrid layer (satellite + labels)
+    // Create hybrid layer (satellite + roads + labels)
     const satelliteBase = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
       attribution: 'Tiles &copy; Esri',
       maxZoom: 19,
     });
 
-    const labelsLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_only_labels/{z}/{x}/{y}{r}.png', {
+    const roadsAndLabels = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}{r}.png', {
       attribution: '&copy; <a href="https://carto.com/">CARTO</a>',
       maxZoom: 19,
-      pane: 'shadowPane'
     });
 
-    const hybridMap = L.layerGroup([satelliteBase, labelsLayer]);
+    const hybridMap = L.layerGroup([satelliteBase, roadsAndLabels]);
 
     // Add default layer (street map)
     streetMap.addTo(map);

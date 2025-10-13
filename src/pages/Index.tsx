@@ -8,6 +8,7 @@ import GallerySection from "@/components/sections/GallerySection";
 import { LocationSection } from "@/components/sections/LocationSection";
 import { ContactSection } from "@/components/sections/ContactSection";
 import { VideoSection } from "@/components/sections/VideoSection";
+import { NewsletterModal } from "@/components/NewsletterModal";
 
 const Index = () => {
   const [language, setLanguage] = useState<'en' | 'es'>('en');
@@ -30,6 +31,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navigation language={language} onLanguageChange={setLanguage} />
+      <NewsletterModal language={language} />
       <main>
         <div id="home">
           <HeroSection language={language} />

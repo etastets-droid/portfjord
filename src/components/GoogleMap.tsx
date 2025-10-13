@@ -42,8 +42,7 @@ export function GoogleMap({ language }: GoogleMapProps) {
     
     marker.bindPopup(
       `<div style="text-align: center;">
-        <strong>Puerto Fjord</strong><br/>
-        ${language === 'en' ? 'Luxury Patagonian Retreat' : 'Refugio de Lujo en la Patagonia'}
+        <strong>Puerto Fjord</strong>
       </div>`
     ).openPopup();
 

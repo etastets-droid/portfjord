@@ -50,10 +50,10 @@ export function NewsletterModal({ language = 'es' }: NewsletterModalProps) {
     const hasSeenModal = localStorage.getItem('newsletter_modal_seen');
     
     if (!hasSeenModal) {
-      // Show modal after 5 seconds
+      // Show modal after 15 seconds
       const timer = setTimeout(() => {
         setIsOpen(true);
-      }, 5000);
+      }, 15000);
 
       return () => clearTimeout(timer);
     }

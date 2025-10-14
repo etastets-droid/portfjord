@@ -111,8 +111,8 @@ export function NewsletterModal({ language = 'es' }: NewsletterModalProps) {
   };
 
   const handleClose = () => {
-    // Mark modal as seen when user closes it
-    localStorage.setItem('newsletter_modal_seen', 'true');
+    // Just close the modal without marking as seen
+    // This allows it to show again on next visit until user subscribes
     setIsOpen(false);
   };
 

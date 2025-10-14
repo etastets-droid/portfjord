@@ -46,17 +46,37 @@ export function NewsletterModal({ language = 'es' }: NewsletterModalProps) {
   const t = translations[language];
 
   useEffect(() => {
-    // Check if user has already seen the modal
-    const hasSeenModal = localStorage.getItem('newsletter_modal_seen');
-    
-    if (!hasSeenModal) {
-      // Show modal after 15 seconds
+    const checkSubscriptionStatus = async () => {
+      // Check if user has already subscribed (email stored in localStorage)
+      const subscribedEmail = localStorage.getItem('newsletter_subscribed_email');
+      
+      if (subscribedEmail) {
+        // Verify the email still exists in the database
+        const { data, error } = await supabase
+          .from('newsletter_subscribers')
+          .select('email')
+          .eq('email', subscribedEmail)
+          .eq('status', 'active')
+          .maybeSingle();
+        
+        if (!error && data) {
+          // User is subscribed, don't show modal
+          return;
+        } else {
+          // Email not found or inactive, remove from localStorage
+          localStorage.removeItem('newsletter_subscribed_email');
+        }
+      }
+      
+      // Show modal after 15 seconds if not subscribed
       const timer = setTimeout(() => {
         setIsOpen(true);
       }, 15000);
 
       return () => clearTimeout(timer);
-    }
+    };
+
+    checkSubscriptionStatus();
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -94,8 +114,8 @@ export function NewsletterModal({ language = 'es' }: NewsletterModalProps) {
           description: t.successMessage,
         });
         
-        // Mark modal as seen and close
-        localStorage.setItem('newsletter_modal_seen', 'true');
+        // Save subscribed email to prevent showing modal again
+        localStorage.setItem('newsletter_subscribed_email', email.trim().toLowerCase());
         setIsOpen(false);
       }
     } catch (error) {

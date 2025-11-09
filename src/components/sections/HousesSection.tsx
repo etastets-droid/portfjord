@@ -76,8 +76,10 @@ export function HousesSection({ language }: HousesSectionProps) {
           return;
         }
         
-        // Sort properties with "Chill Out House" last
+        // Sort properties with "Nest House" first and "Chill Out House" last
         const sortedData = (data || []).sort((a, b) => {
+          if (a.name === "Nest House") return -1;
+          if (b.name === "Nest House") return 1;
           if (a.name === "Chill Out House") return 1;
           if (b.name === "Chill Out House") return -1;
           return 0;

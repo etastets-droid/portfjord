@@ -34,6 +34,8 @@ const translations = {
     guests: "guests",
     available: "Available",
     unavailable: "Booked",
+    underConstruction: "Under Construction",
+    availableFromApril: "Available from April 2026",
     loading: "Loading properties..."
   },
   es: {
@@ -44,6 +46,8 @@ const translations = {
     guests: "huéspedes",
     available: "Disponible",
     unavailable: "Reservada",
+    underConstruction: "En Construcción",
+    availableFromApril: "Disponible desde abril 2026",
     loading: "Cargando propiedades..."
   }
 };
@@ -170,8 +174,8 @@ export function HousesSection({ language }: HousesSectionProps) {
                 
                   {/* Availability Badge */}
                   <div className="absolute top-4 right-4">
-                    <Badge variant={property.available_for_booking ? "default" : "secondary"} className="bg-white/90 text-foreground">
-                      {property.available_for_booking ? t.available : t.unavailable}
+                    <Badge variant={property.name === "The Woods House" ? "secondary" : (property.available_for_booking ? "default" : "secondary")} className="bg-white/90 text-foreground">
+                      {property.name === "The Woods House" ? t.underConstruction : (property.available_for_booking ? t.available : t.unavailable)}
                     </Badge>
                   </div>
                 </div>
@@ -189,6 +193,11 @@ export function HousesSection({ language }: HousesSectionProps) {
                   
                   <p className="text-muted-foreground mb-4 leading-relaxed">
                     {language === 'es' && property.description_es ? property.description_es : property.description}
+                    {property.name === "The Woods House" && (
+                      <span className="block mt-2 text-sm font-semibold text-primary">
+                        {t.availableFromApril}
+                      </span>
+                    )}
                   </p>
                   
                   {/* Features */}

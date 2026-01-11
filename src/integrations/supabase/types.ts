@@ -421,9 +421,15 @@ export type Database = {
           updated_at: string
           user_id: string | null
         }
+        SetofOptions: {
+          from: "*"
+          to: "reservations"
+          isOneToOne: true
+          isSetofReturn: false
+        }
       }
       get_current_owner: {
-        Args: Record<PropertyKey, never>
+        Args: never
         Returns: {
           email: string
           id: string
@@ -433,7 +439,7 @@ export type Database = {
         }[]
       }
       get_pending_experience_requests: {
-        Args: Record<PropertyKey, never>
+        Args: never
         Returns: {
           created_at: string
           experience_type: string

@@ -44,6 +44,7 @@ const translations = {
     floorPlan: "Floor Plan",
     reviews: "Reviews",
     pricePerNight: "per night",
+    priceFrom: "from",
     description: "Description",
     houseRules: "House Rules",
     checkIn: "Check-in: 3:00 PM",
@@ -67,6 +68,7 @@ const translations = {
     floorPlan: "Plano",
     reviews: "Reseñas",
     pricePerNight: "por noche",
+    priceFrom: "desde",
     description: "Descripción",
     houseRules: "Reglas de la Casa",
     checkIn: "Check-in: 3:00 PM",
@@ -409,6 +411,9 @@ const HouseDetails = () => {
               <CardContent>
                 <div className="mb-6">
                   <div className="text-3xl font-bold text-foreground">
+                    <span className="text-lg font-normal text-muted-foreground mr-2">
+                      {t.priceFrom}
+                    </span>
                     ${property.price_per_night}
                     <span className="text-lg font-normal text-muted-foreground ml-2">
                       {t.pricePerNight}

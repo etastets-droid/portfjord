@@ -36,9 +36,7 @@ const translations = {
     unavailable: "Booked",
     underConstruction: "Under Construction",
     availableFromApril: "Available from April 2026",
-    loading: "Loading properties...",
-    priceFrom: "from",
-    pricePerNight: "per night"
+    loading: "Loading properties..."
   },
   es: {
     title: "Casas Exclusivas", 
@@ -50,9 +48,7 @@ const translations = {
     unavailable: "Reservada",
     underConstruction: "En Construcción",
     availableFromApril: "Disponible desde abril 2026",
-    loading: "Cargando propiedades...",
-    priceFrom: "desde",
-    pricePerNight: "por noche"
+    loading: "Cargando propiedades..."
   }
 };
 
@@ -194,7 +190,7 @@ export function HousesSection({ language }: HousesSectionProps) {
                 </div>
                 
                 <CardContent className="p-6 flex flex-col flex-grow">
-                  <div className="flex items-start justify-between mb-2">
+                  <div className="flex items-start justify-between mb-4">
                     <h3 className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors">
                       {language === 'es' && property.name_es ? property.name_es : property.name}
                     </h3>
@@ -203,15 +199,6 @@ export function HousesSection({ language }: HousesSectionProps) {
                       <span className="text-sm">{property.max_guests} {t.guests}</span>
                     </div>
                   </div>
-                  
-                  {/* Price per night */}
-                  {property.price_per_night && (
-                    <div className="mb-4">
-                      <span className="text-sm text-muted-foreground">{t.priceFrom} </span>
-                      <span className="text-lg font-bold text-primary">${property.price_per_night.toLocaleString()}</span>
-                      <span className="text-sm text-muted-foreground"> {t.pricePerNight}</span>
-                    </div>
-                  )}
                   
                   <p className="text-muted-foreground mb-4 leading-relaxed">
                     {language === 'es' && property.description_es ? property.description_es : property.description}

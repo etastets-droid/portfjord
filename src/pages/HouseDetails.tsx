@@ -45,6 +45,7 @@ const translations = {
     reviews: "Reviews",
     pricePerNight: "per night",
     priceFrom: "from",
+    priceOnRequest: "Price on request",
     description: "Description",
     houseRules: "House Rules",
     checkIn: "Check-in: 3:00 PM",
@@ -69,6 +70,7 @@ const translations = {
     reviews: "Reseñas",
     pricePerNight: "por noche",
     priceFrom: "desde",
+    priceOnRequest: "Solicitar valor",
     description: "Descripción",
     houseRules: "Reglas de la Casa",
     checkIn: "Check-in: 3:00 PM",
@@ -398,10 +400,13 @@ const HouseDetails = () => {
                     <Users className="h-4 w-4 mr-1" />
                     {property.max_guests} {t.guests}
                   </div>
-                  <div className="flex items-center">
-                    <Bed className="h-4 w-4 mr-1" />
-                    {property.bedrooms} {t.bedrooms}
-                  </div>
+                  {/* Hide bedrooms for Chill Out House (0 bedrooms) */}
+                  {property.bedrooms > 0 && (
+                    <div className="flex items-center">
+                      <Bed className="h-4 w-4 mr-1" />
+                      {property.bedrooms} {t.bedrooms}
+                    </div>
+                  )}
                   <div className="flex items-center">
                     <Bath className="h-4 w-4 mr-1" />
                     {property.bathrooms} {t.bathrooms}
@@ -410,15 +415,22 @@ const HouseDetails = () => {
               </CardHeader>
               <CardContent>
                 <div className="mb-6">
-                  <div className="text-3xl font-bold text-foreground">
-                    <span className="text-lg font-normal text-muted-foreground mr-2">
-                      {t.priceFrom}
-                    </span>
-                    ${property.price_per_night}
-                    <span className="text-lg font-normal text-muted-foreground ml-2">
-                      {t.pricePerNight}
-                    </span>
-                  </div>
+                  {/* Show "Price on request" for Chill Out House */}
+                  {property.id === 'b26a2595-5958-4cb1-a8c2-f7740e3ad9c0' ? (
+                    <div className="text-2xl font-bold text-foreground">
+                      {t.priceOnRequest}
+                    </div>
+                  ) : (
+                    <div className="text-3xl font-bold text-foreground">
+                      <span className="text-lg font-normal text-muted-foreground mr-2">
+                        {t.priceFrom}
+                      </span>
+                      ${property.price_per_night}
+                      <span className="text-lg font-normal text-muted-foreground ml-2">
+                        {t.pricePerNight}
+                      </span>
+                    </div>
+                  )}
                 </div>
                 
                 <Button 

@@ -1,0 +1,1 @@
+UPDATE public.experiences SET name = 'KAYAK JOURNEY Eberhard Fjord' WHERE id = '2c3b9f42-b91b-4245-8053-8de870d7b2eb';

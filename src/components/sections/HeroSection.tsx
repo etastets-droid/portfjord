@@ -97,7 +97,7 @@ export function HeroSection({
           {/* Main Title */}
           <h1 className="text-5xl md:text-7xl mb-4 leading-tight">
             <span style={{ fontFamily: "'COCOMAT', sans-serif", fontWeight: 200 }}>puerto</span> <span style={{ fontFamily: "'COCOMAT', sans-serif", fontWeight: 700 }}>fjord</span>
-            <span className="block text-accent font-light text-4xl">{t.subtitle}</span>
+            <span className="block text-4xl" style={{ fontFamily: "'Antipasto', sans-serif", fontWeight: 200, color: 'hsl(var(--accent))' }}>{t.subtitle}</span>
           </h1>
           
           {/* Description */}

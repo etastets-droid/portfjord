@@ -415,22 +415,9 @@ const HouseDetails = () => {
               </CardHeader>
               <CardContent>
                 <div className="mb-6">
-                  {/* Show "Price on request" for Chill Out House */}
-                  {property.id === 'b26a2595-5958-4cb1-a8c2-f7740e3ad9c0' ? (
-                    <div className="text-2xl font-bold text-foreground">
-                      {t.priceOnRequest}
-                    </div>
-                  ) : (
-                    <div className="text-3xl font-bold text-foreground">
-                      <span className="text-lg font-normal text-muted-foreground mr-2">
-                        {t.priceFrom}
-                      </span>
-                      ${property.price_per_night}
-                      <span className="text-lg font-normal text-muted-foreground ml-2">
-                        {t.pricePerNight}
-                      </span>
-                    </div>
-                  )}
+                  <div className="text-2xl font-bold text-foreground">
+                    {t.priceOnRequest}
+                  </div>
                 </div>
                 
                 <Button 

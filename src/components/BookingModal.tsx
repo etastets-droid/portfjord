@@ -400,21 +400,12 @@ export function BookingModal({ isOpen, onClose, house, language }: BookingModalP
             />
           </div>
 
-          {/* Price Summary */}
+          {/* Price Summary - On Request */}
           {totalNights > 0 && (
             <Card>
               <CardContent className="p-4">
-                <div className="space-y-2">
-                  <div className="flex justify-between">
-                    <span>${house.price} {t.pricePerNight} × {totalNights} {t.totalNights}</span>
-                    <span>${totalAmount}</span>
-                  </div>
-                  <div className="border-t pt-2">
-                    <div className="flex justify-between font-bold text-lg">
-                      <span>{t.totalPrice}</span>
-                      <span>${totalAmount}</span>
-                    </div>
-                  </div>
+                <div className="flex justify-between font-bold text-lg">
+                  <span>{language === 'es' ? 'Solicitar valor' : 'Price on request'}</span>
                 </div>
               </CardContent>
             </Card>

@@ -150,6 +150,16 @@ export function HousesSection({ language }: HousesSectionProps) {
                         />
                       );
                     }
+                    // Use best exterior photo for Icefield House
+                    if (property.name === "Icefield House") {
+                      return (
+                        <img 
+                          src="/lovable-uploads/icefield-house-6.jpg" 
+                          alt={property.name}
+                          className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        />
+                      );
+                    }
                     // Use specific image for Chill Out House
                     if (property.name === "Chill Out House" || property.id === "b26a2595-5958-4cb1-a8c2-f7740e3ad9c0") {
                       return (

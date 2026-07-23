@@ -177,12 +177,12 @@ const HouseDetails = () => {
   // Static floor plan mapping for each house
   const getFloorPlanImage = (propertyId: string) => {
     const floorPlanMap: { [key: string]: string } = {
-      'f854966e-2dfe-42f8-a7c7-b6e9f24e91fb': '/lovable-uploads/valley-house-floorplan-updated.png',
+      'f854966e-2dfe-42f8-a7c7-b6e9f24e91fb': '/lovable-uploads/icefield-house-floorplan.png',
       'a1b2c3d4-e5f6-7890-abcd-ef1234567890': '/lovable-uploads/e8ef856c-36ca-4f82-bfd4-0c1dbd92b574.png',
       'b2c3d4e5-f6g7-8901-bcde-f12345678901': '/lovable-uploads/5f799eb3-4541-4035-8877-a2835e042144.png',
       'c3d4e5f6-g7h8-9012-cdef-123456789012': '/lovable-uploads/7c73e2bf-2738-449d-8d1e-31c47d8bb826.png',
       '602aa52d-547f-4ae6-8efa-e75508b47afe': '/lovable-uploads/cliff-house-floorplan-new.png',
-      'bd37ba86-11cd-4b70-936d-c192f6bf0b0d': '/lovable-uploads/fjord-house-floorplan-updated.png',
+      'bd37ba86-11cd-4b70-936d-c192f6bf0b0d': '/lovable-uploads/the-loft-floorplan.png',
       '9c83de44-dbf7-4b7c-a5c0-b6934a867d81': '/lovable-uploads/woods-house-floorplan.jpg',
       'b26a2595-5958-4cb1-a8c2-f7740e3ad9c0': '/lovable-uploads/chillout-house-floorplan-updated.png',
       'default': '/lovable-uploads/c24e6f57-34df-4e54-a66d-f2efc64762fb.png'
@@ -193,32 +193,25 @@ const HouseDetails = () => {
 
   // Static image gallery mapping for each house
   const getHouseImages = (propertyId: string) => {
+    // The Loft (replaces former Fjord House assets)
     const fjordImages: string[] = [
-      '/lovable-uploads/dca1d4b2-f06b-4306-8227-05cfc258688e.png',
-      '/lovable-uploads/2a80d552-093f-4931-82d2-df469d15a9dc.png',
-      '/lovable-uploads/c9e06990-019e-41bd-a040-06cc5f7b98a8.png',
-      '/lovable-uploads/4c1dab20-e27f-4f5b-883e-3941ca0be8f6.png',
-      '/lovable-uploads/2d1e29bb-846b-4904-8073-1223c4c4198e.png',
-      '/lovable-uploads/9ba8c519-f883-4c3f-9ade-506276899faf.png',
-      '/lovable-uploads/0b5abd9d-ab6f-421c-8467-490b5f6d564f.png',
-      '/lovable-uploads/ed0d3a57-a363-429e-a17a-b3be64a36abc.png',
-      '/lovable-uploads/0aff0d40-a153-4c10-8d90-894daddd609a.png',
-      '/lovable-uploads/ce960d92-7661-47b2-ab1c-2e464d7fcea6.png',
-      '/lovable-uploads/6adcdfb8-3db6-4df1-a0a3-7c62b52fe042.png'
+      '/lovable-uploads/the-loft-1.jpg',
+      '/lovable-uploads/the-loft-2.jpg',
+      '/lovable-uploads/the-loft-3.jpg',
+      '/lovable-uploads/the-loft-4.jpg',
+      '/lovable-uploads/the-loft-5.jpg',
+      '/lovable-uploads/the-loft-6.jpg',
     ];
 
-    // New images specifically for The Valley House
+    // Icefield House (replaces former Valley House assets)
     const valleyHouseImages: string[] = [
-      '/lovable-uploads/a00f0342-a6b7-4578-8a20-59d5ff9a7120.png',
-      '/lovable-uploads/3c9874e6-c6da-45f9-8c15-cf4ccac7e791.png',
-      '/lovable-uploads/f999e61c-9f1e-4fb5-a3d5-435bb4804fa8.png',
-      '/lovable-uploads/0704c8fc-70b4-426f-b7a9-72f08c7fe02c.png',
-      '/lovable-uploads/7b446477-6ac5-4262-bd91-fe932054c840.png',
-      '/lovable-uploads/cb6e4cfa-f304-4f2f-b856-87a7b7ff6d75.png',
-      '/lovable-uploads/0ec87913-fca2-4f0e-a043-c79ef90c8e72.png',
-      '/lovable-uploads/133ae580-313a-49d1-8693-67dfc552ee5a.png',
-      '/lovable-uploads/7220e1d8-c778-41b4-a333-1ecf820077f1.png',
-      '/lovable-uploads/8ed02ef6-4a94-428f-aa21-fcfc7e1a15fb.png'
+      '/lovable-uploads/icefield-house-1.jpg',
+      '/lovable-uploads/icefield-house-2.jpg',
+      '/lovable-uploads/icefield-house-3.jpg',
+      '/lovable-uploads/icefield-house-4.jpg',
+      '/lovable-uploads/icefield-house-5.jpg',
+      '/lovable-uploads/icefield-house-6.jpg',
+      '/lovable-uploads/icefield-house-7.jpg',
     ];
 
     // Images for The Woods House
@@ -231,9 +224,9 @@ const HouseDetails = () => {
     const imageMap: { [key: string]: string[] } = {
       // The Woods House
       '9c83de44-dbf7-4b7c-a5c0-b6934a867d81': woodsHouseImages,
-      // The Valley House - now with its own specific images
+      // Icefield House (formerly The Valley House)
       'f854966e-2dfe-42f8-a7c7-b6e9f24e91fb': valleyHouseImages,
-      // Fjord House (other ID) keeps the original fjordImages
+      // The Loft (formerly Fjord House)
       'bd37ba86-11cd-4b70-936d-c192f6bf0b0d': fjordImages,
       // The Cliff House
       '602aa52d-547f-4ae6-8efa-e75508b47afe': [

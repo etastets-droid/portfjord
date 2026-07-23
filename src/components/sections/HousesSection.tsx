@@ -76,13 +76,13 @@ export function HousesSection({ language }: HousesSectionProps) {
           return;
         }
         
-        // Sort properties in specific order: Nest House, The Cliff House, The Valley House, Fjord House, others, Chill Out House last
+        // Sort properties in specific order: Nest House, The Cliff House, Icefield House, The Loft, others, Chill Out House last
         const sortedData = (data || []).sort((a, b) => {
           const order: { [key: string]: number } = {
             "Nest House": 1,
             "The Cliff House": 2,
-            "The Valley House": 3,
-            "Fjord House": 4,
+            "Icefield House": 3,
+            "The Loft": 4,
             "Chill Out House": 999
           };
           
